@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/code.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Crete+Round" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div id="container-tight">
+      <table id="index">
+        <tr>
+          <td id="posts">
+            <ul class="posts">
+              {% for p in site.posts sort_by:title order:descending %}
+              <li>
+                <div class="post-title"><a href="{{ p.url }}">{{ p.title }}</a></div>
+              </li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td id="metabox">
+            <div class="classname">CINF 401</div>
+            <div class="semester">Spring 2015</div>
+            <div class="email"><b><a href="mailto:jeckroth@stetson.edu">jeckroth@stetson.edu</a></b></div>
+            <div class="officehours">
+              Office hours (Eliz 214-9):<br/>
+              TBD
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="license">
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">CINF 401 material</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://cinf401.artifice.cc" property="cc:attributionName" rel="cc:attributionURL">Joshua Eckroth</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Source code for this website available at <a href="https://github.com/joshuaeckroth/cinf401-website/tree/gh-pages">GitHub</a>.
+      </div>
+    </div>
+  </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-23971505-9', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

@@ -1,0 +1,7 @@
+safe: true
+markdown: rdiscount
+rdiscount:
+  extensions: [smart]
+highlighter: pygments
+permalink: /:categories/:year-:month-:day-:title.html
+

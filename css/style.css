@@ -1,0 +1,167 @@
+html, * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #443E41;
+    font-size: 16px;
+    font-family: "Lato", sans-serif;
+    line-height: 1.5;
+    padding: 20px;
+    background: #FFFFFF;
+}
+
+#container-tight {
+    margin: 0 auto;
+    max-width: 850px;
+}
+
+h1 {
+    margin-bottom: 1em;
+}
+
+h2, h3, h4, h5, h6 {
+    margin: 0.5em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #F1A156;
+    font-family: "Crete Round", serif;
+}
+
+p {
+    margin: 0.8em 0;
+}
+
+ul {
+    margin-left: 2em;
+}
+
+ul.posts {
+    margin-left: 0;
+}
+
+a, a:visited, a:active, a:hover {
+    text-decoration: none;
+    color: #85A5E0;
+}
+
+table#index {
+    border: none;
+    width: 100%;
+}
+
+table#index td {
+    vertical-align: top;
+}
+
+td#posts {
+    width: 75%;
+}
+
+td#metabox {
+    width: 25%;
+}
+
+td#metabox a,
+td#metabox a:visited,
+td#metabox a:active,
+td#metabox a:hover {
+    color: #FFFFFF;
+}
+
+td#metabox {
+    background: #9BBF53;
+    color: white;
+    padding: 10px;
+}
+
+td#metabox div.classname {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+td#metabox div.semester {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+td#metabox div.email {
+    margin: 20px 0;
+}
+
+td#metabox div.officehours {
+    margin: 20px 0;
+}
+
+.post-title {
+    font-size: 26px;
+    margin-right: 10px;
+}
+
+.post-categories {
+    color: #666;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.post-date {
+    color: #ccc;
+    margin-right: 10px;
+}
+
+.post-due {
+    color: #666;
+}
+
+ul.posts li {
+    margin: 0.5em 0;
+    display: block;
+}
+
+div.license {
+    font-size: 12px;
+    clear: both;
+    padding-top: 20px;
+}
+
+div.metatop {
+    width: 20em;
+    margin-bottom: 20px;
+    float: right;
+    text-align: right;
+}
+
+div.metatop span.homelink {
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 480px) {
+    div.metabox {
+        float: none;
+    }
+}
+
+table {
+    margin: 20px 0;
+    border: 1px solid #443E41;
+}
+
+td {
+    padding: 5px;
+}
+
+pre {
+    border-left: 4px solid #9BBF53;
+    padding-left: 15px;
+}
+
+pre, code, tt {
+    font-family: "Ubunto Mono", monospace;
+}
+
+blockquote {
+    padding-left: 30px;
+    font-style: italic;
+}
