@@ -500,7 +500,7 @@ Row count: 371898
 
 ## Load the data into R
 
-```R
+```r
 > d <- read.csv("fafsa-by-school.csv", strip.white=TRUE)
 > nrow(d)
 [1] 371898
@@ -524,13 +524,13 @@ Row count: 371898
 5                 49                  109
 ```
 
-```R
+```r
 > require(stringr)
 > d$Zip <- str_sub(d$Zip.Code, start=0, end=5)
 > d$Year <- str_sub(d$Application.Cycle, start=0, end=4)
 ```
 
-```R
+```r
 > d_dep_sum_cycle <- aggregate(cbind(Dependent.Students, Independent.Students) ~ School + Year + Zip + School.Type, d, sum)
 > d_dep_sum_cycle
                                         School Year   Zip School.Type Dependent.Students Independent.Students
@@ -572,7 +572,7 @@ Row count: 371898
 
 Choose an application year to examine, say 2011-2012, and compare it to the spreadsheet `2011_12App_Data_by_School_Q6.xls` (column I; the spreadsheets are not sorted by school, so you'll need to search on particular school names). You should find that our "aggregated" data matches the spreadsheet's Q6 year-to-date numbers. Thus, we are able to recreate those numbers from the raw data, just like we expected (see the advice from the [data munging](/notes/data-munging.html) notes).
 
-```R
+```r
 > d_dep_sum_cycle[d_dep_sum_cycle$Year == "2011",]
                                         School Year   Zip School.Type Dependent.Students Independent.Students
 6                          INVALID SCHOOL CODE 2011 00000                           3985                 9934
@@ -592,7 +592,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 645                ATLANTIC BAPTIST UNIVERSITY 2011 00000     Private                  3                    0
 ```
 
-```R
+```r
 > d_dep_sum_cycle[d_dep_sum_cycle$School == "STETSON UNIVERSITY",]
                  School Year   Zip School.Type Dependent.Students Independent.Students
 9384 STETSON UNIVERSITY 2006 32723     Private               2344                  656
@@ -610,7 +610,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 
 ## Correlate IPEDS data
 
-```R
+```r
 > app2007 <- read.csv("applicants-2007.csv", strip.white=TRUE)
 > app2008 <- read.csv("applicants-2008.csv", strip.white=TRUE)
 > app2009 <- read.csv("applicants-2009.csv", strip.white=TRUE)
@@ -634,7 +634,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 > colnames(app2013) <- c("Unitid", "School", "Year", "Applicants", "Zip")
 ```
 
-```R
+```r
 > apps <- rbind(app2007, app2008, app2009, app2010, app2011, app2012, app2013)
 > apps
       Unitid                                                                                      School Year Applicants        Zip
@@ -661,7 +661,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
  [ reached getOption("max.print") -- omitted 53159 rows ]
 ```
 
-```R
+```r
 > str_sub(apps$Zip, 0, 5)
   [1] "35762" "35294" "36117" "35899" "36101" "35401" "35487" "35010" "35611" "36117" "36849" "35254" "36869" "36701" "36116" "36330" "36507" "36109"
  [19] "35902" ""      "36303" "35077" "36703" "35209" "36106" "35630" "35811" "36022" "36265" "36426" "35215" "35671" "36756" "35221" "35470" "36420"
@@ -696,7 +696,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
  [ reached getOption("max.print") -- omitted 53159 rows ]
 ```
 
-```R
+```r
 > appschools <- unique(apps[,c("School","Zip"),drop=FALSE])
 > appschools
                                                                                            School   Zip
@@ -727,7 +727,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 [1] 9694    2
 ```
 
-```R
+```r
 > findMatchingSchool <- function(x, schools) { ssub <- subset(schools, Zip==x[["Zip"]]); if(nrow(ssub) > 0) { dists <- adist(tolower(x[["School"]]), apply(ssub, 1, function(y) tolower(y[["School"]]) )); if(min(dists) < str_length(x[["School"]]) && min(dists) < str_length(as.character(ssub$School[which.min(dists)]))) { as.character(ssub$School[which.min(dists)]) } else { NA } } else { NA } }
 > data.frame(aschool = appschools[1:50,,drop=F]$School, dschool = apply(appschools[1:50,,drop=F], 1, function(x) findMatchingSchool(x, dschools)))
                                                aschool                                  dschool
@@ -783,11 +783,11 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 50                                    Selma University                                     <NA>
 ```
 
-```R
+```r
 > schoolnames <- data.frame(aschool = appschools$School, dschool = apply(appschools, 1, function(x) findMatchingSchool(x, dschools)))
 ```
 
-```R
+```r
 > merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool")
                                         School Year   Zip School.Type Dependent.Students Independent.Students                                                                   aschool
 1                   A & W HEALTHCARE EDUCATORS 2011 70122 Proprietary                 33                  234                                                A & W Healthcare Educators
@@ -805,7 +805,7 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 
 Let's see what we're working with before we do the merges:
 
-```R
+```r
 > subset(d_dep_sum_cycle, School == "A & W HEALTHCARE EDUCATORS")
                           School Year   Zip School.Type Dependent.Students Independent.Students
 35672 A & W HEALTHCARE EDUCATORS 2009 70122 Proprietary                  2                   21
@@ -852,7 +852,7 @@ For A & W Healthcare Educators, we only have a match across the two datasets for
 
 For Stetson University, years 2006 and 2014 are not represented in the applicants counts. But years 2007-2013 should match up correctly.
 
-```R
+```r
 > subset(merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool"), apps, by=c("aschool", "Year", "Zip")), aschool == "A & W Healthcare Educators")
 
                      aschool Year   Zip                   School.x School.Type Dependent.Students Independent.Students Unitid                   School.y Applicants
@@ -880,7 +880,7 @@ Let's save the merge:
 
 Let's drop some columns and fix their names:
 
-```R
+```r
 > appfasfa <- appfasfa[,!(names(appfasfa) %in% c("School.x", "School.y", "Unitid"))]
 > colnames(appfasfa) <- c("School", "Year", "Zip", "School.Type", "Dependent.Students", "Independent.Students", "Applicants")
 > appfasfa
@@ -938,7 +938,7 @@ $ head zip-agi-2009-2012.csv
 2009,35022.0,9018.0,378475890.0
 ```
 
-```R
+```r
 > zipagi <- read.csv("../irs-soi-tax-stats/zip-agi-2009-2012.csv", header=F, col.names=c("Year", "Zip", "NumberReturns", "AGI"))
 > zipagi
        Year   Zip NumberReturns        AGI
@@ -984,7 +984,7 @@ $ head zip-agi-2009-2012.csv
  [ reached getOption("max.print") -- omitted 55487 rows ]
 ```
 
-```R
+```r
 > zipagi2011up <- cbind(zipagi[zipagi$Year > 2010,], data.frame(AvgIncome = zipagi[zipagi$Year > 2010,]$AGI / zipagi[zipagi$Year > 2010,]$NumberReturns * 1000))
 > zipagi2010down <- cbind(zipagi[zipagi$Year <= 2010,], data.frame(AvgIncome = zipagi[zipagi$Year <= 2010,]$AGI / zipagi[zipagi$Year <= 2010,]$NumberReturns))
 > zipagi2011up
@@ -1046,7 +1046,7 @@ $ head zip-agi-2009-2012.csv
 
 Self-check: are average incomes comparable across each year?
 
-```R
+```r
 > aggregate(AvgIncome ~ Year, zipagi, mean)
   Year AvgIncome
 1 2009  34887.18
@@ -1059,7 +1059,7 @@ Seems so, more or less. At least, no year is off by a factor of 1000.
 
 Notice some ZIPs are written without leading zeros. For example, Harvard University has ZIP 02138, but this appears as 2138 in the `zipagi` dataset.
 
-```R
+```r
 > zipagi$Zip <- apply(zipagi[,"Zip",drop=F], 1, function(x) sprintf("%05d", x))
 > subset(zipagi, Zip == "02138")
       Year   Zip NumberReturns       AGI AvgIncome
@@ -1069,7 +1069,7 @@ Notice some ZIPs are written without leading zeros. For example, Harvard Univers
 94333 2012 02138         14320   2633364 183894.13
 ```
 
-```R
+```r
 > fasfaincome <- merge(appfasfa, zipagi, by=c("Year", "Zip"))
 > fasfaincome
       Year   Zip                                                                    School School.Type Dependent.Students Independent.Students Applicants NumberReturns        AGI    AvgIncome
@@ -1095,12 +1095,12 @@ Notice some ZIPs are written without leading zeros. For example, Harvard Univers
  [ reached getOption("max.print") -- omitted 6642 rows ]
 ```
 
-```R
+```r
 > fasfaincome$PctFasfa <- (fasfaincome$Dependent.Students + fasfaincome$Independent.Students) / fasfaincome$Applicants * 100
 >
 ```
 
-```R
+```r
 > data(zipcode)
 > zipcode
         zip                       city state   latitude  longitude
