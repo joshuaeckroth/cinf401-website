@@ -11,29 +11,102 @@
     <div id="container-tight">
       <table id="index">
         <tr>
-          <td id="posts-preview">
-            <h1>Big Data Mining and Analytics</h1>
-            <p>
-              Prerequisite: CSCI 221
-            </p>
-            <h2>Preliminary outline</h2>
-            <ul>
-              <li>How big is big?</li>
-              <li>Exploratory data analysis</li>
-              <li>Data visualization</li>
-              <li>Big data storage</li>
-              <li>Data mining</li>
-              <li>Deep data analysis</li>
-              <li>Ethics</li>
-              <li>Final project</li>
+          <td>
+            <h2>Lecture notes</h2>
+            <ul class="posts">
+              <li>
+                <div class="post-title"><a href="/notes/syllabus.html">Syllabus</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/calendar.html">Calendar</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/big-data.html">Big data</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/r.html">R</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/data-munging.html">Data munging</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/visualization.html">Visualization</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/ggplot.html">ggplot</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/statistical-analysis.html">Statistical analysis</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/demo-student-loans.html">Demo: Student loans</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/notes/map-reduce.html">Map-Reduce</a></div>
+              </li>
             </ul>
-            <h2>Technologies used</h2>
-            <ul>
-              <li>Private Linux servers and virtual machines</li>
-              <li>Amazon Web Services</li>
-              <li>PostreSQL, MongoDB, HBase</li>
-              <li>Hadoop, Mahout</li>
-              <li>R, ggplot</li>
+          </td>
+          <td>
+            <h2>Cookbooks</h2>
+            <ul class="posts">
+              <li>
+                <div class="post-title"><a href="/cookbook/external-resources.html">External resources</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/rstudio.html">RStudio</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/git.html">git</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/data-sources.html">Data sources</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/unix-tools.html">Unix tools</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/r.html">R</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/ggplot.html">ggplot</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/statistics.html">Statistics</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/hadoop-dev-env.html">Hadoop dev env</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/hdfs.html">HDFS</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/map-reduce.html">Map-Reduce</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/mahout.html">Mahout</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/markdown.html">Markdown</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/latex.html">LaTeX</a></div>
+              </li>
+              <li>
+                <div class="post-title"><a href="/cookbook/knitr.html">knitr</a></div>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <h2>Assignments</h2>
+            <ul class="posts">
+              {% for p in site.pages sort_by:title order:ascending %}
+              {% if p.categories contains 'assignments' %}
+              <li>
+                <div class="post-title"><a href="{{ p.url }}">{{ p.title }}</a></div>
+                <div class="post-due">{% if p.due %}due {{ p.due }}{% endif %}</div>
+              </li>
+              {% endif %}
+              {% endfor %}
             </ul>
           </td>
           <td id="metabox">
@@ -53,13 +126,13 @@
       </div>
     </div>
   </body>
-<script>
+  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-23971505-9', 'auto');
+  ga('create', 'UA-23971505-11', 'auto');
   ga('send', 'pageview');
 
 </script>

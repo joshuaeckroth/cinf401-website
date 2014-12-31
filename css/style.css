@@ -25,17 +25,30 @@ h2, h3, h4, h5, h6 {
     margin: 0.5em 0;
 }
 
+#index h2 {
+    margin-top: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: #F1A156;
     font-family: "Crete Round", serif;
+}
+
+strong {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 p {
     margin: 0.8em 0;
 }
 
-ul {
+ul, ol {
     margin-left: 2em;
+}
+
+li {
+    margin: 0.5em 0;
 }
 
 ul.posts {
@@ -96,7 +109,7 @@ td#metabox div.officehours {
 }
 
 .post-title {
-    font-size: 26px;
+    font-size: 22px;
     margin-right: 10px;
 }
 
@@ -155,13 +168,30 @@ td {
 pre {
     border-left: 4px solid #9BBF53;
     padding-left: 15px;
+    margin: 2em 0;
 }
 
 pre, code, tt {
     font-family: "Ubunto Mono", monospace;
+    font-size: 14px;
+}
+
+code {
+    border: 1px dotted #9BBF53;
+    padding: 2px;
+}
+
+pre code {
+    border: none;
+    padding: 0;
 }
 
 blockquote {
     padding-left: 30px;
     font-style: italic;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
 }
