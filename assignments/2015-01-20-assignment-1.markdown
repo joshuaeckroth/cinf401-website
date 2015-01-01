@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Assignment 1
-due: "Dec 4, 11:59pm"
+due: "Jan 20, 11:59pm"
 categories: [assignments]
 ---
 
@@ -19,3 +19,4 @@ Find two projects that purport to require "big data analysis." We looked at one 
 
 ## Task 2
 
+some small tasks in R, git, bitbucket

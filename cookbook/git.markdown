@@ -83,8 +83,7 @@ Execute these commands (use your own name and email!):
 
 ## Basic workflow
 
-You'll want to do something like this for
-[assignment 1](/assignments/assignment-1.html). Comments are shown after the
+Comments are shown after the
 `#` on each line. These commands should work on Linux/Mac OS
 X/Windows, assuming you have installed Git.
 

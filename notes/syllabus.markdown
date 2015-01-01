@@ -20,7 +20,7 @@ Work hard in this class and you should be able to:
 
 - Eliz Hall 214-9, 386-740-2519
 
-- Office hours: TBD
+- Office hours: Mon: 1:30-2:30, Tue: 12-2, Thur: 1-2
 
 
 ## Grading
@@ -44,13 +44,22 @@ Demonstrations will happen most weeks, involving maybe 2-5 students each week. W
 
 ### Assignments
 
-Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). See [Assignment 1](/assignments/assignment-1.html) for details.
+Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). Assignments are scored out of 5 points.
 
 ### Group projects
 
 Groups consist of 2-3 people. These projects are more complex than assignments. Good group communication is essential to complete the tasks. Be sure everyone has a subtask and each person knows the state of progress of everyone else.
 
-You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). See [Assignment 1](/assignments/assignment-1.html) for details.
+You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org).
+
+Grading rubric for group projects:
+
+| Category | Points |
+| -------- | ------ |
+| Completeness | 50 |
+| Novelty/insightfulness of analysis | 20 |
+| Clarity of writing & code | 20 |
+| Class presentation | 10 |
 
 ## Honor code
 
