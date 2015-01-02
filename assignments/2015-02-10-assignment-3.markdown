@@ -6,3 +6,5 @@ categories: [assignments]
 ---
 
 # Assignment 3
+
+(produce visualizations that answer certain kinds of questions)

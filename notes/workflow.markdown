@@ -16,11 +16,25 @@ These notes describe a typical workflow for assignments and group projects.
 
 ![Bitbucket create](/images/workflow-bitbucket-create-repository.png)
 
+Add me (joshuaeckroth) as a "reader" of this private repository. To do so, click the gear icon on the left.
+
+![Bitbucket config](/images/workflow-bitbucket-config.png)
+
+Then click "Access Management".
+
+![Bitbucket access management](/images/workflow-bitbucket-access-management.png)
+
+Then add me (joshuaeckroth) as a reader.
+
+![Bitbucket reader access](/images/workflow-bitbucket-reader-access.png)
+
+Click the top left bucket icon to get back to the main view.
+
+![Bitbucket bucket icon](/images/workflow-bitbucket-bucket-icon.png)
+
 Expand the "I'm starting from scratch" option and copy the repository URL. It looks like `git@bitbucket.org:joshuaeckroth/cinf401-assignment-1.git`
 
 ![Bitbucket repository URL](/images/workflow-bitbucket-repository-url.png)
-
-
 
 ## Log into RStudio
 

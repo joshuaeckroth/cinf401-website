@@ -6,3 +6,4 @@ categories: [assignments]
 ---
 
 # Group project 1
+

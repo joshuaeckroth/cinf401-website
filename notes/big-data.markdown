@@ -5,7 +5,9 @@ title: Big data
 
 # Big data
 
-![Big Data Straight Ahead](/images/big-data-sign.jpg)
+This class is nominally about big data. It is worthwhile to figure out what we're talking about.
+
+![Big Data](/images/big-data-logo.jpg)
 
 <div style="text-align: center">More fascinating visualizations at <a href="http://bigdatapix.tumblr.com/">Pictures of Big Data</a>.</div>
 

@@ -9,11 +9,13 @@ Lecture days are Monday and Wednesday of each week. Lab day is Thursday of each 
 
 ## Week 1: Introduction, R
 
-- Review the [syllabus](/notes/syllabus.html) and calendar.
+- Review the [syllabus](/notes/syllabus.html) and [calendar](/notes/calendar.html).
 - Arrange persons and dates for Week 2+ demos (added to this page).
 - Discuss the term "[big data](/notes/big-data.html)".
-- Review [git](/cookbook/git.html) and [Bitbucket](https://bitbucket.org).
 - Review `ssh` and how to access the delenn server.
+- Review [git](/cookbook/git.html) and [Bitbucket](https://bitbucket.org).
+- Review the [workflow](/notes/workflow.html) for assignments and group projects.
+- Introduction to [knitr](/cookbook/knitr.html) and [Markdown](/cookbook/markdown.html).
 - Introduction to R. See [notes](/notes/r.html) and [cookbook](/cookbook/r.html).
 - Start [assignment 1](/assignments/2015-01-20-assignment-1.html).
 
@@ -24,10 +26,10 @@ Demos:
 ## Week 2: Finding/munging data
 
 - More discussion of R. See [notes](/notes/r.html) and [cookbook](/cookbook/r.html).
-- Introduction to [knitr](/cookbook/knitr.html) and [Markdown](/cookbook/markdown.html).
 - Exploration of [data sources](/cookbook/data-sources.html).
 - Overview of [Unix tools](/cookbook/unix-tools.html).
 - Practice with data manipulations. Refer to the [student loans demo](/notes/demo-student-loans.html).
+- Finish [assignment 1](/assignments/2015-01-20-assignment-1.html).
 - Start [assignment 2](/assignments/2015-02-03-assignment-2.html).
 
 Demos:
@@ -38,6 +40,7 @@ Demos:
 
 - More advanced data manipulations, including merging disparate datasets.
 - See R [notes](/notes/r.html) and [cookbook](/cookbook/r.html), and the [student loans demo](/notes/demo-student-loans.html).
+- Work on [assignment 2](/assignments/2015-02-03-assignment-2.html).
 
 Demos:
 
@@ -48,6 +51,7 @@ Demos:
 ## Week 4: Visualization
 
 - All about ggplot. See [notes](/notes/ggplot.html) and [cookbook](/cookbook/ggplot.html).
+- Finish [assignment 2](/assignments/2015-02-03-assignment-2.html).
 - Start [assignment 3](/assignments/2015-02-10-assignment-3.html).
 
 Demos:
@@ -58,6 +62,7 @@ Demos:
 
 ## Week 5: Statistical analysis
 
+- Finish [assignment 3](/assignments/2015-02-10-assignment-3.html).
 - Start [group project 1](/assignments/2015-02-24-group-project-1.html).
 
 Demos:
@@ -68,6 +73,8 @@ Demos:
 
 ## Week 6: Statistical analysis
 
+- Work on [group project 1](/assignments/2015-02-24-group-project-1.html).
+
 Demos:
 
 - Monday (2/16):
@@ -77,6 +84,7 @@ Demos:
 ## Week 7: Big data storage
 
 - HDFS
+- Finish [group project 1](/assignments/2015-02-24-group-project-1.html).
 - Start [group project 2](/assignments/2015-03-17-group-project-2.html).
 
 Demos:
@@ -90,6 +98,7 @@ Demos:
 **Note: We're skipping over Spring Break in this outline.**
 
 - Basic Map-Reduce workflows
+- Work on [group project 2](/assignments/2015-03-17-group-project-2.html).
 
 Demos:
 
@@ -102,6 +111,7 @@ Demos:
 - Introduction to NoSQL
 - Hive
 - Pig
+- Finish [group project 2](/assignments/2015-03-17-group-project-2.html).
 - Start [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
@@ -113,6 +123,7 @@ Demos:
 ## Week 10: Map-Reduce
 
 - Advanced Map-Reduce workflows
+- Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
 
@@ -125,6 +136,7 @@ Demos:
 - Introduction to machine learning
 - Introduction to clustering
 - k-means algorithm
+- Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
 
@@ -137,6 +149,7 @@ Demos:
 - Introduction to classification
 - Classification evaluation
 - k-nearest neighbor algorithm
+- Finish [group project 3](/assignments/2015-04-07-group-project-3.html).
 - Start [group project 4](/assignments/2015-05-02-group-project-4.html).
 
 Demos:
@@ -150,6 +163,7 @@ Demos:
 - Naive-Bayes algorithm
 - Random forests algorithm
 - Ethics
+- Work on [group project 4](/assignments/group-project-4.html).
 - Start [assignment 4](/assignments/2015-04-21-assignment-4.html).
 
 Demos:
@@ -158,8 +172,21 @@ Demos:
 
 - Wednesday (4/15):
 
-## Week 14: Final project
+## Week 14: No material, work on projects
 
-## Week 15: Final project
+- Work on [group project 4](/assignments/group-project-4.html).
+- Finish [assignment 4](/assignments/2015-04-21-assignment-4.html).
+
+Demos:
+
+- Monday (4/20):
+
+- Wednesday (4/22):
+
+## Week 15: No material, work on projects
+
+- Work on [group project 4](/assignments/group-project-4.html).
+
+No demos.
 
 Final exam day (**Saturday, May 2, 8-10am**): Final project presentations (no exam)

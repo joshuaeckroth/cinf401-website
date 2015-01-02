@@ -95,7 +95,7 @@
             var replacedTocContainer = tocContainerHTML
                 .replace('%1', replacedToggleHTML)
                 .replace('%2', tocHTML);
-            tocContainer.find('h1').after(replacedTocContainer);
+            tocContainer.find('h2').first().before(replacedTocContainer);
 
             $('#toctogglelink').click(function() {
                 var ul = $($('#toc ul')[0]);

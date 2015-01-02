@@ -22,6 +22,10 @@ Work hard in this class and you should be able to:
 
 - Office hours: Mon: 1:30-2:30, Tue: 12-2, Thur: 1-2
 
+## Textbooks
+
+- [R for Everyone](http://www.amazon.com/Everyone-Advanced-Analytics-Graphics-Addison-Wesley/dp/0321888030), by Jared P. Lander
+- [Hadoop in Practice, 2nd ed](http://www.amazon.com/Hadoop-Practice-Alex-Holmes/dp/1617292222), by Alex Holmes; see the [publisher's website](http://www.manning.com/holmes2/) for code links and extra chapters
 
 ## Grading
 
@@ -44,13 +48,23 @@ Demonstrations will happen most weeks, involving maybe 2-5 students each week. W
 
 ### Assignments
 
-Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). Assignments are scored out of 5 points.
+Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). See the [workflow notes](/notes/workflow.html) for details.
+
+Assignments are scored out of 5 points. Grading rubric for assignments:
+
+| Category | Points |
+| -------- | ------ |
+| Completeness | 3 |
+| Novelty/insightfulness of analysis | 1 |
+| Clarity of writing & code | 1 |
+
+If your R code does not execute (e.g., it has syntax errors, or crashes, or loops forever), then you will receive at most 2/5 points.
 
 ### Group projects
 
 Groups consist of 2-3 people. These projects are more complex than assignments. Good group communication is essential to complete the tasks. Be sure everyone has a subtask and each person knows the state of progress of everyone else.
 
-You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org).
+You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). We will discuss in class how to create a "group" on Bitbucket so different people can contribute to the same repository. I will grade this group repository rather than any individual's repository.
 
 Grading rubric for group projects:
 
@@ -60,6 +74,12 @@ Grading rubric for group projects:
 | Novelty/insightfulness of analysis | 20 |
 | Clarity of writing & code | 20 |
 | Class presentation | 10 |
+
+Members of the same group may receive different grades, if I have evidence not all group members contributed equally.
+
+### Late work
+
+Due to the complexity of these assignments and the timing of group work, I will only accept late work up to three days late. Late work is penalized 40%.
 
 ## Honor code
 

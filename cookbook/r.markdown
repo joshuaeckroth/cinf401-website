@@ -35,14 +35,12 @@ read.csv("foo.csv", strip.white=TRUE)
 
 Chop of +4 portion:
 
-```R
-
 
 ## Convert a date to season
 
 From [Josh O'Brien on StackOverflow](http://stackoverflow.com/a/9501225)
 
-```R
+{% highlight R %}
 getSeason <- function(DATES) {
     WS <- as.Date("2012-12-15", format = "%Y-%m-%d") # Winter Solstice
     SE <- as.Date("2012-3-15",  format = "%Y-%m-%d") # Spring Equinox
@@ -56,13 +54,16 @@ getSeason <- function(DATES) {
       ifelse (d >= SE & d < SS, "Spring",
         ifelse (d >= SS & d < FE, "Summer", "Fall")))
 }
+{% endhighlight %}
 
+```R
 my.dates <- as.Date("2011-12-01", format = "%Y-%m-%d") + 0:60
 head(getSeason(my.dates), 24)
-#  [1] "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"
-#  [8] "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"
-# [15] "Winter" "Winter" "Winter" "Winter" "Winter" "Winter"
+  [1] "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"
+  [8] "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"   "Fall"
+ [15] "Winter" "Winter" "Winter" "Winter" "Winter" "Winter"
 ```
+
 
 
 
