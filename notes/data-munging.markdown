@@ -66,6 +66,8 @@ More info: [json.org](http://www.json.org/). JSON is supported by nearly every p
 
 ### Hierarchical Data Format (HDF5)
 
+Use with Hadoop: [Everything that HDF Users have Always Wanted to Know about Hadoop... But Were Ashamed to Ask (PDF)](http://www.hdfgroup.org/pubs/papers/Big_HDF_FAQs.pdf)
+
 ### PDF
 
 ### HTML
