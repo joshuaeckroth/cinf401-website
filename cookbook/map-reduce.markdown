@@ -5,9 +5,6 @@ title: "Cookbook: Map-Reduce"
 
 # Cookbook: Map-Reduce
 
+*Note: See the corresponding [lecture notes about Hadoop](/notes/hadoop.html). This page has cookbook recipes.*
 
-```
-$ yarn jar wc.jar WordCount /jeckroth/wordcount/input /jeckroth/wordcount/output
-$ hdfs dfs -get /jeckroth/wordcount/output/part-r-00000
-```
-```
+

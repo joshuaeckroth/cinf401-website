@@ -5,6 +5,10 @@ title: "Cookbook: R"
 
 # Cookbook: R
 
+*Note: See the corresponding [lecture notes about R](/notes/r.html). This page has cookbook recipes.*
+
+## External resources
+
 - Someone else's [Cookbook for R](http://www.cookbook-r.com/)
 
 ## Avoiding console spamming, setting console width
@@ -27,14 +31,20 @@ title: "Cookbook: R"
 
 ## Reading files
 
+### CSV files
+
 ```R
 read.csv("foo.csv", strip.white=TRUE)
 ```
 
 ## Clean up ZIP codes
 
-Chop of +4 portion:
+Chop off +4 portion:
 
+{% highlight R %}
+> require(stringr)
+> d$Zip <- str_sub(d$Zip.Code, start=0, end=5)
+{% endhighlight %}
 
 ## Convert a date to season
 

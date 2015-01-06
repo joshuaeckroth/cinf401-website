@@ -7,7 +7,7 @@ categories: [assignments]
 
 # Assignment 1
 
-Create a new repository on Bitbucket, called "cinf401-assignment-1", and add me (joshuaeckroth) as a "reader". Then create a new project in RStudio with the same name and a new R Markdown file with the same name. See the [workflow notes](/notes/workflow.html) for instructions.
+Create a new repository on Bitbucket, called "cinf401-assignment-1", and add me (joshuaeckroth) as a "reader". Then create a new project in RStudio with the same name and a new R Markdown file with the same name. See the [RStudio workflow](/notes/rstudio-workflow.html) for instructions.
 
 Complete the tasks below. Write your answers, intermixed with R code and plots (if/when appropriate), in the single R Markdown file. Commit and push your changes to Bitbucket so I can retrieve them on my own machine. I will regenerate your final report by "knitting" your R Markdown file. See the [syllabus](/notes/syllabus.html) for the general grading rubric.
 

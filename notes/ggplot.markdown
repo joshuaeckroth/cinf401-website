@@ -5,7 +5,7 @@ title: ggplot
 
 # ggplot
 
-**Note: See the corresponding [cookbook about ggplot](/cookbook/ggplot.html). This page has lecture notes.**
+*Note: See the corresponding [cookbook about ggplot](/cookbook/ggplot.html). This page has lecture notes.*
 
 
 ## Data shape

@@ -5,7 +5,7 @@ title: "Cookbook: ggplot"
 
 # Cookbook: ggplot
 
-**Note: See the corresponding [lecture notes about ggplot](/notes/ggplot.html). This page has cookbook recipes.**
+*Note: See the corresponding [lecture notes about ggplot](/notes/ggplot.html). This page has cookbook recipes.*
 
 ## Common plots
 

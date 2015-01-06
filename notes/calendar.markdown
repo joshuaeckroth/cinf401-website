@@ -12,9 +12,9 @@ Lecture days are Monday and Wednesday of each week. Lab day is Thursday of each 
 - Review the [syllabus](/notes/syllabus.html) and [calendar](/notes/calendar.html).
 - Arrange persons and dates for Week 2+ demos (added to this page).
 - Discuss the term "[big data](/notes/big-data.html)".
-- Review `ssh` and how to access the delenn server.
-- Review [git](/cookbook/git.html) and [Bitbucket](https://bitbucket.org).
-- Review the [workflow](/notes/workflow.html) for assignments and group projects.
+- Review [initial setup](/notes/initial-setup.html).
+- Review [git](/notes/git.html) and [Bitbucket](https://bitbucket.org).
+- Review the [RStudio workflow](/notes/rstudio-workflow.html) for assignments and group projects.
 - Introduction to [knitr](/cookbook/knitr.html) and [Markdown](/cookbook/markdown.html).
 - Introduction to R. See [notes](/notes/r.html) and [cookbook](/cookbook/r.html).
 - Start [assignment 1](/assignments/2015-01-20-assignment-1.html).
@@ -28,25 +28,23 @@ Demos:
 - More discussion of R. See [notes](/notes/r.html) and [cookbook](/cookbook/r.html).
 - Exploration of [data sources](/cookbook/data-sources.html).
 - Overview of [Unix tools](/cookbook/unix-tools.html).
-- Practice with data manipulations. Refer to the [student loans demo](/notes/demo-student-loans.html).
+- Practice with data munging. Refer to the [data munging notes](/notes/data-munging.html) and [student loans demo](/notes/demo-student-loans.html).
 - Finish [assignment 1](/assignments/2015-01-20-assignment-1.html).
 - Start [assignment 2](/assignments/2015-02-03-assignment-2.html).
 
 Demos:
 
-- Wednesday (1/21):
+- no demos
 
 ## Week 3: Finding/munging data
 
-- More advanced data manipulations, including merging disparate datasets.
+- More advanced [data munging](/notes/data-munging.html), including merging disparate datasets.
 - See R [notes](/notes/r.html) and [cookbook](/cookbook/r.html), and the [student loans demo](/notes/demo-student-loans.html).
 - Work on [assignment 2](/assignments/2015-02-03-assignment-2.html).
 
 Demos:
 
-- Monday (1/26):
-
-- Wednesday (1/28):
+- no demos
 
 ## Week 4: Visualization
 
@@ -163,7 +161,7 @@ Demos:
 - Naive-Bayes algorithm
 - Random forests algorithm
 - Ethics
-- Work on [group project 4](/assignments/group-project-4.html).
+- Work on [group project 4](/assignments/2015-05-02-group-project-4.html).
 - Start [assignment 4](/assignments/2015-04-21-assignment-4.html).
 
 Demos:
@@ -174,7 +172,7 @@ Demos:
 
 ## Week 14: No material, work on projects
 
-- Work on [group project 4](/assignments/group-project-4.html).
+- Work on [group project 4](/assignments/2015-05-02-group-project-4.html).
 - Finish [assignment 4](/assignments/2015-04-21-assignment-4.html).
 
 Demos:
@@ -185,7 +183,7 @@ Demos:
 
 ## Week 15: No material, work on projects
 
-- Work on [group project 4](/assignments/group-project-4.html).
+- Work on [group project 4](/assignments/2015-05-02-group-project-4.html).
 
 No demos.
 

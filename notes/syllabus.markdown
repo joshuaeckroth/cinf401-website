@@ -48,7 +48,7 @@ Demonstrations will happen most weeks, involving maybe 2-5 students each week. W
 
 ### Assignments
 
-Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). See the [workflow notes](/notes/workflow.html) for details.
+Assignments are individual activities, done outside of class or during lab. You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](http://bitbucket.org). See the [RStudio workflow](/notes/rstudio-workflow.html) and [Hadoop workflow](/notes/hadoop-workflow.html) notes for details.
 
 Assignments are scored out of 5 points. Grading rubric for assignments:
 
@@ -64,7 +64,7 @@ If your R code does not execute (e.g., it has syntax errors, or crashes, or loop
 
 Groups consist of 2-3 people. These projects are more complex than assignments. Good group communication is essential to complete the tasks. Be sure everyone has a subtask and each person knows the state of progress of everyone else.
 
-You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](bitbucket.org). We will discuss in class how to create a "group" on Bitbucket so different people can contribute to the same repository. I will grade this group repository rather than any individual's repository.
+You will turn in your materials via [git](/cookbook/git.html) and [Bitbucket](http://bitbucket.org). We will discuss in class how to create a "group" on Bitbucket so different people can contribute to the same repository. I will grade this group repository rather than any individual's repository.
 
 Grading rubric for group projects:
 

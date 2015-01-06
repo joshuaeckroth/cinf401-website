@@ -140,8 +140,9 @@ div.license {
 }
 
 div.metatop {
-    width: 20em;
+    width: 5em;
     margin-bottom: 20px;
+    margin-top: 10px;
     float: right;
     text-align: right;
 }
@@ -187,8 +188,10 @@ pre code {
 }
 
 blockquote {
+    border-left: 4px solid #9BBF53;
+    padding-left: 15px;
+    margin: 2em 0;
     padding-left: 30px;
-    font-style: italic;
 }
 
 img {

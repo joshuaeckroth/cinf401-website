@@ -7,10 +7,8 @@ title: "Demo: Student loans"
 
 ## Tools used
 
-- Bash
-- Perl
-- [csvkit](http://csvkit.readthedocs.org/en/0.9.0/)
-
+- Bash, Perl, csvkit --- See: [Unix tools cookbook](/cookbook/unix-tools.html)
+- R --- See: [R notes](/notes/r.html) and [R cookbook](/cookbook/r.html)
 
 ## Find the data
 

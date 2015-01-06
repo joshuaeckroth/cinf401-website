@@ -37,15 +37,42 @@ title: "Cookbook: Data sources"
 
 ### Lending Club loans
 
+- https://www.lendingclub.com/info/download-data.action
+
+HDFS location: [`/datasets/lendingclub`](http://localhost:50070/...)
+
+```
+wget --no-check-certificate https://resources.lendingclub.com/LoanStats3a.csv.zip
+wget --no-check-certificate https://resources.lendingclub.com/LoanStats3b.csv.zip
+wget --no-check-certificate https://resources.lendingclub.com/LoanStats3c.csv.zip
+wget --no-check-certificate https://resources.lendingclub.com/RejectStatsA.csv.zip
+wget --no-check-certificate https://resources.lendingclub.com/RejectStatsB.csv.zip
+wget --no-check-certificate https://resources.lendingclub.com/LCDataDictionary.xlsx
+```
+
 ## Internet census
+
+- http://internetcensus2012.bitbucket.org/paper.html
+
+- http://seclists.org/fulldisclosure/2013/Mar/166
+
+- http://internetcensus2012.github.io/InternetCensus2012/download.html
 
 ## Computer usage
 
 ### Google Cluster
 
+- https://code.google.com/p/googleclusterdata/
+
+- http://googleresearch.blogspot.ch/2010/01/google-cluster-data.html
+
 ## Recommendation challenges
 
 ### Million Songs
+
+- http://labrosa.ee.columbia.edu/millionsong/
+
+- http://www.kaggle.com/c/msdchallenge
 
 ## Email, SMS
 
@@ -57,7 +84,33 @@ title: "Cookbook: Data sources"
 
 ## Other text
 
+### Westbury Lab Usenet
+
+- [Directory on Namenode](http://localhost:50070/explorer.html#/datasets/westburylab-usenet)
+
+### Project Gutenberg ebooks
+
+- http://www.gutenberg.org/wiki/Gutenberg:Information_About_Robot_Access_to_our_Pages
+
+Metadata (RDF):
+
+```
+wget http://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2
+```
+
+Books (English, TXT only):
+
+```
+wget -w 2 -m -H "http://www.gutenberg.org/robot/harvest?filetypes[]=txt&langs[]=en"
+```
+
+That command waits 2 seconds between each request. This is recommended by Project Gutenberg. With 45k+ books, the crawl takes some time.
+
 ### Patents
 
+- http://www.google.com/googlebooks/uspto-patents.html
+
 ### Trademarks
+
+- http://www.google.com/googlebooks/uspto-trademarks.html
 

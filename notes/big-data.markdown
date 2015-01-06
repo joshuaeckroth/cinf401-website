@@ -56,7 +56,7 @@ Commodity machine:
 - 2-16 TB disks
 - 1 gigabit ethernet
 
-Note for future reference: Hadoop is designed to work with a collection of commodity machines, each with their own (internal) disks. It is not designed to work with network addressable storage, and performs poorly in those situations.
+*Note for future reference: Hadoop is designed to work with a collection of commodity machines, each with their own (internal) disks. It is not designed to work with network addressable storage, and performs poorly in those situations.*
 
 ## Case studies
 

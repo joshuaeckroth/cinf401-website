@@ -17,6 +17,11 @@ title: "Cookbook: External resources"
 
 - [Cookbook for R](http://www.cookbook-r.com/)
 
+## Cheatsheets
+
+- [Linux cheatsheet](http://www.cheatography.com/davechild/cheat-sheets/linux-command-line/) ([PDF](http://www.cheatography.com/davechild/cheat-sheets/linux-command-line/pdf_bw/))
+- [Regular expressions cheatsheet](http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/) ([PDF](http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/pdf_bw/))
+
 ## Tutorials, books
 
 ### Bash

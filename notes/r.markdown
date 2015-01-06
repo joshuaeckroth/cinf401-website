@@ -5,6 +5,8 @@ title: R
 
 # R
 
+*Note: See the corresponding [cookbook about R](/cookbook/r.html). This page has lecture notes.*
+
 ## Help system
 
 - `?topic`

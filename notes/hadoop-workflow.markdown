@@ -1,25 +1,13 @@
 ---
 layout: post
-title: "Cookbook: Hadoop dev environment"
+title: Hadoop workflow
 ---
 
-# Cookbook: Hadoop dev environment
+# Hadoop workflow
 
 ## Local dev environment
 
-It is important to be able to test code on your own machine before submitting to a Hadoop cluster. Below are instructions for doing so in Eclipse.
-
-The basic idea is to create a normal Java application but add all the Hadoop JARs to the classpath. Your own code will have the `main()` function, so you run it as a normal Java application.
-
-The Hadoop libraries have been packaged, for your convenience, into a single ZIP file. Download [hadooplibs.zip](). Extract the ZIP. Notice there is a `jars` folder and a `sources` folder. The files in `jars` will be imported as libraries in Eclipse (see below). The files in `sources` provide source code for the Hadoop JARs in the `jars` folder. If Eclipse ever complains about not having the source code for an external Hadoop library, tell it to associate the corresponding JAR in `sources`.
-
-For reference, I copied the JARs from these locations in a fresh Hadoop 2.6.0 distribution ([from here](http://mirrors.advancedhosters.com/apache/hadoop/common/hadoop-2.6.0/), the non-source package), and added them to the ZIP.
-
-- every JAR in `share/hadoop/common/lib`
-- every JAR in `share/hadoop/mapreduce`
-- every JAR in `share/hadoop/yarn`
-- every JAR in `share/hadoop/yarn/lib`
-- `hadoop-common-2.6.0.jar` in `share/hadoop/common`
+Grab the [hadooplibs.zip](https://github.com/joshuaeckroth/cinf401-examples/raw/master/hadooplibs.zip) and extract somewhere. See the [Hadoop dev env](/notes/hadoop-dev-env.html) notes for details.
 
 ### Eclipse
 
@@ -81,43 +69,19 @@ Notice, in this example, that the argument `value` to the `map()` function is th
 
 ## delenn environment
 
-![Network diagram](/images/network-diagram.png)
-
-| Node | Port | Link | Purpose |
-| ---- | ---- | ---- | ------- |
-| namenode | 50070 | [Link](http://localhost:50070/) | |
-| resourcemanager | 8088 | [Link](http://localhost:8088/) | |
-| mrjobhistory | 19888 | [Link](http://localhost:19888/) | |
-| delenn | 8080 | [Link](http://localhost:8080/) | RStudio lives here |
-
-## SSH configurations
-
-Web interfaces:
-
-- Port 50070
-- Port 8088
-- Port 19888
-- Port 8080
-
-Except for 8080 (RStudio), these are the default ports with an Apache Hadoop installation.
-
-### PuTTY (Windows)
-
-### SSH (OS X, Linux)
-
-Edit the file `~/.ssh/config` and add this to the bottom:
 
 ```
-Host delenn
-  HostName 1.2.3.4  <------ replace
-  User jeckroth  <--------- replace
-  LocalForward 8080 127.0.0.1:8080
-  LocalForward 50070 127.0.0.1:50070
-  LocalForward 8088 127.0.0.1:8088
-  LocalForward 19888 127.0.0.1:19888
+$ hdfs dfs -mkdir -p /jeckroth/wordcount/input
+$ hdfs dfs -put input/* /jeckroth/wordcount/input
 ```
 
-Now you can connect in the terminal with the command `ssh delenn`
 
 
+```
+$ yarn jar wc.jar WordCount /jeckroth/wordcount/input /jeckroth/wordcount/output
+$ hdfs dfs -get /jeckroth/wordcount/output/part-r-00000
+```
 
+```
+yarn jar wc.jar WordCount /datasets/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt /jeckroth/wordcount/output-westburylab-usenet-1
+```

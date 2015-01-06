@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Workflow
+title: RStudio workflow
 ---
 
-# Workflow
+# RStudio workflow
 
-These notes describe a typical workflow for assignments and group projects.
+These notes describe a typical workflow for R-based assignments and group projects. Also see the [Hadoop workflow](/notes/hadoop-workflow.html) notes. Be sure to follow the [initial setup](/notes/initial-setup.html) notes if you have not already.
 
 ## Log into Bitbucket, create a repository
 
@@ -38,7 +38,7 @@ Expand the "I'm starting from scratch" option and copy the repository URL. It lo
 
 ## Log into RStudio
 
-1. Connect to delenn with SSH, and forward delenn port 8080 to localhost port 8080.
+1. Connect to delenn with SSH. You should have already forwarded localhost port 8080 to delenn's localhost port 8080 from the [initial setup notes](/notes/initial-setup.html).
 2. Open your browser to [http://localhost:8080](http://localhost:8080/).
 
 ![RStudio login](/images/workflow-1.png)

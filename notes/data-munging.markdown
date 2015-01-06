@@ -33,9 +33,33 @@ Data cleaning is often necessary when working with human-entered data and joinin
 
 For reference, here are the most common file formats for datasets.
 
+Comments from a "big data analytics" perspective:
+
+- We need to be able to split large datasets. [Hadoop](/notes/hadoop.html) splits big data into smaller data to distribute the task. The easy way to split a dataset is to take break it apart by lines. Fancier splitting may require custom code.
+
+- Generally, we (as big data analysts) prefer tabular data, as would be found in Excel spreadsheets or CSV files. The latter, CSV files, are best because there is no possibility for silly data formatting like fonts, multi-column/multi-row cells, cells calculated from formulas, etc.
+
+ - We, generally, dislike hierarchical data because it's difficult to query and difficult to split into subsets. JSON, HDF5, and XML are examples of hierarchical data formats.
+
+ - Finally, we truly despise data that come in presentation formats like PDF or Microsoft Word docs. Just the data please!
+
 ### Excel (XLS, XLSX)
 
 ### Comma-separated values (CSV)
+
+The gold-standard for big data acolytes.
+
+Here is an example of the beginning of a CSV file from the LendingClub data (see [data sources cookbook](/cookbook/data-sources.html)).
+
+```
+Amount Requested,Application Date,Loan Title,Risk_Score,Debt-To-Income Ratio,Zip Code,State,Employment Length,Policy Code
+"1000.00","2007-05-26","Wedding Covered but No Honeymoon","693","10%","481xx","NM","4 years","0"
+"1000.00","2007-05-26","Consolidating Debt","703","10%","010xx","MA","< 1 year","0"
+"11000.00","2007-05-27","Want to consolidate my debt","715","10%","212xx","MD","1 year","0"
+"6000.00","2007-05-27","waksman","698","38.64%","017xx","MA","< 1 year","0"
+"1500.00","2007-05-27","mdrigo","509","9.43%","209xx","MD","< 1 year","0"
+"15000.00","2007-05-27","Trinfiniti","645","0%","105xx","NY","3 years","0"
+```
 
 ### Tab-separated values (TSV)
 
@@ -62,17 +86,24 @@ JSON is a file format that resembles Javascript code. It is very flexible and su
 ]
 ```
 
+A dataset like the example above is easy to work with because its just tabular (i.e., spreadsheet, i.e., row/column) data in another form. but JSON supports hierarchical structures, arbitrarily complex, which can really complicate data munging.
+
 More info: [json.org](http://www.json.org/). JSON is supported by nearly every programming language; just do a search to find the right libraries.
 
 ### Hierarchical Data Format (HDF5)
 
 Use with Hadoop: [Everything that HDF Users have Always Wanted to Know about Hadoop... But Were Ashamed to Ask (PDF)](http://www.hdfgroup.org/pubs/papers/Big_HDF_FAQs.pdf)
 
-### PDF
+### PDF, Microsoft Word
+
+In my experience, datasets in PDF or Word format are a disaster. These are (generally) not tabular document formats, so even if the data appear to be in tables, they may not copy as tabular data. Nevertheless, your best technique in these cases is to copy-paste the data into Excel or a text file and clean up from there.
+
+Microsoft Word docs may include embedded tables, which copy cleanly to Excel. Should we be so lucky...
 
 ### HTML
 
+Data in HTML can be as messy as those found in PDFs or MS Word documents. However, HTML has true tables (`<table>` tags) so in some cases the data will copy cleanly into Excel. From Excel, you'll probably want to save as a CSV format.
+
 ### XML
 
-
-
+XML is a hierarchical data format.
