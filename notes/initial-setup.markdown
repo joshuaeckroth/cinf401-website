@@ -27,7 +27,9 @@ RStudio uses port 8080. Hadoop services use ports 50070, 8088, 19888. See the [H
 
 ### PuTTY (Windows)
 
-(TODO)
+![PuTTY tunneling](/images/putty-1.png)
+
+![PuTTY tunneling](/images/putty-2.png)
 
 ### SSH (OS X, Linux)
 
