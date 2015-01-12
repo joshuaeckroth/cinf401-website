@@ -13,13 +13,17 @@ This class is nominally about big data. It is worthwhile to figure out what we'r
 
 ## What? Why?
 
-- What kinds of questions do we ask about data?
+Data is everywhere. Like Neo in the Matrix, once you start looking for public datasets or compiling own, you begin to realize that everything has a data stream. Website link structures, traffic sensors, thermostats, governmental forms, click habits, phone calls, geo "check ins", hospital records, purchase histories, etc. etc. Data can be found everywhere, and some of it is huge.
 
-  - The sophistication of the question (usually) decreases as the data bigness increases; we're only human.
+This class is about two things (besides the quote at the top of the [syllabus](/notes/syllabus.html)): what can we do with data, and what techniques are unique to handling really big data.
 
-- **Data volume**: The number of bits. Example: All Wal-Mart purchases in the last year; performance metrics, in 1-second intervals, from every one of Google's datacenter machines (3+ million? [ref](https://plus.google.com/+JamesPearn/posts/VaQu9sNxJuY)).
+In class, we'll discuss:
 
-- **Data velocity**: The speed at which bits need to be processed. Example: Processing all Tweets, in real-time (6k/sec, [ref](http://www.internetlivestats.com/twitter-statistics/)), or all Google searches (40k/sec, [ref](http://www.internetlivestats.com/google-search-statistics/)); processing the stream of data from a particle accelerator (for Large Hadron Collider, that's 300GB/s, and after filtering to 300MB/s, they still accumulate 25PB/year, [ref 1](http://en.wikipedia.org/wiki/Large_Hadron_Collider#Computing_resources), [ref 2](http://en.wikipedia.org/wiki/Worldwide_LHC_Computing_Grid)).
+- What kinds of questions do we ask about data? (My observation: The sophistication of the question (usually) decreases as the data bigness increases; we're only human.)
+
+- How do we make data most useful? (Hint: clean it, transform it, combine it.)
+
+- What tools can we use to answer questions about data? (Answer: all of them!)
 
 ## Memory hierarchy
 
@@ -31,7 +35,7 @@ Check out this [interactive visualization](http://www.eecs.berkeley.edu/~rcs/res
 
 When you run out of memory at some level (say, RAM, or disk space), you have a few options for how to proceed:
 
-1. Increase storage capacity or efficiency some or all levels in the hierarchy. I.e., upgrade to a mainframe.
+1. Increase storage capacity or efficiency for some or all levels in the hierarchy. I.e., upgrade to a mainframe.
 2. Create another level in the hierarchy (either/or: a faster, smaller memory above the current level; or slower, larger memory below the current level, so the current level acts as a cache for this new, slower level).
 3. **Distribute the workload and storage to more machines,** each with their own memory hierarchy. You might call this "horizontal" expansion, whereas adding more memory or making it faster would be "vertical" expansion.
 
@@ -39,9 +43,18 @@ Depending on your circumstances, one of these options may give more bang for the
 
 ## A definition of "big data"
 
-Here is my definition:
+Big data is somewhat a fad, but also very important when the data is actually big. When the data is actually small, big data techniques should not be used (they are too slow). So what makes data "big"?
 
-> A data mining/analysis task may be described as "big data" if the data to be processed is too voluminous to fit into any **single** "commodity" data storage system or has such high velocity to require **more than one** commodity machine to consume.
+First, some auxiliary definitions:
+
+- **Data volume**: The number of bits. Examples: All Wal-Mart purchases in the last year (they have 100 million customers per week; [source](http://www.businesspundit.com/stats-on-walmart/)). Or, performance metrics, in 1-second intervals, from every one of Google's datacenter machines (3+ million? [ref](https://plus.google.com/+JamesPearn/posts/VaQu9sNxJuY)).
+
+- **Data velocity**: The speed at which bits need to be processed. Examples: All Tweets, in real-time (6k/sec, [ref](http://www.internetlivestats.com/twitter-statistics/)). Or, all Google searches (40k/sec, [ref](http://www.internetlivestats.com/google-search-statistics/)). Or, the stream of data from a particle accelerator (for the Large Hadron Collider, that's 300GB/s, and after filtering to 300MB/s, they still accumulate 25PB/year, [ref 1](http://en.wikipedia.org/wiki/Large_Hadron_Collider#Computing_resources), [ref 2](http://en.wikipedia.org/wiki/Worldwide_LHC_Computing_Grid)).
+
+
+Now, here is my definition of "big data":
+
+> A data mining/analysis task may be described as "big data" if the data to be processed has such high volume or velocity that **more than one** commodity machine is required to store and/or process the data.
 
 I define a "commodity" data storage system and "commodity" machine as those that may be found in a typical small-to-medium business's data center. Current (2015) examples include:
 
@@ -98,7 +111,7 @@ From [MapR](https://www.mapr.com/resources/customer-case-studies), 2014.
 >
 > [T]he use of Hadoop allows to speed up calculations by a factor that equals the number of worker nodes, except for startup effects, which are relatively small when the execution time of individual tasks is large enough.
 
-Zhang, Chen, Hans De Sterck, Ashraf Aboulnaga, Haig Djambazian, and Rob Sladek. "Case study of scientific data processing on a cloud using Hadoop." In High performance computing systems and applications, pp. 400-415. Springer Berlin Heidelberg, 2010. [PDF](http://202.154.59.182/mfile/files/Information%20System/High%20Performance%20Computing%20Systems%20and%20Applications%3B%2023rd%20HPCS%202009/Chapter%2029%20Case%20Study%20of%20Scientific%20Data%20Processing%20on%20a%20Cloud%20Using%20Hadoop.pdf).
+From: Chen Zhang, Hans De Sterck, Ashraf Aboulnaga, Haig Djambazian, and Rob Sladek. "Case study of scientific data processing on a cloud using Hadoop." In High performance computing systems and applications, pp. 400-415. Springer Berlin Heidelberg, 2010. [PDF](http://202.154.59.182/mfile/files/Information%20System/High%20Performance%20Computing%20Systems%20and%20Applications%3B%2023rd%20HPCS%202009/Chapter%2029%20Case%20Study%20of%20Scientific%20Data%20Processing%20on%20a%20Cloud%20Using%20Hadoop.pdf).
 
 ## More big data
 
