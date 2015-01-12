@@ -11,4 +11,6 @@ title: Statistics
 
 ## Lying with statistics
 
+## Outlier/anomaly detection
 
+https://blog.twitter.com/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series

@@ -60,6 +60,7 @@ Demos:
 
 ## Week 5: Statistical analysis
 
+- All about statistics. See [notes](/notes/statistics.html) and [cookbook](/cookbook/statistics.html).
 - Finish [assignment 3](/assignments/2015-02-10-assignment-3.html).
 - Start [group project 1](/assignments/2015-02-24-group-project-1.html).
 
@@ -71,6 +72,7 @@ Demos:
 
 ## Week 6: Statistical analysis
 
+- All about statistics. See [notes](/notes/statistics.html) and [cookbook](/cookbook/statistics.html).
 - Work on [group project 1](/assignments/2015-02-24-group-project-1.html).
 
 Demos:
@@ -79,9 +81,10 @@ Demos:
 
 - Wednesday (2/18):
 
-## Week 7: Big data storage
+## Week 7: Hadoop, big data storage
 
-- HDFS
+- Introduction to [Hadoop](/notes/hadoop.html) and HDFS. See [HDFS cookbook](/cookbook/hdfs.html).
+- Explanation of [Hadoop dev env](/notes/hadoop-dev-env.html) and [Hadoop workflow](/notes/hadoop-workflow.html).
 - Finish [group project 1](/assignments/2015-02-24-group-project-1.html).
 - Start [group project 2](/assignments/2015-03-17-group-project-2.html).
 
@@ -95,7 +98,7 @@ Demos:
 
 **Note: We're skipping over Spring Break in this outline.**
 
-- Basic Map-Reduce workflows
+- Explanation of Map-Reduce strategy. See [Hadoop workflow](/notes/hadoop-workflow.html).
 - Work on [group project 2](/assignments/2015-03-17-group-project-2.html).
 
 Demos:
@@ -106,9 +109,7 @@ Demos:
 
 ## Week 9: Big data storage
 
-- Introduction to NoSQL
-- Hive
-- Pig
+- Explanation of "NoSQL" and more advanced HDFS-based storage (Hive, Pig, etc.).
 - Finish [group project 2](/assignments/2015-03-17-group-project-2.html).
 - Start [group project 3](/assignments/2015-04-07-group-project-3.html).
 
@@ -120,7 +121,7 @@ Demos:
 
 ## Week 10: Map-Reduce
 
-- Advanced Map-Reduce workflows
+- Advanced Map-Reduce tasks
 - Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
@@ -131,9 +132,8 @@ Demos:
 
 ## Week 11: Machine learning, Mahout
 
-- Introduction to machine learning
-- Introduction to clustering
-- k-means algorithm
+- Introduction to [machine learning](/notes/machine-learning.html).
+- Introduction to [clustering](/notes/clustering.html), including the k-means algorithm.
 - Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
@@ -144,9 +144,7 @@ Demos:
 
 ## Week 12: Machine learning, Mahout
 
-- Introduction to classification
-- Classification evaluation
-- k-nearest neighbor algorithm
+- Introduction to [classification](/notes/classification.html), including evaluation techniques and k-nearest neighbor algorithm.
 - Finish [group project 3](/assignments/2015-04-07-group-project-3.html).
 - Start [group project 4](/assignments/2015-05-02-group-project-4.html).
 
@@ -158,9 +156,8 @@ Demos:
 
 ## Week 13: Machine learning, Mahout, Ethics
 
-- Naive-Bayes algorithm
-- Random forests algorithm
-- Ethics
+- More [classification](/notes/classification.html) algorithms: Naive-Bayes, random forests.
+- Overview of [ethics](/notes/ethics.html) with respect to "big data".
 - Work on [group project 4](/assignments/2015-05-02-group-project-4.html).
 - Start [assignment 4](/assignments/2015-04-21-assignment-4.html).
 
