@@ -13,7 +13,7 @@ This class is nominally about big data. It is worthwhile to figure out what we'r
 
 ## What? Why?
 
-Data is everywhere. Like Neo in the Matrix, once you start looking for public datasets or compiling own, you begin to realize that everything has a data stream. Website link structures, traffic sensors, thermostats, governmental forms, click habits, phone calls, geo "check ins", hospital records, purchase histories, etc. etc. Data can be found everywhere, and some of it is huge.
+Data is everywhere. Like Neo in the Matrix, once you start looking for public datasets or compiling your own, you begin to realize that everything has a data stream. Website interlinks, traffic sensors, thermostats, governmental forms, click habits, phone calls, geo "check ins", hospital records, purchase histories, etc. etc. Data can be found everywhere, and some of it is huge.
 
 This class is about two things (besides the quote at the top of the [syllabus](/notes/syllabus.html)): what can we do with data, and what techniques are unique to handling really big data.
 
@@ -25,7 +25,9 @@ In class, we'll discuss:
 
 - What tools can we use to answer questions about data? (Answer: all of them!)
 
-## Memory hierarchy
+## What's big? First: The memory hierarchy
+
+In order to make sense of why "big data" is a problem, requiring unique solutions, we must first understand the memory hierarchy.
 
 ![Memory hierarchy](/images/memory-hierarchy.png)
 

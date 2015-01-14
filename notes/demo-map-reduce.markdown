@@ -8,3 +8,7 @@ title: "Demo: Map-Reduce"
 ## Word counts
 
 ## Maximum/minimum temperature
+
+
+
+http://www.orzota.com/mapreduce-tutorial/
