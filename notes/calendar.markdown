@@ -156,7 +156,7 @@ Demos:
 
 ## Week 13: Machine learning, Mahout, Ethics
 
-- More [classification](/notes/classification.html) algorithms: Naive-Bayes, random forests.
+- Introduction to [text analysis](/notes/text-analysis.html), in machine learning contexts.
 - Overview of [ethics](/notes/ethics.html) with respect to "big data".
 - Work on [group project 4](/assignments/2015-05-02-group-project-4.html).
 - Start [assignment 4](/assignments/2015-04-21-assignment-4.html).

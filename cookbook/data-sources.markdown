@@ -5,6 +5,8 @@ title: "Cookbook: Data sources"
 
 # Cookbook: Data sources
 
+- [A list of data sources](https://github.com/rasbt/pattern_classification/blob/master/resources/dataset_collections.md)
+
 ## US Census
 
 ## World stats
