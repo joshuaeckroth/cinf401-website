@@ -775,6 +775,99 @@ Now do the following with `aggregate`:
 
 ## Merging data frames
 
+We can combine or "merge" two data frames in a way similar to a relational database. You must specify a column (or columns) in both data frames that acts as the "key".
+
+Suppose we have these two data frames (from the example documentation `?merge`):
+
+{% highlight r %}
+> authors <- data.frame(
++     surname = I(c("Tukey", "Venables", "Tierney", "Ripley", "McNeil")),
++     nationality = c("US", "Australia", "US", "UK", "Australia"),
++     deceased = c("yes", rep("no", 4)))
+> books <- data.frame(
++     name = I(c("Tukey", "Venables", "Tierney",
++                "Ripley", "Ripley", "McNeil", "R Core")),
++     title = c("Exploratory Data Analysis",
++               "Modern Applied Statistics ...",
++               "LISP-STAT",
++               "Spatial Statistics", "Stochastic Simulation",
++               "Interactive Data Analysis",
++               "An Introduction to R"),
++     other.author = c(NA, "Ripley", NA, NA, NA, NA,
++                      "Venables & Smith"))
+
+> authors
+   surname nationality deceased
+1    Tukey          US      yes
+2 Venables   Australia       no
+3  Tierney          US       no
+4   Ripley          UK       no
+5   McNeil   Australia       no
+
+> books
+      name                         title     other.author
+1    Tukey     Exploratory Data Analysis             <NA>
+2 Venables Modern Applied Statistics ...           Ripley
+3  Tierney                     LISP-STAT             <NA>
+4   Ripley            Spatial Statistics             <NA>
+5   Ripley         Stochastic Simulation             <NA>
+6   McNeil     Interactive Data Analysis             <NA>
+7   R Core          An Introduction to R Venables & Smith
+{% endhighlight %}
+
+We can create a new, merged data frame by combining the two on the "surname" column in `authors` and the "name" column in `books`:
+
+{% highlight r %}
+> merge(authors, books, by.x="surname", by.y="name")
+   surname nationality deceased                         title other.author
+1   McNeil   Australia       no     Interactive Data Analysis         <NA>
+2   Ripley          UK       no            Spatial Statistics         <NA>
+3   Ripley          UK       no         Stochastic Simulation         <NA>
+4  Tierney          US       no                     LISP-STAT         <NA>
+5    Tukey          US      yes     Exploratory Data Analysis         <NA>
+6 Venables   Australia       no Modern Applied Statistics ...       Ripley
+{% endhighlight %}
+
+Note that "R Core" is in `authors` but not `books`, so it's left out of the merge. The `all=TRUE` option keeps it:
+
+{% highlight r %}
+> merge(authors, books, by.x="surname", by.y="name", all=TRUE)
+   surname nationality deceased                         title     other.author
+1   McNeil   Australia       no     Interactive Data Analysis             <NA>
+2   R Core        <NA>     <NA>          An Introduction to R Venables & Smith
+3   Ripley          UK       no            Spatial Statistics             <NA>
+4   Ripley          UK       no         Stochastic Simulation             <NA>
+5  Tierney          US       no                     LISP-STAT             <NA>
+6    Tukey          US      yes     Exploratory Data Analysis             <NA>
+7 Venables   Australia       no Modern Applied Statistics ...           Ripley
+{% endhighlight %}
+
+You can merge on a key composed of 2+ columns if they're named the same in both data frames. Here are two new data frames:
+
+{% highlight r %}
+> d1 <- data.frame(firstname=c("Mary", "Beth", "Beth"),
++                  lastname=c("Staples", "Wrench", "Hammer"),
++                  income=c(111230,27200,83000))
+> d1
+  firstname lastname income
+1      Mary  Staples 111230
+2      Beth   Wrench  27200
+3      Beth   Hammer  83000
+> d2 <- data.frame(firstname=c("Mary", "Beth", "Beth"),
++                  lastname=c("Staples", "Wrench", "Hammer"),
++                  birthdate=c(as.Date("1982-01-05"), as.Date("1960-10-25"), as.Date("1990-11-02")),
++                  eyecolor=c("blue", "green", "brown"))
+> d2
+  firstname lastname  birthdate eyecolor
+1      Mary  Staples 1982-01-05     blue
+2      Beth   Wrench 1960-10-25    green
+3      Beth   Hammer 1990-11-02    brown
+> merge(d1, d2, by=c("firstname", "lastname"))
+  firstname lastname income  birthdate eyecolor
+1      Beth   Wrench  27200 1960-10-25    green
+2      Beth   Hammer  83000 1990-11-02    brown
+3      Mary  Staples 111230 1982-01-05     blue
+{% endhighlight %}
 
 ## Arrays
 
