@@ -221,6 +221,37 @@ attr(,"class")
 
 `NULL` cannot be put in a vector. It's like `void`, except that a variable can equal `NULL`. Sometimes, you can give a function `NULL` for one of its arguments, and a function can return `NULL`. That's all it's good for.
 
+### Factors
+
+Factors are vectors with the distinct values stored as metadata called "levels." They are like an array of "enum" types in Java. The vector itself actually only contains integers, indicating which of the unique levels that value represents.
+
+You can convert a vector into a factor like so:
+
+{% highlight r %}
+> as.factor(c(1, 2, 3, 3, 2, 1))
+[1] 1 2 3 3 2 1
+Levels: 1 2 3
+{% endhighlight %}
+
+Here is a factor of character types:
+
+{% highlight r %}
+> as.factor(c("foo", "bar", "foo", "baz", "quux", "foo", "baz"))
+[1] foo  bar  foo  baz  quux foo  baz
+Levels: bar baz foo quux
+{% endhighlight %}
+
+The factor prints as if it was the original vector, but if you use `as.integer` you can see the internal numeric IDs and the levels that correspond to the IDs:
+
+{% highlight r %}
+> as.integer(as.factor(c("foo", "bar", "foo", "baz", "quux", "foo", "baz")))
+[1] 3 1 3 2 4 3 2
+> levels(as.factor(c("foo", "bar", "foo", "baz", "quux", "foo", "baz")))
+[1] "bar"  "baz"  "foo"  "quux"
+{% endhighlight %}
+
+Factors are most useful to us when we are creating plots with ggplot.
+
 ### Data frames
 
 A data frame is like a spreadsheet. Rows and columns can be named. Typically, just columns are named. Internally, each column is a vector (of row values), and of course they are all the same length (the number of rows). Since each column is a different vector, each column can hold a different type of data (but only one type of data per column).
@@ -326,21 +357,428 @@ You can `cbind` or `rbind` two data frames as well:
 
 #### Subsetting and filtering
 
-- `[,,]`
-- `[,,drop=FALSE]` or `[,,drop=F]`
-- `[[]]`
+- Use `dframe[row,]` to access a particular row in `dframe` (a data frame)
+- Use `dframe[,col]` or `dframe[[col]]` or `dframe$col` to access a particular column
+- Use `dframe[row,col]` to access a particular cell; note, a 1-element vector will result
+- Use `dframe[row,col,drop=FALSE]` to get a particular cell as a data frame
 
-## Iteration
+You can also subset a data frame by complex boolean expressions:
 
-## Reshaping
+{% highlight r %}
+> d
+  Foo Bar Baz
+1  10  40  70
+2  20  50  80
+3  30  60  90
+4  80  70 100
 
-### merge
+> subset(d, Foo >= 10 & Bar <= 50)
+  Foo Bar Baz
+1  10  40  70
+2  20  50  80
 
-### aggregate
+> subset(d, Foo >= 10 & Bar <= 50, c("Foo", "Baz"))
+  Foo Baz
+1  10  70
+2  20  80
+{% endhighlight %}
 
-### melt
+## Reshaping data frames (`melt` and `dcast`)
 
-### cast
+(See the R book, pp. 149-152.)
+
+The `reshape2` package provides some powerful functions for dramatic transforms of data frames. These transformations come in two forms (which are inverses of each other): melting and casting.
+
+Both melting and casting assume that your data frames consist only of "identifier" and "measured" variables or columns:
+
+- Identifier (id) variables are those that identify cases that have been measured. For example, id variables may be the person's first name and last name plus date of birth.
+
+- Measured variables are those that are measured per case. A person's height or weight or GPA would be measure variables since they do not identify the case (the person) but are measures of that person.
+
+You can also think about id variables as those you might put on the x-axis, and measure variables as those you might put on the y-axis.
+
+Often we have data frames that look like the following, predefined data frame `USArrests`. We use the `head` function here to look at the first few rows.
+
+{% highlight r %}
+> head(USArrests)
+           Murder Assault UrbanPop Rape
+Alabama      13.2     236       58 21.2
+Alaska       10.0     263       48 44.5
+Arizona       8.1     294       80 31.0
+Arkansas      8.8     190       50 19.5
+California    9.0     276       91 40.6
+Colorado      7.9     204       78 38.7
+{% endhighlight %}
+
+The first thing we're going to do (which has nothing to do with melting/casting) is put the row names (the states) into their own column, and then remove row names.
+
+{% highlight r %}
+> d <- cbind(State=rownames(USArrests), USArrests)
+> head(d)
+                  State Murder Assault UrbanPop Rape
+  Alabama       Alabama   13.2     236       58 21.2
+  Alaska         Alaska   10.0     263       48 44.5
+  Arizona       Arizona    8.1     294       80 31.0
+  Arkansas     Arkansas    8.8     190       50 19.5
+  California California    9.0     276       91 40.6
+  Colorado     Colorado    7.9     204       78 38.7
+> rownames(d) <- NULL
+> head(d)
+       State Murder Assault UrbanPop Rape
+1    Alabama   13.2     236       58 21.2
+2     Alaska   10.0     263       48 44.5
+3    Arizona    8.1     294       80 31.0
+4   Arkansas    8.8     190       50 19.5
+5 California    9.0     276       91 40.6
+6   Colorado    7.9     204       78 38.7
+{% endhighlight %}
+
+Next, we'll "melt" the data frame. The id column is "State", the measured columns are "Murder", "Assault", "UrbanPop", and "Rape".
+
+{% highlight r %}
+> library(reshape2)
+
+> dmelt <- melt(d, c("State"), c("Murder", "Assault", "UrbanPop", "Rape"))
+
+> head(dmelt)
+       State variable value
+1    Alabama   Murder  13.2
+2     Alaska   Murder  10.0
+3    Arizona   Murder   8.1
+4   Arkansas   Murder   8.8
+5 California   Murder   9.0
+6   Colorado   Murder   7.9
+{% endhighlight %}
+
+Notice how each of the measure variables is on a row of its own, and we have new columns "variable" and "value".
+
+This format is easier to use with ggplot, which we'll see later.
+
+### Casting
+
+After "melting", we can "cast" the melted data frame to all kinds of different forms. The `dcast` (`d` for data frame) works as follows:
+
+{% highlight r %}
+> dcast(dataframe, formula)
+{% endhighlight %}
+
+Formulas are written like this (a few variations listed):
+
+```
+id-column-1 ~ measure-column-1
+id-column-1 + id-column-2 ~ measure-column-1 + measure-column-2
+id-column-1 + id-column-2 ~ ...
+. ~ measure-column-1 + measure-column-2
+etc.
+```
+
+The parts before the `~` become id columns in the resulting data frame, and the parts after the `~` become the measure columns. A `+` means make 2+ columns, just like a "truth table" where `A + B` means make columns `A` and `B` and list the rows so that for each value of `A`, go through all values of `B`.
+
+The special syntax `...` means "all variables not already listed" and `.` means "no variable".
+
+If a formula results in multiple values for each row (because you didn't mention all variables, for example), then you need to provide an "aggregating" function, e.g., `mean` to average the multiple values. If you do not provide such a function, `length` will be used, meaning it will count how many values match the formula.
+
+{% highlight r %}
+# get the original data frame back
+> head(dcast(dmelt, State ~ variable))
+       State Murder Assault UrbanPop Rape
+1    Alabama   13.2     236       58 21.2
+2     Alaska   10.0     263       48 44.5
+3    Arizona    8.1     294       80 31.0
+4   Arkansas    8.8     190       50 19.5
+5 California    9.0     276       91 40.6
+6   Colorado    7.9     204       78 38.7
+
+# flip the data frame (states as columns)
+> head(dcast(dmelt, variable ~ State))
+    variable Alabama Alaska Arizona Arkansas California Colorado ...
+  1   Murder    13.2   10.0     8.1      8.8        9.0      7.9
+  2  Assault   236.0  263.0   294.0    190.0      276.0    204.0
+  3 UrbanPop    58.0   48.0    80.0     50.0       91.0     78.0
+  4     Rape    21.2   44.5    31.0     19.5       40.6     38.7
+
+# we can supply an aggregation function;
+# the . means no id variable, i.e., all states combined
+> head(dcast(dmelt, . ~ variable, mean))
+  . Murder Assault UrbanPop   Rape
+1 .  7.788  170.76    65.54 21.232
+{% endhighlight %}
+
+Here is another built-in data frame:
+
+{% highlight r %}
+> head(ChickWeight)
+  weight Time Chick Diet
+1     42    0     1    1
+2     51    2     1    1
+3     59    4     1    1
+4     64    6     1    1
+5     76    8     1    1
+6     93   10     1    1
+{% endhighlight %}
+
+Let's melt it on id variables "Chick", "Diet", and "Time":
+
+{% highlight r %}
+> cmelt <- melt(ChickWeight, c("Chick", "Diet", "Time"), c("weight"))
+> head(cmelt)
+  Chick Diet Time variable value
+1     1    1    0   weight    42
+2     1    1    2   weight    51
+3     1    1    4   weight    59
+4     1    1    6   weight    64
+5     1    1    8   weight    76
+6     1    1   10   weight    93
+{% endhighlight %}
+
+This casting gives the mean of "Time" vs. "variable" (which is only "weight"):
+
+{% highlight r %}
+> head(dcast(cmelt, Time ~ variable, mean))
+  Time    weight
+1    0  41.06000
+2    2  49.22000
+3    4  59.95918
+4    6  74.30612
+5    8  91.24490
+6   10 107.83673
+{% endhighlight %}
+
+Here we have "Time" vs. "Diet". The "Diet" unique values become columns.
+
+{% highlight r %}
+> head(dcast(cmelt, Time ~ Diet, mean))
+  Time        1     2     3     4
+1    0 41.40000  40.7  40.8  41.0
+2    2 47.25000  49.4  50.4  51.8
+3    4 56.47368  59.8  62.2  64.5
+4    6 66.78947  75.4  77.9  83.9
+5    8 79.68421  91.7  98.4 105.6
+6   10 93.05263 108.5 117.1 126.0
+{% endhighlight %}
+
+If we don't provide `mean` as the aggregator, we'll get a warning and it will default to `length`. This is because for each "Diet" value (1-4), there are 10-20 chicks and therefore 10-20 weight measures.
+
+{% highlight r %}
+> head(dcast(cmelt, Time ~ Diet))
+Aggregation function missing: defaulting to length
+  Time  1  2  3  4
+1    0 20 10 10 10
+2    2 20 10 10 10
+3    4 19 10 10 10
+4    6 19 10 10 10
+5    8 19 10 10 10
+6   10 19 10 10 10
+{% endhighlight %}
+
+If you use `library(plyr)`, you can also do subsets. Notice the `subset = .(Time < 10)` part.
+
+{% highlight r %}
+> library(plyr)
+
+> head(dcast(cmelt, Time ~ Diet, mean, subset = .(Time < 10)))
+    Time        1    2    3     4
+  1    0 41.40000 40.7 40.8  41.0
+  2    2 47.25000 49.4 50.4  51.8
+  3    4 56.47368 59.8 62.2  64.5
+  4    6 66.78947 75.4 77.9  83.9
+  5    8 79.68421 91.7 98.4 105.6
+{% endhighlight %}
+
+## Aggregation on data frames
+
+A different way to produce column means or sums or whatever, without using `melt` and `dcast`, is to use `aggregate`. See the R book, pp. 120-123.
+
+We'll use the `ChickWeight` data frame again.
+
+{% highlight r %}
+> head(ChickWeight)
+  weight Time Chick Diet
+1     42    0     1    1
+2     51    2     1    1
+3     59    4     1    1
+4     64    6     1    1
+5     76    8     1    1
+6     93   10     1    1
+{% endhighlight %}
+
+`aggregate` uses "formulas", too, like `dcast`, but `aggregate`'s formulas are written the other way:
+
+```
+measure-column-1 ~ id-column-1
+measure-column-1 + measure-column-2 ~ id-column-1 + id-column-2
+```
+
+Here we go:
+
+{% highlight r %}
+# find average weight per diet
+> aggregate(weight ~ Diet, ChickWeight, mean)
+  Diet   weight
+1    1 102.6455
+2    2 122.6167
+3    3 142.9500
+4    4 135.2627
+
+# find average weight per diet per time
+> head(aggregate(weight ~ Diet + Time, ChickWeight, mean))
+  Diet Time weight
+1    1    0  41.40
+2    2    0  40.70
+3    3    0  40.80
+4    4    0  41.00
+5    1    2  47.25
+6    2    2  49.40
+{% endhighlight %}
+
+Switching data frames to `diamonds` inside the `ggplot2` library:
+
+{% highlight r %}
+> library(ggplot2)
+> head(diamonds)
+  carat       cut color clarity depth table price    x    y    z
+1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
+2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
+3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
+4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
+5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
+6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
+{% endhighlight %}
+
+Let's find the maximum carat per cut:
+
+{% highlight r %}
+> aggregate(carat ~ cut, diamonds, max)
+        cut carat
+1      Fair  5.01
+2      Good  3.01
+3 Very Good  4.00
+4   Premium  4.01
+5     Ideal  3.50
+{% endhighlight %}
+
+If you want two measured columns, use `cbind()`:
+
+{% highlight r %}
+> aggregate(cbind(carat, depth) ~ cut, diamonds, max)
+        cut carat depth
+1      Fair  5.01  79.0
+2      Good  3.01  67.0
+3 Very Good  4.00  64.9
+4   Premium  4.01  63.0
+5     Ideal  3.50  66.7
+{% endhighlight %}
+
+Next we'll find the count of diamonds in the data frame with various clarities. We'll use a bogus column `cut` just to do the aggregation, but use `length` to count how many `cut` values there are for each `clarity`. We could have used any column that's not `clarity` to count up the same way.
+
+{% highlight r %}
+> aggregate(cut ~ clarity, diamonds, length)
+  clarity   cut
+1      I1   741
+2     SI2  9194
+3     SI1 13065
+4     VS2 12258
+5     VS1  8171
+6    VVS2  5066
+7    VVS1  3655
+8      IF  1790
+{% endhighlight %}
+
+
+### Practice
+
+Take the `tips` data frame:
+
+{% highlight r %}
+> head(tips)
+  total_bill  tip    sex smoker day   time size
+1      16.99 1.01 Female     No Sun Dinner    2
+2      10.34 1.66   Male     No Sun Dinner    3
+3      21.01 3.50   Male     No Sun Dinner    3
+4      23.68 3.31   Male     No Sun Dinner    2
+5      24.59 3.61 Female     No Sun Dinner    4
+6      25.29 4.71   Male     No Sun Dinner    4
+{% endhighlight %}
+
+And produce these data frames with `melt` and `dcast`:
+
+{% highlight r %}
+# Data frame 1 (melt + dcast)
+     sex  day total_bill      tip
+1 Female  Fri   14.14556 2.781111  <--- total_bill & tip are means
+2 Female  Sat   19.68036 2.801786
+3 Female  Sun   19.87222 3.367222
+4 Female Thur   16.71531 2.575625
+5   Male  Fri   19.85700 2.693000
+6   Male  Sat   20.80254 3.083898
+7   Male  Sun   21.88724 3.220345
+8   Male Thur   18.71467 2.980333
+
+# Data frame 2 (melt + dcast)
+     sex  day total_bill    tip
+1 Female  Fri     127.31  25.03    <--- total_bill & tip are sums
+2 Female  Sat     551.05  78.45
+3 Female  Sun     357.70  60.61
+4 Female Thur     534.89  82.42
+5   Male  Fri     198.57  26.93
+6   Male  Sat    1227.35 181.95
+7   Male  Sun    1269.46 186.78
+8   Male Thur     561.44  89.41
+
+# Data frame 3 (melt + dcast)
+     sex  Fri_tip  Sat_tip  Sun_tip Thur_tip
+1 Female 2.781111 2.801786 3.367222 2.575625  <--- these are means
+2   Male 2.693000 3.083898 3.220345 2.980333
+
+# Data frame 4 (melt + dcast)
+   day  No Yes   <--- No = non smoker, Yes = smoker
+1  Fri   8  30   <--- these are counts (length)
+2  Sat  90  84
+3  Sun 114  38
+4 Thur  90  34
+
+# Data frame 4 (melt + dcast)
+   day   time  No Yes   <--- No = non smoker, Yes = smoker
+1  Fri Dinner   6  18   <--- these are counts (length)
+2  Fri  Lunch   2  12
+3  Sat Dinner  90  84
+4  Sun Dinner 114  38
+5 Thur Dinner   2   0
+6 Thur  Lunch  88  34
+{% endhighlight %}
+
+Now do the following with `aggregate`:
+
+{% highlight r %}
+# Data frame 1 (aggregate)
+     sex  day total_bill      tip
+1 Female  Fri   14.14556 2.781111  <--- these are means
+2   Male  Fri   19.85700 2.693000
+3 Female  Sat   19.68036 2.801786
+4   Male  Sat   20.80254 3.083898
+5 Female  Sun   19.87222 3.367222
+6   Male  Sun   21.88724 3.220345
+7 Female Thur   16.71531 2.575625
+8   Male Thur   18.71467 2.980333
+
+# Data frame 2 (aggregate)
+     sex  day tip  <--- bogus column name, just counting male/female per day
+1 Female  Fri   9
+2   Male  Fri  10
+3 Female  Sat  28
+4   Male  Sat  59
+5 Female  Sun  18
+6   Male  Sun  58
+7 Female Thur  32
+8   Male Thur  30
+{% endhighlight %}
+
+## Merging data frames
+
+
+## Arrays
+
+
 
 ## String operations
 
