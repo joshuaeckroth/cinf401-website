@@ -54,9 +54,9 @@ Demos:
 
 Demos:
 
-- Monday (2/2):
+- Monday (2/2): C. Micklisch, George
 
-- Wednesday (2/4):
+- Wednesday (2/4): C. Decker, Antonio
 
 ## Week 5: Statistical analysis
 
@@ -66,9 +66,9 @@ Demos:
 
 Demos:
 
-- Monday (2/9):
+- Monday (2/9): C. Brackett, M. Fye
 
-- Wednesday (2/11):
+- Wednesday (2/11): Nathan, Marisa
 
 ## Week 6: Statistical analysis
 
@@ -77,9 +77,9 @@ Demos:
 
 Demos:
 
-- Monday (2/16):
+- Monday (2/16): Jacob, M. Clay
 
-- Wednesday (2/18):
+- Wednesday (2/18): Katie, Tom
 
 ## Week 7: Hadoop, big data storage
 
