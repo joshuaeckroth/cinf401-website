@@ -26,7 +26,6 @@ Produce a data frame sorted by terrorist name, i.e., the following:
 
 Produce another data frame that shows the number of terrorist organizations that began in each year. I.e.,
 
-{% highlight r %}
 
 
 ## Task 2
