@@ -109,7 +109,7 @@ Next show Steston's rate. It should be 54.75 :(
 
 ## Task 3
 
-Formulate an interesting question. State this question and why it's interesting (2-3 sentences altogether).
+Formulate an interesting question. State this question and why it's interesting (2-3 sentences altogether). (Note: each person should have a different question and probably use different data.)
 
 Find your own **two** data sets, **from different sources**, that may help you answer this question, and merge them with `merge`. Then create a summary data frame (using `melt/dcast` and/or `aggregate`). This summary should lead to an answer to your question.
 
