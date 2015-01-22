@@ -5,57 +5,123 @@ title: "Demo: Student loans"
 
 # Demo: Student loans
 
+This demonstration shows how a variety of tools and R functions can help us collect, cleanup, and merge data sets. It started with a question along the lines of, "Do students from poor areas of the US more often apply for and get student loans?" This demo collects data about student loan applications, IRS tax data for US zip codes, and school enrollment/applications. Ultimately, I was unable to find a satisfactory answer to my original question. Even so, this demo showcases useful tools and techniques.
+
 ## Tools used
 
-- Bash, Perl, csvkit --- See: [Unix tools cookbook](/cookbook/unix-tools.html)
+- Bash, Perl, grep, wget, csvkit --- See: [Unix tools cookbook](/cookbook/unix-tools.html)
 - R --- See: [R notes](/notes/r.html) and [R cookbook](/cookbook/r.html)
 
 ## Find the data
 
-FAFSA by Postsecondary School (several years’ and quarters’ worth)
+The first dataset I found was FASFA statistics, specifically, FAFSA by Postsecondary School (several years’ and quarters’ worth), from the [US Student Aid website](https://studentaid.ed.gov/). I clicked "About", then "Data Center" under Quick Links, then "Student aid data", then [FAFSA® Data by Postsecondary School and State of Legal Residence](https://studentaid.ed.gov/about/data-center/student/application-volume/fafsa-school-state) on the Quick Links.
 
-- https://studentaid.ed.gov/about/data-center/student/application-volume/fafsa-school-state
+This brought me to a page with a link to [documentation about the data](https://studentaid.ed.gov/sites/default/files/fsawg/datacenter/library/FAFSAReportDefinitions.doc), which I read, and a few drop-down menus for different datasets.
 
-Start by downloading the reports' documentation:
+![Student loan data](/images/student-loans-1.png)
 
-- https://studentaid.ed.gov/sites/default/files/fsawg/datacenter/library/FAFSAReportDefinitions.doc
+I did not want to click the drop-down and "Go" button for each data file, so I downloaded them all programmatically.
 
-Next, download the web page so we can extract the links programmatically:
+### Extract the links to data files
 
-```
-wget https://studentaid.ed.gov/about/data-center/student/application-volume/fafsa-school-state
-```
+Download the web page so we can extract the links programmatically:
 
-Notice the page source (the HTML) has links in the `<option>` tags. E.g.,
+{% highlight bash %}
+wget --no-check-certificate \
+  https://studentaid.ed.gov/about/data-center/student/application-volume/fafsa-school-state
+{% endhighlight %}
+
+That saved an HTML file called `fafsa-school-state`. Notice the page source has links in the `<option>` tags, i.e., the drop-down menus with the data files. For example:
 
 ```
 <option value="/sites/default/files/fsawg/datacenter/library/2012_13App_Data_by_State_Q4.xls">2012-2013, Q4</option>
 ```
 
-Download it all:
+I want a list of these URLs (`/sites/default/files/fsawq/...`). I can find these with a regular expression (see [Unix tools cookbook](/cookbook/unix-tools.html) for examples). I have a couple options for doing this. One is Perl:
 
-```perl
+{% highlight perl %}
 #!/usr/bin/perl
 
 # script name: get-links.pl
 
-while(<>) {
-    $line = $_;
-    while($line =~ m!(/sites/.*?\.xls)!g) {
-        print $1."\n";
+while(<>) {                                 # for each line of input
+    $line = $_;                             # use a better variable name
+    while($line =~ m!(/sites/.*?\.xls)!g) { # for each URL pattern on this line (g means 'all')
+        print $1."\n";                      # print the part that matched in the regex parens
     }
 }
+{% endhighlight %}
+
+This little script can be run like so:
+
+{% highlight bash %}
+perl get-links.pl < fafsa-school-state
+{% endhighlight %}
+
+### Use `wget` to fetch all data files
+
+Since the script prints URLs, we can use it in a Bash loop and feed each URL to `wget`:
+
+{% highlight bash %}
+for url in `perl get-links.pl < fafsa-school-state`; do \
+  wget --no-check-certificate https://studentaid.ed.gov/$url; done
+{% endhighlight %}
+
+Alternatively, I could use `grep` with the same regex:
+
+{% highlight bash %}
+grep -oP '/sites/.*?\.xls' fafsa-school-state
+{% endhighlight %}
+
+This outputs the following (as does the Perl script):
+
+```
+/sites/default/files/fsawg/datacenter/library/AppDatabySchool20142015Q3.xls
+/sites/default/files/fsawg/datacenter/library/App_Data_by_School_2014_2015_Q2.xls
+/sites/default/files/fsawg/datacenter/library/App_Data_by_School_2014_2015_Q1.xls
+/sites/default/files/fsawg/datacenter/library/App_Data_by_School_2013_2014_Q6.xls
+/sites/default/files/fsawg/datacenter/library/2013_14App_Data_by_SchoolQ5.xls
+/sites/default/files/fsawg/datacenter/library/2013_14App_Data_by_SchoolQ4.xls
+...
 ```
 
-```bash
-for url in `perl get-links.pl < fafsa-school-state.html`; do wget https://studentaid.ed.gov/$url; don
-```
+I can use the same Bash loop:
+
+{% highlight bash %}
+for url in `grep -oP '/sites/.*?\.xls' fafsa-school-state`; do \
+  wget --no-check-certificate https://studentaid.ed.gov/$url; done
+{% endhighlight %}
 
 I don't want FAFSA data by state, only by school. So I'll delete the "State" files:
 
-```bash
+{% highlight bash %}
 rm *State*
+{% endhighlight %}
+
+We now have these files:
+
 ```
+2011_12App_Data_by_School_Q6.xls  AppDatabySchool20072008Qtr5.xls  AppDatabySchool20102011Qtr2.xls
+2012_13App_Data_by_School_Q2.xls  AppDatabySchool20072008Qtr6.xls  AppDatabySchool20102011Qtr3.xls
+2012_13App_Data_by_School_Q3.xls  AppDatabySchool20082009Qtr1.xls  AppDatabySchool20112012Q1.xls
+2012_13App_Data_by_SchoolQ4.xls   AppDatabySchool20082009Qtr2.xls  AppDatabySchool20112012Q2.xls
+2012_13App_Data_by_School_Q5.xls  AppDatabySchool20082009Qtr3.xls  AppDatabySchool20112012Qtr3.xls
+2013_14App_Data_by_School_Q1.xls  AppDatabySchool20082009Qtr4.xls  AppDatabySchool20112012Qtr4.xls
+2013_14App_Data_by_SchoolQ4.xls   AppDatabySchool20082009Qtr5.xls  AppDatabySchool20112012Qtr5.xls
+2013_14App_Data_by_SchoolQ5.xls   AppDatabySchool20082009Qtr6.xls  App_Data_by_School_2012_2013_Q6.xls
+AppDatabySchool20062007Qtr1.xls   AppDatabySchool20092010Qtr1.xls  AppDatabySchool20122013Qtr1.xls
+AppDatabySchool20062007Qtr2.xls   AppDatabySchool20092010Qtr2.xls  App_Data_by_School_2013_2014_Q2.xls
+AppDatabySchool20062007Qtr3.xls   AppDatabySchool20092010Qtr3.xls  App_Data_by_School_2013_2014_Q3.xls
+AppDatabySchool20062007Qtr4.xls   AppDatabySchool20092010Qtr4.xls  App_Data_by_School_2013_2014_Q6.xls
+AppDatabySchool20062007Qtr5.xls   AppDatabySchool20092010Qtr5.xls  App_Data_by_School_2014_2015_Q1.xls
+AppDatabySchool20062007Qtr6.xls   AppDatabySchool20092010Qtr6.xls  App_Data_by_School_2014_2015_Q2.xls
+AppDatabySchool20072008Qtr1.xls   AppDatabySchool20102011Q4.xls    AppDatabySchool20142015Q3.xls
+AppDatabySchool20072008Qtr2.xls   AppDatabySchool20102011Q5.xls    fafsa-school-state
+AppDatabySchool20072008Qtr3.xls   AppDatabySchool20102011Q6.xls
+AppDatabySchool20072008Qtr4.xls   AppDatabySchool20102011Qtr1.xls
+```
+
+Notice the inconsistent naming. Welcome to the real world!
 
 ## Assess the data
 
@@ -63,7 +129,7 @@ Open a few of these downloaded XLS files to see what we're working with.
 
 ![FAFSA XLS](/images/fafsa-xls.png)
 
-We see some special formatting (colors, multi-column cells, etc.) but, luckily, the valuable data seem to be in consistent table format.
+We see some special formatting (colors, multi-column cells, etc.), which is useless. Luckily, the valuable data seem to be in consistent table format.
 
 Next, take a look at `FAFSAReportDefinitions.doc`. After closely reading the documentation and studying the spreadsheets, my assessment of these data is as follows:
 
@@ -77,21 +143,27 @@ Next, take a look at `FAFSAReportDefinitions.doc`. After closely reading the doc
 
 Note: I misunderstood these data at first, for a variety of reasons. I didn't understand how the columns added up, and just started transforming the data. Ultimately, I threw away a lot of that work. It is very important to carefully read the documentation and make sure you understand all the data columns before proceeding. Data like these is often very complex and full of subtleties.
 
-## Transform the data
+## Munge the data
 
-Let's try converting each spreadsheet to CSV format. We can use [csvkit](http://csvkit.readthedocs.org/en/0.9.0/) to do this (as discussed on this [StackOverflow](http://stackoverflow.com/questions/9884353/xls-to-csv-convertor) post).
+As pointed out in the [Data munging notes](/notes/data-munging.html), CSV is almost always the best data format for analysis and big data handling. Let's try converting each spreadsheet to CSV format. We can use [csvkit](http://csvkit.readthedocs.org/en/0.9.0/) to do this (as discussed on this [StackOverflow](http://stackoverflow.com/questions/9884353/xls-to-csv-convertor) post).
 
 First, install csvkit:
 
-```bash
+{% highlight bash %}
 pip install csvkit
-```
+{% endhighlight %}
+
+Or,
+
+{% highlight bash %}
+easy_install csvkit
+{% endhighlight %}
 
 This gives us the program `in2csv`, which we can execute as follows:
 
-```bash
+{% highlight bash %}
 in2csv 2011_12App_Data_by_School_Q6.xls > test.csv
-```
+{% endhighlight %}
 
 Open `test.csv` to see what we're working with:
 
@@ -113,7 +185,7 @@ OPE ID,School,State,Zip Code,School Type,Dependent Students,Independent Students
 
 Notice that the dates are not found in the rows. The dates are in the third line: `Quarter 6 (04/01/12 - 06/30/12)`. We'll want those start/end dates in the rows so each record has that information. Here's a little Perl script to grab these dates and add them to each row:
 
-```perl
+{% highlight perl %}
 #!/usr/bin/perl
 
 # script name: add-dates.pl
@@ -143,13 +215,13 @@ while($line = <>) {
         print "$appcycle,$quarter,$start,$end,$line";
     }
 }
-```
+{% endhighlight %}
 
 Test it:
 
-```bash
-perl add-dates.pl < 2011_12App_Data_by_School_Q6.csv | less
-```
+{% highlight bash %}
+perl add-dates.pl < test.csv | less
+{% endhighlight %}
 
 Output:
 
@@ -169,9 +241,9 @@ Application Cycle,Quarter,Start,End,OPE ID,School,State,Zip Code,School Type,Dep
 
 Looks good. We won't need the first eight lines now. Have a look:
 
-```bash
-perl add-dates.pl < 2011_12App_Data_by_School_Q6.csv | tail -n +8 | less
-```
+{% highlight bash %}
+perl add-dates.pl < test.csv | tail -n +8 | less
+{% endhighlight %}
 
 Output:
 
@@ -182,14 +254,13 @@ Application Cycle,Quarter,Start,End,OPE ID,School,State,Zip Code,School Type,Dep
 2011-2012,6,04/01/12,06/30/12,00100400,UNIVERSITY OF MONTEVALLO                ,AL,35115-6000,Public       ,16.0,27.0,43.0,2227.0,1637.0,3864.0
 ```
 
-
 Notice that "Dependent Students" and "Independent Students" are repeated. This is because the last three columns are "year to date" sums, which we don't need (we can generate that ourselves using all of the quarterly data). So let's chop those columns off, using csvkit. Also, "Quarterly Total" is just the sum of the previous two columns. We can add numbers ourselves, when needed.
 
 Run `csvcut -n` to see what the columns are numbered:
 
-```bash
-perl add-dates.pl < 2011_12App_Data_by_School_Q6.csv | tail -n +8 | csvcut -n
-```
+{% highlight bash %}
+perl add-dates.pl < test.csv | tail -n +8 | csvcut -n
+{% endhighlight %}
 
 Output:
 
@@ -213,9 +284,9 @@ Output:
 
 Now we'll choose the columns we want to keep, and use `less` to see the result.
 
-```bash
-perl add-dates.pl < 2011_12App_Data_by_School_Q6.csv | tail -n +8 | csvcut -c 1,2,3,4,5,6,7,8,9,10,11 | less
-```
+{% highlight bash %}
+perl add-dates.pl < test.csv | tail -n +8 | csvcut -c 1,2,3,4,5,6,7,8,9,10,11 | less
+{% endhighlight %}
 
 Output:
 
@@ -228,9 +299,12 @@ Application Cycle,Quarter,Start,End,OPE ID,School,State,Zip Code,School Type,Dep
 
 That looks good. Now run this conversion on all the files.
 
-```bash
-for f in `ls *.xls`; do fname=`basename $f .xls`; in2csv $f | perl add-dates.pl | tail -n +8 | csvcut -c 1,2,3,4,5,6,7,8,9,10,11 > $fname.csv; done
-```
+{% highlight bash %}
+for f in `ls *.xls`; do \
+  fname=`basename $f .xls`; \
+  in2csv $f | perl add-dates.pl | tail -n +8 | csvcut -c 1,2,3,4,5,6,7,8,9,10,11 > $fname.csv; \
+done
+{% endhighlight %}
 
 Take a look at all the generated CSV files (type `:n` to switch to the next file, `:p` for the previous):
 
@@ -238,7 +312,7 @@ Take a look at all the generated CSV files (type `:n` to switch to the next file
 less *.csv
 ```
 
-We see consistency among the files. Fantastic! (Finding a correct set of transformations took hours of work.)
+We see consistency among the files. Fantastic! (Finding a correct set of transformations took hours of work. Data munging to the max!)
 
 Use `csvstat` (from csvkit, installed earlier) to give a quick analysis of a file:
 
@@ -343,18 +417,18 @@ This gives us:
 Row count: 7478
 ```
 
-So just with csvkit, we get some useful information:
+So just with `csvstat`, we get some useful information:
 
 - ITT Tech has 41 schools in various states (in 2011). It is the most common school (among schools whose students apply for federal aid). Empire Beauty School is second most common, etc.
 - California has the most schools. New York is second.
-- Lots of Zip codes are written `000000-0000`. This is effectively a "null" value, and might cause trouble later when try to correlate poverty with federal aid.
+- Lots of Zip codes are written `000000-0000`. This is effectively a "NA" value, but not actually written as such, and might cause trouble later when try to correlate poverty with federal aid.
 - Some school had 26797 independent students funded in Q6 2011. Searching for this number in the CSV file shows us it is the University of Phoenix. Makes sense.
 
 Because we included the quarter and dates in the rows, we can concatenate (join) all the CSV files into one. We can use `csvstack` (from csvkit) to do this.
 
-```bash
+{% highlight bash %}
 csvstack *.csv > fafsa-by-school.csv
-```
+{% endhighlight %}
 
 Take a look at the result with `less` and `csvstat`. Below is `csvstat`'s output. Note, it took some time (64 seconds) for `csvstat` to process the joined file. While not yet "big data," we're playing a dangerous game here. Joining data files will be a bad idea in the near future.
 
@@ -498,8 +572,8 @@ Row count: 371898
 
 ## Load the data into R
 
-```r
-> d <- read.csv("fafsa-by-school.csv", strip.white=TRUE)
+{% highlight r %}
+> d <- read.csv("fafsa-by-school.csv", strip.white=TRUE)  # strip.white so extra white space is removed
 > nrow(d)
 [1] 371898
 > colnames(d)
@@ -520,15 +594,19 @@ Row count: 371898
 3                 16                   27
 4                241                  147
 5                 49                  109
-```
+{% endhighlight %}
 
-```r
+Let's chop off the +4 part of the zip codes and the second part of the application years.
+
+{% highlight r %}
 > require(stringr)
 > d$Zip <- str_sub(d$Zip.Code, start=0, end=5)
 > d$Year <- str_sub(d$Application.Cycle, start=0, end=4)
-```
+{% endhighlight %}
 
-```r
+Next, we'll use `aggregate` to create the sum of dependent and independent students across the quarters. Recall we removed this column from the Excel data. We'll also simply not include columns we don't care about, like "Start" and "End" and "OPE.ID" and "Quarter".
+
+{% highlight r %}
 > d_dep_sum_cycle <- aggregate(cbind(Dependent.Students, Independent.Students) ~ School + Year + Zip + School.Type, d, sum)
 > d_dep_sum_cycle
                                         School Year   Zip School.Type Dependent.Students Independent.Students
@@ -566,11 +644,11 @@ Row count: 371898
 32                         BAR-ILAN UNIVERSITY 2006 00000     Private                  7                   18
 33                       BETHANY BIBLE COLLEGE 2006 00000     Private                 90                   26
  [ reached getOption("max.print") -- omitted 67779 rows ]
-```
+{% endhighlight %}
 
 Choose an application year to examine, say 2011-2012, and compare it to the spreadsheet `2011_12App_Data_by_School_Q6.xls` (column I; the spreadsheets are not sorted by school, so you'll need to search on particular school names). You should find that our "aggregated" data matches the spreadsheet's Q6 year-to-date numbers. Thus, we are able to recreate those numbers from the raw data, just like we expected (see the advice from the [data munging](/notes/data-munging.html) notes).
 
-```r
+{% highlight r %}
 > d_dep_sum_cycle[d_dep_sum_cycle$Year == "2011",]
                                         School Year   Zip School.Type Dependent.Students Independent.Students
 6                          INVALID SCHOOL CODE 2011 00000                           3985                 9934
@@ -588,9 +666,9 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 643     ANGLO EUROPEAN COLLEGE OF CHIROPRACTIC 2011 00000     Private                  1                    2
 644              ASIAN INSTITUTE OF MANAGEMENT 2011 00000     Private                  3                   19
 645                ATLANTIC BAPTIST UNIVERSITY 2011 00000     Private                  3                    0
-```
+{% endhighlight %}
 
-```r
+{% highlight r %}
 > d_dep_sum_cycle[d_dep_sum_cycle$School == "STETSON UNIVERSITY",]
                  School Year   Zip School.Type Dependent.Students Independent.Students
 9384 STETSON UNIVERSITY 2006 32723     Private               2344                  656
@@ -602,13 +680,15 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 9390 STETSON UNIVERSITY 2012 32723     Private               5366                 1296
 9391 STETSON UNIVERSITY 2013 32723     Private               7216                 1209
 9392 STETSON UNIVERSITY 2014 32723     Private               6868                 1021
-```
-
-
+{% endhighlight %}
 
 ## Correlate IPEDS data
 
-```r
+Now we're ready to gather school application data. These data tell us how many people applied to a school during a certain year. We can go to [IPEDS](http://nces.ed.gov/ipeds/datacenter/Default.aspx) for these data. See the [data sources cookbook](/cookbook/data-sources.html) for more info about IPEDS.
+
+Ultimately, we gather some CSV files, and load them into R:
+
+{% highlight r %}
 > app2007 <- read.csv("applicants-2007.csv", strip.white=TRUE)
 > app2008 <- read.csv("applicants-2008.csv", strip.white=TRUE)
 > app2009 <- read.csv("applicants-2009.csv", strip.white=TRUE)
@@ -616,11 +696,13 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 > app2011 <- read.csv("applicants-2011.csv", strip.white=TRUE)
 > app2012 <- read.csv("applicants-2012.csv", strip.white=TRUE)
 > app2013 <- read.csv("applicants-2013.csv", strip.white=TRUE)
-```
+{% endhighlight %}
 
-```
+Let's examine, and then fix up the column names:
+
+{% highlight r %}
 > colnames(app2007)
-[1] "unitid"                  "institution.name"        "year"                    "IC2007.Applicants.total" "HD2007.ZIP.code"
+[1] "unitid" "institution.name" "year" "IC2007.Applicants.total" "HD2007.ZIP.code"
 > colnames(app2007) <- c("Unitid", "School", "Year", "Applicants", "Zip")
 > colnames(app2007)
 [1] "Unitid"     "School"     "Year"       "Applicants" "Zip"
@@ -630,9 +712,11 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 > colnames(app2011) <- c("Unitid", "School", "Year", "Applicants", "Zip")
 > colnames(app2012) <- c("Unitid", "School", "Year", "Applicants", "Zip")
 > colnames(app2013) <- c("Unitid", "School", "Year", "Applicants", "Zip")
-```
+{% endhighlight %}
 
-```r
+Next, we'll join (with `rbind`) each data set:
+
+{% highlight r %}
 > apps <- rbind(app2007, app2008, app2009, app2010, app2011, app2012, app2013)
 > apps
       Unitid                                                                                      School Year Applicants        Zip
@@ -657,9 +741,11 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 19    101240                                                             Gadsden State Community College 2007         NA 35902-0227
 20    101277                                                        New Beginning College of Cosmetology 2007         NA
  [ reached getOption("max.print") -- omitted 53159 rows ]
-```
+{% endhighlight %}
 
-```r
+Some zip codes have +4, some don't. Let's normalize to a 5-digit zip. First, let's see what the `str_sub` function gives us:
+
+{% highlight r %}
 > str_sub(apps$Zip, 0, 5)
   [1] "35762" "35294" "36117" "35899" "36101" "35401" "35487" "35010" "35611" "36117" "36849" "35254" "36869" "36701" "36116" "36330" "36507" "36109"
  [19] "35902" ""      "36303" "35077" "36703" "35209" "36106" "35630" "35811" "36022" "36265" "36426" "35215" "35671" "36756" "35221" "35470" "36420"
@@ -668,6 +754,11 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
  [73] "85021" "85281" "85032" "85716" "85306" "85021" "85043" "85051" ""      ""      "86001" "85712" "85301" "85019" "85287" "85365" "85721" "85716"
  [91] "85251" "85228" "85712" "86403" "85607" "86004" "85224" "85710" "85021" "85210"
  [ reached getOption("max.print") -- omitted 53079 entries ]
+{% endhighlight %}
+
+Looks good. Save these back into the data frame:
+
+{% highlight r %}
 > apps$Zip <- str_sub(apps$Zip, 0, 5)
 > apps
       Unitid                                                                                      School Year Applicants   Zip
@@ -692,9 +783,15 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 19    101240                                                             Gadsden State Community College 2007         NA 35902
 20    101277                                                        New Beginning College of Cosmetology 2007         NA
  [ reached getOption("max.print") -- omitted 53159 rows ]
-```
+{% endhighlight %}
 
-```r
+### Match school names across datasets
+
+Now the **really tricky part**. Notice schools are named slightly differently in the FAFSA dataset and the IPEDS dataset. E.g., "ALABAMA AGRCLTL & MECHL UNIV" vs. "Alabama A & M University".
+
+![Meme Alabama](/images/meme-alabama.jpg)
+
+{% highlight r %}
 > appschools <- unique(apps[,c("School","Zip"),drop=FALSE])
 > appschools
                                                                                            School   Zip
@@ -723,11 +820,20 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 > dschools <- unique(d_dep_sum_cycle[,c("School","Zip"),drop=FALSE])
 > dim(dschools)
 [1] 9694    2
-```
+{% endhighlight %}
 
-```r
-> findMatchingSchool <- function(x, schools) { ssub <- subset(schools, Zip==x[["Zip"]]); if(nrow(ssub) > 0) { dists <- adist(tolower(x[["School"]]), apply(ssub, 1, function(y) tolower(y[["School"]]) )); if(min(dists) < str_length(x[["School"]]) && min(dists) < str_length(as.character(ssub$School[which.min(dists)]))) { as.character(ssub$School[which.min(dists)]) } else { NA } } else { NA } }
-> data.frame(aschool = appschools[1:50,,drop=F]$School, dschool = apply(appschools[1:50,,drop=F], 1, function(x) findMatchingSchool(x, dschools)))
+{% highlight r %}
+> findMatchingSchool <- function(x, schools) {
++   ssub <- subset(schools, Zip==x[["Zip"]]);
++   if(nrow(ssub) > 0) {
++     dists <- adist(tolower(x[["School"]]), apply(ssub, 1, function(y) tolower(y[["School"]]) ));
++     if(min(dists) < str_length(x[["School"]]) && min(dists) < str_length(as.character(ssub$School[which.min(dists)]))) {
++       as.character(ssub$School[which.min(dists)])
++     } else { NA }
++   } else { NA }
++ }
+> data.frame(aschool = appschools[1:50,,drop=F]$School, dschool =
++  apply(appschools[1:50,,drop=F], 1, function(x) findMatchingSchool(x, dschools)))
                                                aschool                                  dschool
 1                             Alabama A & M University             ALABAMA AGRCLTL & MECHL UNIV
 2                  University of Alabama at Birmingham      UNIVERSITY OF ALABAMA AT BIRMINGHAM
@@ -779,13 +885,14 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 48                      Bishop State Community College           BISHOP STATE COMMUNITY COLLEGE
 49                                  Samford University                       SAMFORD UNIVERSITY
 50                                    Selma University                                     <NA>
-```
+{% endhighlight %}
 
-```r
-> schoolnames <- data.frame(aschool = appschools$School, dschool = apply(appschools, 1, function(x) findMatchingSchool(x, dschools)))
-```
+{% highlight r %}
+> schoolnames <- data.frame(aschool = appschools$School, dschool =
++   apply(appschools, 1, function(x) findMatchingSchool(x, dschools)))
+{% endhighlight %}
 
-```r
+{% highlight r %}
 > merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool")
                                         School Year   Zip School.Type Dependent.Students Independent.Students                                                                   aschool
 1                   A & W HEALTHCARE EDUCATORS 2011 70122 Proprietary                 33                  234                                                A & W Healthcare Educators
@@ -799,11 +906,11 @@ Choose an application year to examine, say 2011-2012, and compare it to the spre
 9           A.T. STILL UNIV OF HEALTH SCIENCES 2011 63501     Private                 15                 2984                                   A T Still University of Health Sciences
 10          A.T. STILL UNIV OF HEALTH SCIENCES 2007 63501     Private                  6                 2318                                   A T Still University of Health Sciences
  [ reached getOption("max.print") -- omitted 96428 rows ]
-```
+{% endhighlight %}
 
 Let's see what we're working with before we do the merges:
 
-```r
+{% highlight r %}
 > subset(d_dep_sum_cycle, School == "A & W HEALTHCARE EDUCATORS")
                           School Year   Zip School.Type Dependent.Students Independent.Students
 35672 A & W HEALTHCARE EDUCATORS 2009 70122 Proprietary                  2                   21
@@ -812,6 +919,7 @@ Let's see what we're working with before we do the merges:
 35675 A & W HEALTHCARE EDUCATORS 2012 70122 Proprietary                 67                  443
 35676 A & W HEALTHCARE EDUCATORS 2013 70122 Proprietary                 75                  454
 35678 A & W HEALTHCARE EDUCATORS 2014 70122 Proprietary                 58                  384
+
 > subset(apps, School == "A & W Healthcare Educators")
       Unitid                     School Year Applicants   Zip                    aschool
 6705  457590 A & W Healthcare Educators 2007         NA       A & W Healthcare Educators
@@ -821,11 +929,11 @@ Let's see what we're working with before we do the merges:
 37093 457590 A & W Healthcare Educators 2011         NA 70126 A & W Healthcare Educators
 44690 457590 A & W Healthcare Educators 2012         NA 70126 A & W Healthcare Educators
 52287 457590 A & W Healthcare Educators 2013         NA 70126 A & W Healthcare Educators
-```
+{% endhighlight %}
 
 For A & W Healthcare Educators, we only have a match across the two datasets for 2010. (Unfortunately, applicants is NA for that year, so we'll throw it out anyway.)
 
-```
+{% highlight r %}
 > subset(d_dep_sum_cycle, School == "STETSON UNIVERSITY")
                  School Year   Zip School.Type Dependent.Students Independent.Students
 9384 STETSON UNIVERSITY 2006 32723     Private               2344                  656
@@ -837,6 +945,7 @@ For A & W Healthcare Educators, we only have a match across the two datasets for
 9390 STETSON UNIVERSITY 2012 32723     Private               5366                 1296
 9391 STETSON UNIVERSITY 2013 32723     Private               7216                 1209
 9392 STETSON UNIVERSITY 2014 32723     Private               6868                 1021
+
 > subset(apps, School == "Stetson University")
       Unitid             School Year Applicants   Zip            aschool
 899   137546 Stetson University 2007       2948 32723 Stetson University
@@ -846,17 +955,21 @@ For A & W Healthcare Educators, we only have a match across the two datasets for
 31287 137546 Stetson University 2011       3454 32723 Stetson University
 38884 137546 Stetson University 2012       4862 32723 Stetson University
 46481 137546 Stetson University 2013      10509 32723 Stetson University
-```
+{% endhighlight %}
 
 For Stetson University, years 2006 and 2014 are not represented in the applicants counts. But years 2007-2013 should match up correctly.
 
-```r
-> subset(merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool"), apps, by=c("aschool", "Year", "Zip")), aschool == "A & W Healthcare Educators")
+{% highlight r %}
+> subset(merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool")
++              apps, by=c("aschool", "Year", "Zip")),
++        aschool == "A & W Healthcare Educators")
 
                      aschool Year   Zip                   School.x School.Type Dependent.Students Independent.Students Unitid                   School.y Applicants
 1 A & W Healthcare Educators 2010 70122 A & W HEALTHCARE EDUCATORS Proprietary                 29                  207 457590 A & W Healthcare Educators         NA
 
-> subset(merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool"), apps, by=c("aschool", "Year", "Zip")), aschool == "Stetson University")
+> subset(merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool"),
++              apps, by=c("aschool", "Year", "Zip")),
++        aschool == "Stetson University")
 
                  aschool Year   Zip           School.x School.Type Dependent.Students Independent.Students Unitid           School.y Applicants
 30555 Stetson University 2007 32723 STETSON UNIVERSITY     Private               2323                  644 137546 Stetson University       2948
@@ -866,19 +979,19 @@ For Stetson University, years 2006 and 2014 are not represented in the applicant
 30559 Stetson University 2011 32723 STETSON UNIVERSITY     Private               3746                 1258 137546 Stetson University       3454
 30560 Stetson University 2012 32723 STETSON UNIVERSITY     Private               5366                 1296 137546 Stetson University       4862
 30561 Stetson University 2013 32723 STETSON UNIVERSITY     Private               7216                 1209 137546 Stetson University      10509
-```
+{% endhighlight %}
 
 Let's save the merge:
 
-```
+{% highlight r %}
 > appfasfa <- merge(merge(d_dep_sum_cycle, schoolnames, by.x="School", by.y="dschool"), apps, by=c("aschool", "Year", "Zip"))
 > nrow(appfasfa)
 [1] 37665
-```
+{% endhighlight %}
 
 Let's drop some columns and fix their names:
 
-```r
+{% highlight r %}
 > appfasfa <- appfasfa[,!(names(appfasfa) %in% c("School.x", "School.y", "Unitid"))]
 > colnames(appfasfa) <- c("School", "Year", "Zip", "School.Type", "Dependent.Students", "Independent.Students", "Applicants")
 > appfasfa
@@ -894,7 +1007,7 @@ Let's drop some columns and fix their names:
 9                                                        Aaniiih Nakoda College 2007 59526      Public                 64                  132         NA
 10                                                       Aaniiih Nakoda College 2008 59526      Public                 54                  125         NA
  [ reached getOption("max.print") -- omitted 37655 rows ]
-```
+{% endhighlight %}
 
 
 ## Correlate IRS income data

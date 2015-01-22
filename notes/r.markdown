@@ -476,7 +476,9 @@ The parts before the `~` become id columns in the resulting data frame, and the 
 
 The special syntax `...` means "all variables not already listed" and `.` means "no variable".
 
-If a formula results in multiple values for each row (because you didn't mention all variables, for example), then you need to provide an "aggregating" function, e.g., `mean` to average the multiple values. If you do not provide such a function, `length` will be used, meaning it will count how many values match the formula.
+If a formula results in multiple values for each row (because you didn't mention all id variables, for example), then you need to provide an "aggregating" function, e.g., `mean` to average the multiple values. If you do not provide such a function, `length` will be used, meaning it will count how many values match the formula.
+
+Note, `dcast` assumes the values are found in the `values` column, as produced by `melt`.
 
 {% highlight r %}
 # get the original data frame back
@@ -731,6 +733,7 @@ And produce these data frames with `melt` and `dcast`:
 2   Male 2.693000 3.083898 3.220345 2.980333
 
 # Data frame 4 (melt + dcast)
+# (note: this double-counts the records since there 
    day  No Yes   <--- No = non smoker, Yes = smoker
 1  Fri   8  30   <--- these are counts (length)
 2  Sat  90  84
