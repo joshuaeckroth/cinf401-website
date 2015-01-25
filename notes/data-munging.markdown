@@ -45,6 +45,8 @@ Comments from a "big data analytics" perspective:
 
 ### Excel (XLS, XLSX)
 
+Excel data is nearly as good as CSV, because we can convert Excel to CSV using `csvkit`. See the bottom of the [Unix tools](/cookbook/unix-tools.html) for an example using `in2csv`.
+
 ### Comma-separated values (CSV)
 
 The gold-standard for big data acolytes.
