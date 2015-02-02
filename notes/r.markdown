@@ -608,7 +608,7 @@ We'll use the `ChickWeight` data frame again.
 
 ```
 measure-column-1 ~ id-column-1
-measure-column-1 + measure-column-2 ~ id-column-1 + id-column-2
+cbind(measure-column-1, measure-column-2) ~ id-column-1 + id-column-2
 ```
 
 Here we go:
