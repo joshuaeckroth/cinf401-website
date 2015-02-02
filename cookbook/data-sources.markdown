@@ -34,6 +34,12 @@ Go to [Data Tools and Apps](http://www.census.gov/data/data-tools.html) at censu
 
 [TODO; any suggestions?]
 
+## Sports
+
+### NFL
+
+- [nfldb](https://github.com/BurntSushi/nfldb), a Python library that downloads NFL data and saves to a CSV file. Found by George Robbins.
+
 ## Education
 
 ### IPEDS Data Center
@@ -83,6 +89,10 @@ Google has released data about their cluster machines. They have [some questions
 More information may be found [here](https://code.google.com/p/googleclusterdata/). The data is downloaded using Google's `gsutil` tool, as described in [this document](https://docs.google.com/file/d/0B5g07T_gRDg9Z0lsSTEtTWtpOW8/edit).
 
 We might look at these data when we learn about Hadoop.
+
+## GitHub Archive
+
+GitHub provides a continuous stream of events from its millions of hosted projects. Look at their [overview page](https://www.githubarchive.org/) for details.
 
 ## Million Songs
 

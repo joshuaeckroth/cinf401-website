@@ -246,3 +246,8 @@ By default, the facet labels only show the variables' values. If you want to sho
 {% highlight r %}
 facet_grid(vert ~ horiz, labeller = label_both)
 {% endhighlight %}
+
+## 3D Scatterplots
+
+While not actually ggplot, there is a library for 3D scatterplots. Read its [PDF documentation](http://cran.r-project.org/web/packages/scatterplot3d/scatterplot3d.pdf). This library was demonstrated by Christian Micklisch.
+
