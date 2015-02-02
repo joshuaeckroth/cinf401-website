@@ -11,7 +11,7 @@ The "gg" of ggplot stands for "grammar of graphics." The ggplot library provides
 
 Every plot starts with the `ggplot()` function. Then, you "add" graphics to it (using `+`), such as `geom_line()` or `geom_point()`. The examples below and in the cookbook illustrate this point.
 
-The [ggplot docs](http://docs.ggplot2.org/current/) might prove useful to you.
+The [ggplot docs](http://docs.ggplot2.org/current/) might prove useful to you, as will the R book, pp. 86-98, and the [Cookbook for R](http://www.cookbook-r.com/Graphs/).
 
 ## Aesthetics
 
@@ -42,6 +42,8 @@ ggplot(d) + geom_point(aes(x=col1, y=col2))
 **Important:** The values for any single aesthetic (x values, y values, fill color, line color, etc.) must come from a single column in the data frame.
 
 If your values come from different columns (or the values are column names), you'll need to melt (and possibly cast) the data frame first.
+
+Sometimes you want to set a color, shape, or facets based on some column. If that column is not already a "factor", you may need to cast it as one first, using `factor(col)` for the column name instead of just `col`.
 
 ### Example
 
