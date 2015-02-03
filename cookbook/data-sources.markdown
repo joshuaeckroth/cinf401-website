@@ -24,7 +24,7 @@ Go to [Data Tools and Apps](http://www.census.gov/data/data-tools.html) at censu
 
 ### Weather Underground
 
-- [Historical Weather](http://www.wunderground.com/history/) -- Choose a location and date (on the next page, you can choose a range of dates). On the next page, you see some weather stats. You click the top tab "Custom" to give a range of dates (range can be specified in drop-downs above the tabs); click "Get History" button to update. At the bottom of this page, there is a link for the CSV file.
+- [Historical Weather](http://www.wunderground.com/history/) -- Choose a location and date (on the next page, you can choose a range of dates). On the next page, you see some weather stats. You click the top tab "Custom" to give a range of dates (range can be specified in drop-downs above the tabs); click "Get History" button to update. At the bottom of this page, there is a link for the CSV file. **[Note: As of Feb 3, 2015, this site is broken.]**
 
 ## Biology, wildlife
 
