@@ -44,6 +44,34 @@ Technique:
 > ggsave("plot-faithful-points.png", p, width=6, height=4, dpi=100)
 {% endhighlight %}
 
+### Jittered points
+
+Sometimes, points lie on top of each other or so close they're hard to see. Sometimes (though rarely), it's a good idea to "jitter" them so they are more separate.
+
+For example, here is a plot of the miles-per-gallon data of engine size (displacement in liters) vs. highway mpg:
+
+![MPG points plot](/images/plot-mpg-points.png)
+
+This code made that plot:
+
+{% highlight r %}
+> p <- ggplot(mpg) + geom_point(aes(x=displ, y=hwy))
+> ggsave("plot-mpg-points.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+You can't tell, but there are actually lots of points on top of each other. Adding a jitter shows that:
+
+![MPG points plot with jitter](/images/plot-mpg-points-jitter.png)
+
+This code made that plot:
+
+{% highlight r %}
+> p <- ggplot(mpg) + geom_point(aes(x=displ, y=hwy), position=position_jitter())
+> ggsave("plot-mpg-points-jitter.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+You can use `width` and `height` arguments in `position_jitter()` to indicate how much jitter is allowed horizontally and vertically. Sometimes you want to disable vertical jittering, and only have horizontal jittering. Or vice versa.
+
 ### Lines
 
 Given this dataset,
@@ -217,6 +245,74 @@ Technique:
 
 - `labs(fill="Expense Type")` means to rename the legend label for the fill colors
 
+### Text
+
+Given this iris (flower) data,
+
+{% highlight r %}
+> head(iris)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+{% endhighlight %}
+
+Produce,
+
+![Iris text](/images/plot-iris-text.png)
+
+Technique:
+
+{% highlight r %}
+> p <- ggplot(iris) +
+       geom_text(aes(x=Petal.Length, y=Petal.Width, label=Species, color=Species),
+                 size=3, position=position_jitter()) +
+       guides(color=FALSE)
+> ggsave("plot-iris-text.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+- `geom_text()` needs an `x`, `y`, and `label`
+- `guides(color=FALSE)` means don't produce a legend for the `color` aesthetic
+
+### Summary plots
+
+Given the movies dataset,
+
+{% highlight r %}
+> head(movies[,c("title", "year", "length", "rating", "votes")])
+                     title year length rating votes
+1                        $ 1971    121    6.4   348
+2        $1000 a Touchdown 1939     71    6.0    20
+3   $21 a Day Once a Month 1941      7    8.2     5
+4                  $40,000 1996     70    8.2     6
+5 $50,000 Climax Show, The 1975     71    3.4    17
+6                    $pent 2000     91    4.3    45
+{% endhighlight %}
+
+Produce,
+
+![Average movie rating by year](/images/plot-movies-avg-rating-year.png)
+
+Technique:
+
+{% highlight r %}
+> p <- ggplot(movies) +
+       stat_summary(fun.y=median, geom="line", aes(x=year, y=rating)) +
+       scale_x_continuous("Year") +
+       scale_y_continuous("Median rating (0-10)")
+> ggsave("plot-movies-avg-rating-year.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+Note, you can achieve the same with `aggregate` and plot a normal `geom_line`:
+
+{% highlight r %}
+> d <- aggregate(rating ~ year, movies, median)
+> ggplot(d) + geom_line(aes(x=year, y=rating))
+{% endhighlight %}
+
 ## Axes
 
 See the [Cookbook for R](http://www.cookbook-r.com/Graphs/Axes_\(ggplot2\)/).
@@ -250,4 +346,54 @@ facet_grid(vert ~ horiz, labeller = label_both)
 ## 3D Scatterplots
 
 While not actually ggplot, there is a library for 3D scatterplots. Read its [PDF documentation](http://cran.r-project.org/web/packages/scatterplot3d/scatterplot3d.pdf). This library was demonstrated by Christian Micklisch.
+
+## Map plots
+
+Using the `ggmap` library, you can plot on maps! For example, we can plot quake data on a map of Fiji. The built-in dataset `quakes` contains lat/long coordinates and quake magnitude:
+
+{% highlight r %}
+> head(quakes)
+     lat   long depth mag stations
+1 -20.42 181.62   562 4.8       41
+2 -20.62 181.03   650 4.2       15
+3 -26.00 184.10    42 5.4       43
+4 -17.97 181.66   626 4.1       19
+5 -20.42 181.96   649 4.0       11
+6 -19.68 184.31   195 4.0       12
+{% endhighlight %}
+
+Using ggmap, we can download a map of Fiji,
+
+{% highlight r %}
+> library(ggmap)
+> fiji <- get_map("fiji", zoom=4)  # save it so we don't have to download it again
+{% endhighlight %}
+
+And then make a plot with the points on top of the map. We'll make the points partially transparent, and their size relative to the quake magnitude:
+
+{% highlight r %}
+> p <- ggmap(fiji) + geom_point(data=quakes, aes(x=long, y=lat, size=mag), color="#00000022")
+> ggsave("plot-map-fiji-quakes.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+![Fiji quakes](/images/plot-map-fiji-quakes.png)
+
+Or Houston crime data:
+
+{% highlight r %}
+> houston <- get_map("Houston", zoom=11)
+> p <- ggmap(houston) + geom_point(data=subset(crime, date=="1/2/2010"), aes(x=lon, y=lat, shape=offense))
+> ggsave("plot-map-houston-crime.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+![Houston crime](/images/plot-map-houston-crime.png)
+
+A 2d density plot can show you which areas have the most crime.
+
+{% highlight r %}
+> p <- ggmap(houston) + stat_density2d(data=crime, aes(x=lon, y=lat))
+> ggsave("plot-map-houston-crime-contours.png", p, width=6, height=4, dpi=100)
+{% endhighlight %}
+
+![Houston crime contours](/images/plot-map-houston-crime-contours.png)
 
