@@ -4,7 +4,7 @@ html, * {
 }
 
 body {
-    color: #443E41;
+    color: #111;
     font-size: 16px;
     font-family: "Lato", sans-serif;
     line-height: 1.5;
@@ -30,7 +30,7 @@ h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #F1A156;
+    color: #000;
     font-family: "Crete Round", serif;
 }
 
@@ -57,7 +57,8 @@ ul.posts {
 
 a, a:visited, a:active, a:hover {
     text-decoration: none;
-    color: #85A5E0;
+    font-weight: bold;
+    color: #aaa;
 }
 
 table#index {
@@ -70,11 +71,11 @@ table#index td {
 }
 
 td#posts {
-    width: 75%;
+    width: 80%;
 }
 
 td#metabox {
-    width: 25%;
+    width: 20%;
 }
 
 td#metabox a,
@@ -85,7 +86,7 @@ td#metabox a:hover {
 }
 
 td#metabox {
-    background: #9BBF53;
+    background: #aaa;
     color: white;
     padding: 10px;
 }
@@ -106,6 +107,7 @@ td#metabox div.email {
 
 td#metabox div.officehours {
     margin: 20px 0;
+    font-size: 14px;
 }
 
 .post-title {
@@ -159,7 +161,7 @@ div.metatop span.homelink {
 
 table {
     margin: 20px 0;
-    border: 1px solid #443E41;
+    border: 1px solid #aaa;
 }
 
 td {
@@ -167,7 +169,7 @@ td {
 }
 
 pre {
-    border-left: 4px solid #9BBF53;
+    border-left: 4px solid #aaa;
     padding-left: 15px;
     margin: 2em 0;
 }
@@ -178,7 +180,7 @@ pre, code, tt {
 }
 
 code {
-    border: 1px dotted #9BBF53;
+    border: 1px dotted #aaa;
     padding: 2px;
 }
 
@@ -188,7 +190,7 @@ pre code {
 }
 
 blockquote {
-    border-left: 4px solid #9BBF53;
+    border-left: 4px solid #aaa;
     padding-left: 15px;
     margin: 2em 0;
     padding-left: 30px;
