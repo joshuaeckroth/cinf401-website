@@ -7,6 +7,12 @@ title: Hadoop
 
 *Note: See the corresponding [cookbook about HDFS](/cookbook/hdfs.html) and [cookbook about Map-Reduce](/cookbook/map-reduce.html). This page has lecture notes.*
 
+## General strategy
+
+Big data --> small data --> analysis
+
+> "make big data as small as possible as quick as is possible" -- [@EllieMcDonagh](https://twitter.com/EllieMcDonagh/status/469184554549248000)
+
 ## YARN
 
 From http://hortonworks.com/hadoop/yarn/

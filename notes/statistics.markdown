@@ -456,3 +456,9 @@ sample estimates:
 It seems so. `prop 1` (Jane's performance) is 60%, `prop 2` (Frank's performance) is 78.4%, so Frank is better, and significantly so since p<0.01.
 
 You can use any number of values in `x` and `n` (as long as they have the same length) to compare multiple proportions simultaneously.
+
+## Worries about multiple hypothesis testing
+
+If you do enough variations of similar tests, you're bound to hit that 5% or 1% (p<0.05, p<0.01) where "significance" happens by chance. That's what the p-value means.
+
+![xkcd hypothesis testing](http://imgs.xkcd.com/comics/significant.png)
