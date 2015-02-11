@@ -29,6 +29,66 @@ title: "Cookbook: R"
 [1] 120
 ```
 
+## Running examples from documentation
+
+Most functions have examples at the bottom when you read their help pages (e.g., `?prop.test`). You can run these examples with the `example()` function:
+
+{% highlight r %}
+> example(prop.test)
+
+prp.ts> heads <- rbinom(1, size = 100, prob = .5)
+
+prp.ts> prop.test(heads, 100)          # continuity correction TRUE by default
+
+	1-sample proportions test with continuity correction
+
+data:  heads out of 100, null probability 0.5
+X-squared = 1.21, df = 1, p-value = 0.2713
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.4573588 0.6579781
+sample estimates:
+   p
+0.56
+
+
+prp.ts> prop.test(heads, 100, correct = FALSE)
+
+	1-sample proportions test without continuity correction
+
+data:  heads out of 100, null probability 0.5
+X-squared = 1.44, df = 1, p-value = 0.2301
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.4622810 0.6532797
+sample estimates:
+   p
+0.56
+
+
+prp.ts> ## Data from Fleiss (1981), p. 139.
+prp.ts> ## H0: The null hypothesis is that the four populations from which
+prp.ts> ##     the patients were drawn have the same true proportion of smokers.
+prp.ts> ## A:  The alternative is that this proportion is different in at
+prp.ts> ##     least one of the populations.
+prp.ts>
+prp.ts> smokers  <- c( 83, 90, 129, 70 )
+
+prp.ts> patients <- c( 86, 93, 136, 82 )
+
+prp.ts> prop.test(smokers, patients)
+
+	4-sample test for equality of proportions without continuity
+	correction
+
+data:  smokers out of patients
+X-squared = 12.6004, df = 3, p-value = 0.005585
+alternative hypothesis: two.sided
+sample estimates:
+   prop 1    prop 2    prop 3    prop 4
+0.9651163 0.9677419 0.9485294 0.8536585
+{% endhighlight %}
+
 ## Reading files
 
 ### CSV files
@@ -74,7 +134,17 @@ head(getSeason(my.dates), 24)
  [15] "Winter" "Winter" "Winter" "Winter" "Winter" "Winter"
 ```
 
+## Convert a vector into "bins"
 
+The `cut` function allows you to rewrite a vector of values (as you might find in a data frame column) into particular "bins". The example below takes a vector of values between 2 and 14 and returns a vector with each value replaced with the corresponding bin. You can set the bin limits ("breaks") to whatever you want. You can also create labels for the bins; be sure you create the right number of labels for all the bin intervals.
+
+{% highlight r %}
+> 2:14
+ [1]  2  3  4  5  6  7  8  9 10 11 12 13 14
+> cut(2:14, breaks=c(0, 5, 10, Inf), labels=c("0-5", "5-10", "10+"))
+ [1] 0-5  0-5  0-5  0-5  5-10 5-10 5-10 5-10 5-10 10+  10+  10+  10+
+Levels: 0-5 5-10 10+
+{% endhighlight %}
 
 
 
