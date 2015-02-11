@@ -348,6 +348,8 @@ mean of x
 
 The interval is 2.82-3.17 (the sample's mean is about 3.00). This is an interval of 95% confidence, meaning the true mean is in this interval with 95% certainty. I.e., there is an estimated 5% chance that the true mean is not in this interval, meaning there is a 5% chance this sample was not truly random but instead has some kind of bias.
 
+The confidence interval would likely shrink if any of the following happen: we get more samples from the population, the standard deviation of the samples decreases (i.e., there is less variance, i.e., the samples are closer to the sample mean), or we decrease the desired confidence level from 95% (default) to something like 80% or lower (with a lower confidence, we can define a more narrow interval).
+
 #### Claims about two samples coming from different populations
 
 Often, we want to perform an experiment (or analyze the results from an experiment) that gives two groups different treatments. For example, you may give one group a placebo and another group a drug. You then want to find out if the drug is having a "significant" effect on the people it *would be* given to in the future. In other words, you want to estimate if any/all people given the placebo have different outcomes than any/all people given the drug. The people you actually studied are just samples, but you want to make inferences about the populations they represent.
