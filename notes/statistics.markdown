@@ -283,7 +283,7 @@ A bell curve is defined by the mean and standard deviation. The mean of nhtemp i
 
 #### Tests for different population distributions
 
-We can test how "normal" a sample is using the Shapiro test. The Shapiro test uses a null hypothesis stating "the distribution is normal", so if the p-value is low and we should reject the null hypothesis, then we can believe the distribution that the values were sample from is not normal. In that case, we would use one of a large number of other tests depending on the kind of distribution we think we have.
+We can test how "normal" a sample is using the Shapiro test. The Shapiro test uses a null hypothesis stating "the distribution is normal", so if the p-value is low and we should reject the null hypothesis, then we can believe the distribution that the values were sampled from is not normal. In that case, we would use one of a large number of other tests depending on the kind of distribution we think we have.
 
 {% highlight r %}
 > with(InsectSprays, shapiro.test(InsectSprays[spray=="A",]$count))
@@ -294,15 +294,15 @@ data:  InsectSprays[spray == "A", ]$count
 W = 0.9576, p-value = 0.7487
 {% endhighlight %}
 
-It looks like kill counts for insect spray A are normally distributed (since we can't reject this null hypothesis).
+It seems that kill counts for insect spray A are normally distributed (since we can't reject this null hypothesis).
 
 Here is a density plot for each spray:
 
 ![Insect spray densities](/images/plot-insectspray-densities.png)
 
-Sprays A, B, and F look "normal", but D does not. The Shapiro test confirms: the null hypothesis (the distribution is normal) can be rejected for spray D with p-value 0.0027. Perhaps more trials with spray D would bring back into a normal distribution. I expect that the way the spray actually works (the population data, after an infinite number of trials) would be a normal distribution.
+Sprays A, B, and F look "normal", but D does not. The Shapiro test confirms: the null hypothesis (the distribution is normal) can be rejected for spray D with p-value 0.0027. Perhaps more trials with spray D would bring it into a normal distribution. I expect that the way the spray actually works (after an infinite number of trials) would be a normal distribution.
 
-Tips, apparently, are not normally distributed:
+Tipping at a restaurant, apparently, is not normally distributed:
 
 {% highlight r %}
 > shapiro.test(tips$tip)
@@ -371,7 +371,7 @@ mean of x mean of y
  14.50000  15.33333
 {% endhighlight %}
 
-Comparing sprays A and B, we see that the $p$ value is 0.65, which is not strong enough to reject the null hypothesis at the 0.05 level of significance. So, we cannot say that either A is a significantly better spray than B or vice versa.
+Comparing sprays A and B, we see that the p-value is 0.65, which is not strong enough to reject the null hypothesis at the 0.05 level of significance. So, we cannot say that either A is a significantly better spray than B or vice versa.
 
 Comparing sprays A and C gives a different story:
 
