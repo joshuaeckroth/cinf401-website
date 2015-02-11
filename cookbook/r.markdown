@@ -146,5 +146,51 @@ The `cut` function allows you to rewrite a vector of values (as you might find i
 Levels: 0-5 5-10 10+
 {% endhighlight %}
 
+## "Transpose" a data frame
 
+E.g., turn `InsectSprays` into a form with A, B, C, ... columns. Contributed by Matt Samuels.
 
+{% highlight r %}
+data.frame.wide <- function(x, vid, vmeasure, long_col){
+    x$id <- c(1:nrow(x))
+    xmelt <- melt(x, cbind(c("id"), vid), vmeasure)
+    xc <- dcast(xmelt, id ~ long_col)
+    xcNoNa <- lapply(xc, na.omit)
+    return (data.frame(xcNoNa[2:length(xcNoNa)]))
+}
+{% endhighlight %}
+
+Usage:
+
+{% highlight r %}
+> data.frame.wide(InsectSprays, c("spray"), c("count"), InsectSprays$spray)
+    A  B C  D E  F
+1  10 11 0  3 3 11
+2   7 17 1  5 5  9
+3  20 21 7 12 3 15
+4  14 11 2  6 5 22
+5  14 16 3  4 3 15
+6  12 14 1  3 6 16
+7  10 17 2  5 1 13
+8  23 17 1  5 1 10
+9  17 19 3  5 3 26
+10 20 21 0  5 2 26
+11 14  7 1  2 6 24
+12 13 13 4  4 4 13
+{% endhighlight %}
+
+## Run Python code from R
+
+Contributed by Christian Decker.
+
+{% highlight r %}
+install.packages("rPython")
+library(rPython)
+python.load("script.py") # loads and runs the script
+python.get("x") # read a global variable from the script
+d <- data.frame(python.get("varname")) # read a dict as a dataframe
+python.exec("import math")
+pi <- python.exec("math.pi")
+{% endhighlight %}
+
+You can also call R code from Python using the Python module [rpy2](http://rpy.sourceforge.net/).

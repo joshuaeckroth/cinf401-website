@@ -5,6 +5,10 @@ title: "Cookbook: Unix tools"
 
 # Cookbook: Unix tools
 
+## A virtual machine with all these tools
+
+Contributed by Antonio Ruiz. Download this [VirtualBox image](http://datascienceatthecommandline.com/#dst) to have access to a wide range of command line tools for data science.
+
 ## Regular expressions
 
 Regular expressions are not only found in Unix, but a lot of Unix tools use them. For example, `grep`.
@@ -114,5 +118,10 @@ Use `--no-check-certificate` if `wget` complains about a certificate (SSL):
 wget --no-check-certificate http://example.com
 {% endhighlight %}
 
+## cron
+
+The system `cron` tool (which is always running) allows you to specify commands to run at certain times in the day/week/month. Contributed by Nathan Hilliard.
+
+Start by running `crontab -e`, then specify the time frame and command to run, one per line. See this [quick reference](http://www.adminschoice.com/crontab-quick-reference) for details about that file.
 
 

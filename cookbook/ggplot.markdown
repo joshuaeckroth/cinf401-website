@@ -347,6 +347,14 @@ facet_grid(vert ~ horiz, labeller = label_both)
 
 While not actually ggplot, there is a library for 3D scatterplots. Read its [PDF documentation](http://cran.r-project.org/web/packages/scatterplot3d/scatterplot3d.pdf). This library was demonstrated by Christian Micklisch.
 
+Interactive 3D scatter plots can be done as follows. Contributed by Marisa Gomez.
+
+{% highlight r %}
+install.packages("rgl")
+library(rgl)
+with(airquality, plot3d(Ozone, Wind, Temp))
+{% endhighlight %}
+
 ## Map plots
 
 Using the `ggmap` library, you can plot on maps! For example, we can plot quake data on a map of Fiji. The built-in dataset `quakes` contains lat/long coordinates and quake magnitude:
@@ -396,4 +404,19 @@ A 2d density plot can show you which areas have the most crime.
 {% endhighlight %}
 
 ![Houston crime contours](/images/plot-map-houston-crime-contours.png)
+
+## googleVis package
+
+Use the `googleVis` package to get interactive visualizations. Contributed by Marisa Gomez.
+
+See this [article](http://journal.r-project.org/archive/2011-2/RJournal_2011-2_Gesmann+de~Castillo.pdf) from the R Journal for details. Marisa's example went as follows:
+
+{% highlight r %}
+install.packages("googleVis")
+library(googleVis)
+library(datasets)
+d <- Orange
+m <- gvisMotionChart(d, idvar = "Tree", timevar = "age")
+plot(m)
+{% endhighlight %}
 
