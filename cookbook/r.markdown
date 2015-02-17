@@ -148,22 +148,24 @@ Levels: 0-5 5-10 10+
 
 ## "Transpose" a data frame
 
-E.g., turn `InsectSprays` into a form with A, B, C, ... columns. Contributed by Matt Samuels.
+E.g., turn `InsectSprays` into a form with A, B, C, ... columns. Contributed by Matt Samuels. Later updated to handle several `vid` columns.
 
 {% highlight r %}
 data.frame.wide <- function(x, vid, vmeasure, long_col){
     x$id <- c(1:nrow(x))
-    xmelt <- melt(x, cbind(c("id"), vid), vmeasure)
-    xc <- dcast(xmelt, id ~ long_col)
-    xcNoNa <- lapply(xc, na.omit)
-    return (data.frame(xcNoNa[2:length(xcNoNa)]))
+    xmelt <- melt(x, cbind(c("id"), vid, c(long_col)), vmeasure)
+    xc <- dcast(xmelt, as.formula(paste(paste(c("id", vid), collapse="+"), "~", long_col)))
+    newcols <- as.vector(unique(x[[long_col]]))
+    tmpd1 <- data.frame(xc[!is.na(xc[[newcols[1]]]),vid])
+    colnames(tmpd1) <- vid
+    return(cbind(tmpd1, lapply(newcols, function(c) { tmpd2 <- data.frame(na.omit(xc[[c]])); colnames(tmpd2) <- c(c); return(tmpd2); })))
 }
 {% endhighlight %}
 
 Usage:
 
 {% highlight r %}
-> data.frame.wide(InsectSprays, c("spray"), c("count"), InsectSprays$spray)
+> data.frame.wide(InsectSprays, c("spray"), c("count"), "spray")
     A  B C  D E  F
 1  10 11 0  3 3 11
 2   7 17 1  5 5  9
