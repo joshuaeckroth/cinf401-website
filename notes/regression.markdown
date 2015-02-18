@@ -15,7 +15,7 @@ These data may be more useful if they can contribute to *predictions* of eruptio
 
 Some models are *regression* models. Generally, you can think of regression as finding a smooth line/curve to fit the data. Being smooth, you can then evaluate any X values and get a corresponding Y value. A different kind of model is a *classifier*, which outputs a classification among a finite set (like factors in R). Classifiers are not smooth, continuous functions.
 
-Models are (almost) always approximations and not completely accurate. As an independent scientists, not in direct communication with God or some oracle (presumably), we have no way of knowing (without infinitely-many experiments) the actual cause-effect relation of waiting time and eruption time for Old Faithful. Given the data we have, for all we know, Old Faithful always erupts for exactly the times shown in the sample, and exactly for the given waiting times. Maybe there is no model but the data themselves... Or maybe Old Faithful follows a linear pattern: longer waiting time = longer eruption. We'll examine this theory first.
+Models are (almost) always approximations and not completely accurate. As independent scientists, not in direct communication with God or some oracle (presumably), we have no way of knowing (without infinitely-many experiments) the actual cause-effect relation of waiting time and eruption time for Old Faithful. Given the data we have, for all we know, Old Faithful always erupts for exactly the times shown in the sample, and exactly for the given waiting times. Maybe there is no model but the data themselves... Or maybe Old Faithful follows a linear pattern: longer waiting time = longer eruption. We'll examine this theory first.
 
 ## Linear regression
 
