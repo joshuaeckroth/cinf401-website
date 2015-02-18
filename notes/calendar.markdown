@@ -73,6 +73,7 @@ Demos:
 ## Week 6: Statistical analysis
 
 - All about statistics. See [notes](/notes/statistics.html) and [cookbook](/cookbook/statistics.html).
+- [Regression](/notes/regression.html).
 - Work on [group project 1](/assignments/2015-02-24-group-project-1.html).
 
 Demos:
