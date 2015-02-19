@@ -196,3 +196,16 @@ pi <- python.exec("math.pi")
 {% endhighlight %}
 
 You can also call R code from Python using the Python module [rpy2](http://rpy.sourceforge.net/).
+
+## Load big datasets across lots of CSV files
+
+Contributed by Matt Samuels.
+
+{% highlight r %}
+library(data.table)
+library(bit64)​
+path <- "/bigdata/data/backblaze/2014/"
+fileList <- list.files(path=path, pattern="*.csv")
+dt <- lapply(fileList, function(x) {tt <- fread(paste(path, x, sep=""), header=TRUE, sep=",")})
+d <- rbindlist(dt)
+{% endhighlight %}
