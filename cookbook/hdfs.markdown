@@ -5,7 +5,7 @@ title: "Cookbook: HDFS"
 
 # Cookbook: HDFS
 
-*Note: See the corresponding [lecture notes about Hadoop](/notes/hadoop.html). This page has cookbook recipes.*
+*Note: See the corresponding [lecture notes about HDFS](/notes/hdfs.html). This page has cookbook recipes.*
 
 ## Get help
 

@@ -29,7 +29,7 @@ Next, you need to create a Java source file. Right-click on the project name, "W
 
 ![Eclipse 4](/images/eclipse-hadoop-4.png)
 
-Name the class `WordCount` (just for this example). Write some code. See the [Map-Reduce demo](/notes/demo-map-reduce.html) for the `WordCount` class source as an example.
+Name the class `WordCount` (just for this example). Write some code. See the [MapReduce demo](/notes/demo-map-reduce.html) for the `WordCount` class source as an example.
 
 ![Eclipse 8](/images/eclipse-hadoop-5.png)
 

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Demo: Map-Reduce"
+title: "Demo: MapReduce"
 ---
 
-# Demo: Map-Reduce
+# Demo: MapReduce
 
 ## Word counts
 

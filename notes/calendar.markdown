@@ -91,22 +91,22 @@ Demos:
 
 Demos:
 
-- Monday (2/23):
+- Monday (2/23): Marisa, John
 
-- Wednesday (2/25):
+- Wednesday (2/25): George, Jacob
 
-## Week 8: Map-Reduce
+## Week 8: MapReduce
 
 **Note: We're skipping over Spring Break in this outline.**
 
-- Explanation of Map-Reduce strategy. See [Hadoop workflow](/notes/hadoop-workflow.html).
+- Explanation of MapReduce strategy. See [Hadoop workflow](/notes/hadoop-workflow.html).
 - Work on [group project 2](/assignments/2015-03-17-group-project-2.html).
 
 Demos:
 
-- Monday (3/9):
+- Monday (3/9): C. Decker, Alex
 
-- Wednesday (3/11):
+- Wednesday (3/11): Cornell, Alex
 
 ## Week 9: Big data storage
 
@@ -120,9 +120,9 @@ Demos:
 
 - Wednesday (3/18):
 
-## Week 10: Map-Reduce
+## Week 10: MapReduce
 
-- Advanced Map-Reduce tasks
+- Advanced MapReduce tasks
 - Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
