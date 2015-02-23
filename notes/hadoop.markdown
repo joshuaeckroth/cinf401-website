@@ -56,12 +56,61 @@ Hadoop implemented two significant systems developed by Google and published as 
 
 ## Cluster design
 
+Some machines have dedicated roles:
+
+- ResourceManager: Manages YARN "containers", i.e., jobs; starts/stops jobs, restarts failed jobs
+
+- NameNode: Manages HDFS metadata and monitors slaves which store HDFS blocks
+
+- Map-Reduce JobHistory: Records and archives finished MapReduce jobs
+
 ### Simulation vs. real hardware
 
-### Storage considerations
-
-No NAS/SAN!
+> In real production clusters there is no server virtualization, no hypervisor layer.  That would only amount to unnecessary overhead impeding performance.  Hadoop runs best on Linux machines, working directly with the underlying hardware.  That said, Hadoop does work in a virtual machine.  That’s a great way to learn and get Hadoop up and running fast and cheap. -- [source](http://bradhedlund.com/2011/09/10/understanding-hadoop-clusters-and-the-network/)
 
 ### Replication and fault tolerance
 
+You do not want any one slave to be the only place a block of data is kept. Rather, you want data to be replicated (not too much, but also not too little). A replication factor of 3 is the default. This means each block of data gets stored on 3 slaves.
+
+Hadoop can be made "rack aware," meaning you can describe how the slaves are **physically** arranged in a rack in a storage facility. Sometimes, entire racks are lost (e.g., power or network outages). So, ideally, the replicated data won't all be replicated on machines in the same rack. However, machines on the same rack can communicate with each other faster (lower latency), so you want adjacent blocks of data to be stored on machines in the same rack. The rule is "for every block of data, two copies will exist in one rack, another copy in a different rack." ([source](http://bradhedlund.com/2011/09/10/understanding-hadoop-clusters-and-the-network/))
+
+The NameNode detects and fixes problems with slaves according to the following diagram ([source](http://bradhedlund.com/2011/09/10/understanding-hadoop-clusters-and-the-network/)):
+
+![NameNode roles](/images/namenode-roles.png)
+
+## Related projects
+
+Some of these notes are adapted from [this blog post](http://blog.dasroot.net/a-laymans-guide-to-the-big-data-ecosystem.html) and [this blog post](http://cloudfront.blogspot.in/2013/04/hadoop-herd-when-to-use-what.html).
+
+Several companies produce Hadoop distributions, sometimes with significant enhancements:
+
+- [Apache Hadoop](http://hadoop.apache.org/) -- the version we use, also known as "vanilla" Hadoop
+
+- [Cloudera Hadoop](http://www.cloudera.com/content/cloudera/en/home.html)
+
+- [Hortonworks Hadoop](http://hortonworks.com/)
+
+- [MapR Hadoop](https://www.mapr.com/)
+
+- [Pivotal HD](http://www.pivotal.io/big-data/pivotal-hd)
+
+Some databases work on Hadoop/HDFS:
+
+- [Apache HBase](http://hbase.apache.org/) -- better random read/write access to HDFS data; the data are represented in tables, up to billions of rows and millions of columns (but it does not support relations like in SQL databases)
+
+- [Apache Hive](http://hive.apache.org/) -- supports a "data warehouse", provides SQL-like language for querying data stored in HDFS; you can give schemas for existing HDFS data, and then query it, or even query HBase data; technically, Hive queries are transformed into MapReduce jobs
+
+Some projects generalize or specialize the processing workflow (i.e., beyond simple MapReduce):
+
+- [Apache Pig](http://pig.apache.org/) -- provides the PigLatin language to more easily describe complex dataflow processing tasks; the progrems get transformed into MapReduce jobs and get executed in the usual way
+
+- [Apache Oozie](http://oozie.apache.org/) -- "a scalable, reliable and extensible workflow scheduler system. You just define your workflows (which are Directed Acyclical Graphs) once and rest is taken care by Oozie. You can schedule MapReduce jobs, Pig jobs, Hive jobs, Sqoop imports and even your Java programs using Oozie. Tip: Use Oozie when you have a lot of jobs to run and want some efficient way to automate everything based on some time (frequency) and data availability." (from [this blog post](http://cloudfront.blogspot.in/2013/04/hadoop-herd-when-to-use-what.html))
+
+- [Apache Spark](https://spark.apache.org/) -- "Spark is a fast and general processing engine compatible with Hadoop data. It can run in Hadoop clusters through YARN or Spark's standalone mode, and it can process data in HDFS, HBase, Cassandra, Hive, and any Hadoop InputFormat. It is designed to perform both batch processing (similar to MapReduce) and new workloads like streaming, interactive queries, and machine learning." ([source](https://spark.apache.org/faq.html)) -- "Run programs up to 100x faster than Hadoop MapReduce in memory, or 10x faster on disk." (from Spark homepage)
+
+Other tools:
+
+- [Apache Sqoop](http://sqoop.apache.org/) -- assists in transferring data to/from SQL databases and HDFS; recommendation from [this blog post](http://cloudfront.blogspot.in/2013/04/hadoop-herd-when-to-use-what.html): "Use Sqoop when you have lots of legacy data and you want it to be stored and processed over your Hadoop cluster or when you want to incrementally add the data to your existing storage."
+
+- [Apache Flume](http://flume.apache.org/) -- supports "collecting, aggregating, and moving large amounts of log data" and other streaming/event data. In other words, Flume lets you continuously collect logging output and stick it into HDFS.
 

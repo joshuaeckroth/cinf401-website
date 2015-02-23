@@ -39,10 +39,8 @@ Edit the file `~/.ssh/config` and add this to the bottom:
 Host delenn
   HostName 1.2.3.4  <------ replace
   User jeckroth  <--------- replace
-  LocalForward 8080 127.0.0.1:8080
-  LocalForward 50070 127.0.0.1:50070
-  LocalForward 8088 127.0.0.1:8088
-  LocalForward 19888 127.0.0.1:19888
+  LocalForward 8080 127.0.0.1:8080   # RStudio: http://127.0.0.1:8080/
+  LocalForward 9000 127.0.0.1:9000   # Hadoop web interface: http://127.0.0.1:9000/hadoop/
 ```
 
 Now you can connect in the terminal with the command `ssh delenn`
