@@ -9,7 +9,11 @@ title: HDFS
 
 ## Overview
 
-Original paper (2003): [PDF](http://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf)
+HDFS was modeled after the "Google File System" paper (2003): [PDF](http://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf). It's main purpose is to store large amounts of data in a way that's reliable and efficient (bandwidth, not latency). To achieve these goals, big files are broken into "blocks" and copied across a cluster of machines.
+
+Most Hadoop-related technologies (YARN, MapReduce, HBase, etc.) expect data to be kept in HDFS.
+
+The NameNode is responsible for keeping track of which machine has which file blocks, and for reading/writing data to the right places. Assuming you have port 9000 tunneled on your delenn connection, you can open a browser to [http://localhost:9000/hadoop/namenode:50070/](http://localhost:9000/hadoop/namenode:50070/) to browse our HDFS store and check out some stats about disk usage, etc. (If the page does not load, reload the page while holding the shift or control key.)
 
 ### Assumptions
 

@@ -69,19 +69,25 @@ Notice, in this example, that the argument `value` to the `map()` function is th
 
 ## delenn environment
 
+First, put some files into HDFS:
 
 ```
 $ hdfs dfs -mkdir -p /jeckroth/wordcount/input
 $ hdfs dfs -put input/* /jeckroth/wordcount/input
 ```
 
-
+Next, copy your JAR file to delenn and submit the job as follows:
 
 ```
 $ yarn jar wc.jar WordCount /jeckroth/wordcount/input /jeckroth/wordcount/output
-$ hdfs dfs -get /jeckroth/wordcount/output/part-r-00000
 ```
 
+In the command above, `WordCount` is the class with the `main()` function, and the rest (the file paths) are just arguments to `main()`. Your `main()` may have different kinds of arguments, or no arguments.
+
+Monitor your job's status on the ResourceManager's [web interface](http://localhost:9000/hadoop/resourcemanager:8088/cluster).
+
+When it's done, get the output out of HDFS:
+
 ```
-yarn jar wc.jar WordCount /datasets/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt /jeckroth/wordcount/output-westburylab-usenet-1
+$ hdfs dfs -get /jeckroth/wordcount/output/part-r-00000
 ```

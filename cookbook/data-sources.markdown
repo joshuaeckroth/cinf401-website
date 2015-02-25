@@ -100,6 +100,10 @@ The [Million Song dataset](http://labrosa.ee.columbia.edu/millionsong/) contains
 
 Kaggle hosted a [competition](http://www.kaggle.com/c/msdchallenge) using these data. You were asked to predict which songs a user would enjoy, based on their ratings of other songs.
 
+## Stack Exchange
+
+Get a dump of the full Stack Exchange site with [this torrent](https://archive.org/details/stackexchange). You can also explore the data with their [online query system](http://data.stackexchange.com/).
+
 ## Text
 
 Text data requires special processing. It's not trivial to compare two paragraphs or books of text. You must transform the text first, typically into numeric form. One of doing this is the "bag of words" approach, where you convert each document into a vector of word counts. The vector at position 1 might correspond to the word "the", and the count associated would be the count of times "the" appeared in the document. The second word might be "furlough", etc. These vectors would be very high-dimensional, like 10,000 dimensions to represent the various words encountered. To compare multiple documents against each other, they would all use the same vector--word correspondence. If some document does not have the word "furlough", it would just put a 0 in its vector in that dimension.
