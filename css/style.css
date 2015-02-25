@@ -9,7 +9,7 @@ body {
     font-family: "Lato", sans-serif;
     line-height: 1.5;
     padding: 20px;
-    background: #FFFFFF;
+    background: #fff;
 }
 
 #container-tight {
@@ -30,7 +30,7 @@ h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #000;
+    color: #212121;
     font-family: "Crete Round", serif;
 }
 
@@ -58,7 +58,7 @@ ul.posts {
 a, a:visited, a:active, a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: #aaa;
+    color: #3f51b5;
 }
 
 table#index {
@@ -82,12 +82,12 @@ td#metabox a,
 td#metabox a:visited,
 td#metabox a:active,
 td#metabox a:hover {
-    color: #FFFFFF;
+    color: #9fa8da;
 }
 
 td#metabox {
-    background: #aaa;
-    color: white;
+    background: #3f51b5;
+    color: #9fa8da;
     padding: 10px;
 }
 
@@ -116,18 +116,18 @@ td#metabox div.officehours {
 }
 
 .post-categories {
-    color: #666;
+    color: #616161;
     font-weight: bold;
     margin-right: 10px;
 }
 
 .post-date {
-    color: #ccc;
+    color: #e0e0e0;
     margin-right: 10px;
 }
 
 .post-due {
-    color: #666;
+    color: #616161;
 }
 
 ul.posts li {
@@ -161,7 +161,7 @@ div.metatop span.homelink {
 
 table {
     margin: 20px 0;
-    border: 1px solid #aaa;
+    border: 1px solid #3f51b5;
 }
 
 td {
@@ -169,7 +169,7 @@ td {
 }
 
 pre {
-    border-left: 4px solid #aaa;
+    border-left: 4px solid #3f51b5;
     padding-left: 15px;
     margin: 2em 0;
 }
@@ -180,7 +180,7 @@ pre, code, tt {
 }
 
 code {
-    border: 1px dotted #aaa;
+    border: 1px dotted #3f51b5;
     padding: 2px;
 }
 
@@ -190,7 +190,7 @@ pre code {
 }
 
 blockquote {
-    border-left: 4px solid #aaa;
+    border-left: 4px solid #3f51b5;
     padding-left: 15px;
     margin: 2em 0;
     padding-left: 30px;
