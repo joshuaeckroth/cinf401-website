@@ -209,3 +209,79 @@ fileList <- list.files(path=path, pattern="*.csv")
 dt <- lapply(fileList, function(x) {tt <- fread(paste(path, x, sep=""), header=TRUE, sep=",")})
 d <- rbindlist(dt)
 {% endhighlight %}
+
+## Shiny
+
+Contributed by Michael Clay.
+
+{% highlight r %}
+library(ggplot2)
+library(reshape2)
+
+inputPanel(
+  numericInput("rows", "Rows", 5)
+)
+
+renderTable({
+  head(tips, input$rows)
+})
+
+inputPanel(
+  selectInput("type", label="Column", choices=c("size", "tip", "day", "time", "sex", "smoker", "total_bill")),
+  sliderInput("binwidth", label="Binwidth", min=0.2, max=2, value=1, step=0.2)
+)
+
+renderPlot({
+  ggplot(tips) + geom_histogram(aes_string(x=input$type), binwidth=input$binwidth)
+})
+
+inputPanel(
+  selectInput("type2", label="Column", choices=c("size", "tip"))
+)
+
+renderPlot({
+  ggplot(tips) + geom_smooth(aes_string(x="total_bill", y=input$type2))
+})
+{% endhighlight %}
+
+## Time/date manipulation
+
+Contributed by Tom Wright.
+
+{% highlight r %}
+install.packages("chron")
+library(chron)
+
+dates(...)
+times(...)
+chron(...) # associate times with dates
+leap.year(x)
+day.of.week(x)
+days(x)
+months(x)
+weekdays(x)
+quarters(x)
+years(x)
+hours(x)
+minutes(x)
+seconds(x)
+{% endhighlight %}
+
+## Graph (network) manipulation
+
+Contributed by John Salis.
+
+{% highlight r %}
+library(igraph)
+g <- graph(c(1, 2, 2, 3, 3, 4, 2, 4))
+plot(g)
+g <- g + vertices(c(5, 6))
+g[] # yields adjacency matrix
+V(g) # vertices
+E(g) # edges
+g <- erdos.renyi.game(32, 0.2) # create a random graph
+g$layout <- layout.circle # set the layout when plotting
+g <- graph.lattice(c(16, 16)) # create a lattice graph
+E(g)$weight <- runif(ecount(g), 1, 8) # give random weights to edges
+plot(g, vertex.label=NA, edge.width=E(g)$weight) # plot a graph
+{% endhighlight %}

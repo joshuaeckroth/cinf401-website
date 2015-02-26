@@ -28,7 +28,7 @@ Go to [Data Tools and Apps](http://www.census.gov/data/data-tools.html) at censu
 
 ## Biology, wildlife
 
-[TODO; any suggestions?]
+- Pokemon stats: [pokemon.csv](https://github.com/veekun/pokedex/blob/master/pokedex/data/csv/pokemon.csv) (Contributed by Jacob Hell.)
 
 ## Health
 
@@ -39,6 +39,20 @@ Go to [Data Tools and Apps](http://www.census.gov/data/data-tools.html) at censu
 ### NFL
 
 - [nfldb](https://github.com/BurntSushi/nfldb), a Python library that downloads NFL data and saves to a CSV file. Found by George Robbins.
+
+### MLB
+
+Contributed by Marisa Gomez.
+
+Major league baseball data can be found in the `pitchRx` R package.
+
+{% highlight r %}
+library(pitchRx)
+head(pitches)
+animateFX(pitches, layer=list(facet_grid(pitcher_name ~ stand, labeller=label_both), theme_bw(), coord_equal()))
+strikes <- subset(pitches, des == "Called Strike")
+strikeFX(strikes, geom="tile", layer=facet_grid(.~stand))
+{% endhighlight %}
 
 ## Education
 

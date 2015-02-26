@@ -9,18 +9,95 @@ title: MapReduce
 
 ## Overview
 
+It's difficult to write parallelizable algorithms. Most algorithms involve a lot of "global state" and careful coordination of reads/writes to this state. By "global state" I mean something like a database table that is read/written by the algorithm in arbitrary ways at arbitrary times. Or in the case of sorting, the global state is the whole array or list, and the sorting algorithm needs to read/write various parts of it at various times.
+
+Automatic parallelization, i.e., taking any algorithm and automatically rewriting it so it can be executed in a distributed, parallel fashion, is active research but still has not been figured out. So, we need to design algorithms to be parallelizable upfront.
+
+There are many valid designs for parallel algorithms. One is MapReduce.
+
+MapReduce was developed by Google and published in 2004 ([PDF](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)). Their motivation was:
+
+- Google uses lots of relatively simple algorithms
+
+- But these algorithms have to be run on huge datasets and must be run on hundreds or thousands of machines to finish in a reasonable time
+
+> The issues of how to parallelize the computation, distribute the data, and handle failures conspire to obscure the original simple computation with large amounts of complex code to deal with these issues.
+
+So rather than add special handling for parallel/distributed processing to each program they write, they decided to write a general architecture, and associated libraries, that can keep your algorithm simple but still enable parallel/distributed processing.
+
+That architecture is MapReduce. It is quite limiting. But those limitations are exploited to enable massively parallel computation. It works as follows:
+
+- Your algorithm must be split into a "map" function and a "reduce" function (some algorithms won't use both functions).
+
+- The map function is given an input file name and spits out key-value pairs.
+
+- The reduce function is given key-value pairs, where the value is a list of all values with that same key as produced by the map function. The reduce function collects and reduces the information for this key-value and spits out another key-value, which is saved to the output file.
+
+Each map and reduce function may be executed on a different machine in a cluster, at the same time. Hence the parallelism. (Note: the reduce stage cannot start until the map stage is completed.)
+
+That's it. If you can't make your algorithm work as a separate map function and reduce function, you may not be able to use MapReduce. Not all algorithms can be split in that way. (The Hadoop YARN architecture may still be used, in most cases, to support parallel processing even for those algorithms that are not MapReduce algorithms.)
+
+Between the map and reduce stages, the keys (output from map) get sorted and the values for each unique key get merged together, before handing off to reduce.
+
 ![MapReduce diagram](/images/mapreduce_mapshuffle.png)
 
 Image from [Harvard's CS109 course](http://nbviewer.ipython.org/github/cs109/content/blob/master/labs/lab8/lab8_mapreduce.ipynb).
 
-Original paper from 2004: [PDF](http://static.googleusercontent.com/media/research.google.com/es/us/archive/mapreduce-osdi04.pdf)
-
+Here is another diagram with some more detail. Take note that "k1" and "k2" are keys and may be different types (Integer and String, or whatever). Same with "v1", "v2", and "v3", which are values, with possibly different types. Also, take note that the map function can output 0 or 1 or more new key-value pairs, and the reduce function may do likewise.
 
 ![MapReduce detailed diagram](/images/mapreduce.png)
 
 ## Map stage
 
 ## Reduce stage
+
+MapReduce is sometimes called a "sort-merge" architecture, because of how the reduce stage works:
+
+(1) The keys produced by the map stage are **sorted** before the reduce stage is started.
+
+They look like this at first:
+
+```
+(k=92, v2=abc)
+(k=17, v2=foo)
+(k=10, v2=bar)
+(k=12, v2=wsf)
+(k=12, v2=fha)
+(k=17, v2=jhd)
+```
+
+After sorting, they look like this:
+
+```
+(k=10, v2=bar)
+(k=12, v2=wsf)
+(k=12, v2=fha)
+(k=17, v2=foo)
+(k=17, v2=jhd)
+(k=92, v2=abc)
+```
+
+(2) Next, values from duplicate keys are **merged** so that each unique key has a list of values.
+
+After merging, the sorted keys look like this:
+
+```
+(k=10, v2=(bar))
+(k=12, v2=(wsf, fha))
+(k=17, v2=(foo, jhd))
+(k=92, v2=(abc))
+```
+
+(3) One node from the cluster is then activated for each unique key in the merged result. So, it might look like this:
+
+```
+Box 34: run "reduce" operation on key 10, vals (bar)
+Box 18: run "reduce" operation on key 12, vals (wsf, fha)
+Box 10: run "reduce" operation on key 17, vals (foo, jhd)
+Box 98: run "reduce" operation on key 92, vals (abc)
+```
+
+### Properties of the reduce stage
 
 The following is quoted from [Hadoop for Dummies](http://www.dummies.com/how-to/content/the-shuffle-phase-of-hadoops-mapreduce-application.html).
 

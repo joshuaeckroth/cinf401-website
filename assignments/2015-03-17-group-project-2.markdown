@@ -13,7 +13,9 @@ Using a data dump from [StackExchange](http://stackexchange.com/) (all [sites](h
 
 - Is it better to answer a question very quickly (or even first) to earn high reputation, or does time-to-answer not matter much at all? (Maybe quality of answer matters more.)
 
-The data live in HDFS at `/data/stackexchange` ([web view](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/stackexchange)). Use MapReduce and then analyze in R. Add your MapReduce code to your git repository.
+The data live in HDFS at `/data/stackexchange` ([web view](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/stackexchange)). Have a look at `readme.txt` to understand the fields in the various XML files.
+
+Use MapReduce and then analyze in R. Add your MapReduce code to your git repository.
 
 Study these questions across all the StackExchange sites combined. But also highlight/plot the results from a few large sites if they stand out as very different than the majority.
 
