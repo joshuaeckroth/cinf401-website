@@ -47,10 +47,6 @@ Here is another diagram with some more detail. Take note that "k1" and "k2" are 
 
 ![MapReduce detailed diagram](/images/mapreduce.png)
 
-## Map stage
-
-## Reduce stage
-
 MapReduce is sometimes called a "sort-merge" architecture, because of how the reduce stage works:
 
 (1) The keys produced by the map stage are **sorted** before the reduce stage is started.
@@ -97,7 +93,7 @@ Box 10: run "reduce" operation on key 17, vals (foo, jhd)
 Box 98: run "reduce" operation on key 92, vals (abc)
 ```
 
-### Properties of the reduce stage
+## Properties of the reduce stage
 
 The following is quoted from [Hadoop for Dummies](http://www.dummies.com/how-to/content/the-shuffle-phase-of-hadoops-mapreduce-application.html).
 
@@ -111,7 +107,7 @@ The following is quoted from [Hadoop for Dummies](http://www.dummies.com/how-to/
 
 > The output from mapper tasks isn’t written to HDFS, but rather to local disk on the slave node where the mapper task was run. As such, it’s not replicated across the Hadoop cluster.
 
-### Speculative execution
+## Speculative execution
 
 From this [StackOverflow post](http://stackoverflow.com/a/15165199).
 
