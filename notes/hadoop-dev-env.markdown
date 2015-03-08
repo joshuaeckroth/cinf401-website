@@ -13,6 +13,8 @@ The basic idea is to create a normal Java application but add all the Hadoop JAR
 
 The Hadoop libraries have been packaged, for your convenience, into a single ZIP file.
 
+[hadoop-2.6.0-windows64.zip](https://www.dropbox.com/s/vgsjjwxp2a7b83r/hadoop-2.6.0-windows64.zip?dl=0)
+
 - Download [hadooplibs.zip](https://github.com/joshuaeckroth/cinf401-examples/raw/master/hadooplibs.zip).
 - Extract the ZIP. Notice there is a `jars` folder and a `sources` folder.
 - The files in `jars` will be imported as libraries in Eclipse (see [Hadoop workflow](/notes/hadoop-workflow.html) notes).
