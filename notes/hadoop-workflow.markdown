@@ -7,7 +7,7 @@ title: Hadoop workflow
 
 ## Local dev environment
 
-Grab the [hadooplibs.zip](https://github.com/joshuaeckroth/cinf401-examples/raw/master/hadooplibs.zip) and extract somewhere. See the [Hadoop dev env](/notes/hadoop-dev-env.html) notes for details.
+See the [Hadoop dev env](/notes/hadoop-dev-env.html) notes for downloading and setting up the necessary libraries.
 
 ### Eclipse
 

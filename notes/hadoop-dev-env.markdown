@@ -15,7 +15,7 @@ The Hadoop libraries have been packaged, for your convenience, into a single ZIP
 
 [hadoop-2.6.0-windows64.zip](https://www.dropbox.com/s/vgsjjwxp2a7b83r/hadoop-2.6.0-windows64.zip?dl=0)
 
-- Download [hadooplibs.zip](https://github.com/joshuaeckroth/cinf401-examples/raw/master/hadooplibs.zip).
+- Download [hadooplibs-2.6.0-mac-linux.zip](https://github.com/joshuaeckroth/cinf401-examples/raw/master/hadooplibs-2.6.0-mac-linux.zip).
 - Extract the ZIP. Notice there is a `jars` folder and a `sources` folder.
 - The files in `jars` will be imported as libraries in Eclipse (see [Hadoop workflow](/notes/hadoop-workflow.html) notes).
 - The files in `sources` provide source code for the Hadoop JARs in the `jars` folder. If Eclipse ever complains about not having the source code for an external Hadoop library, tell it to associate the corresponding JAR in `sources`.
