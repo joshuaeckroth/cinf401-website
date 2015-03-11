@@ -9,6 +9,8 @@ title: Hadoop workflow
 
 See the [Hadoop dev env](/notes/hadoop-dev-env.html) notes for downloading and setting up the necessary libraries.
 
+The steps below are required for every new Hadoop application you create.
+
 ### Eclipse
 
 Create a new Java project, as usual.
@@ -72,14 +74,16 @@ Notice, in this example, that the argument `value` to the `map()` function is th
 First, put some files into HDFS:
 
 ```
-$ hdfs dfs -mkdir -p /jeckroth/wordcount/input
-$ hdfs dfs -put input/* /jeckroth/wordcount/input
+$ hdfs dfs -mkdir -p /users/jeckroth/wordcount/input
+$ hdfs dfs -put input/* /users/jeckroth/wordcount/input
 ```
+
+Or, you can use existing data, such as: [`/data/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt`](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/westburylab-usenet)
 
 Next, copy your JAR file to delenn and submit the job as follows:
 
 ```
-$ yarn jar wc.jar WordCount /jeckroth/wordcount/input /jeckroth/wordcount/output
+$ yarn jar wc.jar WordCount /users/jeckroth/wordcount/input /users/jeckroth/wordcount/output
 ```
 
 In the command above, `WordCount` is the class with the `main()` function, and the rest (the file paths) are just arguments to `main()`. Your `main()` may have different kinds of arguments, or no arguments.
@@ -89,5 +93,16 @@ Monitor your job's status on the ResourceManager's [web interface](http://localh
 When it's done, get the output out of HDFS:
 
 ```
-$ hdfs dfs -get /jeckroth/wordcount/output/part-r-00000
+$ hdfs dfs -get /users/jeckroth/wordcount/output/part-r-00000
 ```
+
+...or use the [web interface](http://localhost:9000/hadoop/namenode:50070/explorer.html#/).
+
+## londo environment
+
+Since londo is not really running a cluster (virtual or otherwise), you will not use HDFS on londo. Just run YARN directly, after transferring your JAR or compiling it on londo:
+
+```
+$ yarn jar wc.jar WordCount my-input.txt output-folder
+```
+

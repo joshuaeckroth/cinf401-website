@@ -227,7 +227,6 @@ public class BaseballFriends {
         job.setOutputKeyClass(TextArrayWritable.class);
         job.setOutputValueClass(NullWritable.class);
 
-
         conf.set(CSVOutputFormat.CSV_TOKEN_SEPARATOR_CONFIG, ",");
         job.setOutputFormatClass(CSVOutputFormat.class);
 

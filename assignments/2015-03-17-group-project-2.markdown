@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Group project 2
-due: "Mar 17, 11:59pm"
+due: "Mar 24, 11:59pm"
 categories: [assignments]
 ---
 
