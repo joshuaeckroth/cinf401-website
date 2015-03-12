@@ -240,3 +240,97 @@ public class BaseballFriends {
 ## Reverse index
 
 [gutenberg-small.txt](https://www.dropbox.com/s/ryltcimssf333pr/gutenberg-small.txt?dl=0)
+
+{% highlight java %}
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+
+public class ReverseIndex {
+
+	public static class ReverseIndexReducer
+		extends Reducer<Text, Text, Text, Text>
+	{
+		public void reduce(Text key, Iterable<Text> values, Context context)
+			throws IOException, InterruptedException
+		{
+
+			String outputString = "";
+
+			HashMap<Text,Integer> fileWordCount = new HashMap<Text,Integer>();
+			for(Text filename : values)
+			{
+				if(fileWordCount.containsKey(filename))
+				{
+					Integer count = fileWordCount.get(filename);
+					count++;
+					fileWordCount.put(filename, count);
+				}
+				else
+				{
+					fileWordCount.put(filename, 1);
+				}
+			}
+			StringBuilder sb = new StringBuilder();
+			for(Text filename : fileWordCount.keySet())
+			{
+				sb.append(filename.toString());
+				sb.append("=");
+				sb.append(fileWordCount.get(filename));
+				sb.append(" ");
+			}
+			context.write(key, new Text(sb.toString()));
+		}
+	}
+
+	public static class ReverseIndexMapper
+		extends Mapper<Object, Text, Text, Text>
+	{
+		public void map(Object key, Text value, Context context)
+			throws IOException, InterruptedException
+		{
+			String[] parts = value.toString().split("::");
+			String filename = parts[0];
+			Text filenameText = new Text(filename);
+			String line = "";
+			if(parts.length > 1)
+			{
+				line = parts[1];
+			}
+			StringTokenizer itr = new StringTokenizer(line);
+			while(itr.hasMoreTokens())
+			{
+				String word = itr.nextToken();
+				context.write(new Text(word), filenameText);
+			}
+		}
+	}
+
+	public static void main(String[] args)
+		throws Exception
+	{
+		Configuration conf = new Configuration();
+		Job job = Job.getInstance(conf, "reverse index");
+		job.setJarByClass(ReverseIndex.class);
+		job.setMapperClass(ReverseIndexMapper.class);
+		job.setReducerClass(ReverseIndexReducer.class);
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(Text.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		job.waitForCompletion(true);
+	}
+}
+{% endhighlight %}
