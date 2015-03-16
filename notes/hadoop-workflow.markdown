@@ -80,7 +80,25 @@ $ hdfs dfs -put input/* /users/jeckroth/wordcount/input
 
 Or, you can use existing data, such as: [`/data/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt`](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/westburylab-usenet)
 
-Next, copy your JAR file to delenn and submit the job as follows:
+Copy your JAR file to delenn. If you get an error about the Java version, you'll need to compile your code on delenn.
+
+### How to compile on delenn
+
+Copy your source files, and compile them as follows:
+
+```
+javac -cp `hadoop classpath` *.java
+```
+
+Then make a JAR (name your JAR whatever you want; `wc.jar` is used here):
+
+```
+jar cfv wc.jar *.class
+```
+
+### Submit the job
+
+Submit the job as follows:
 
 ```
 $ yarn jar wc.jar WordCount /users/jeckroth/wordcount/input /users/jeckroth/wordcount/output
