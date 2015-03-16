@@ -108,28 +108,28 @@ Demos:
 
 - Wednesday (3/11): Cornell, Alex
 
-## Week 9: Big data storage
+## Week 9: MapReduce
 
-- Explanation of "NoSQL" and more advanced HDFS-based storage (Hive, Pig, etc.).
+- Advanced MapReduce tasks
 - Finish [group project 2](/assignments/2015-03-17-group-project-2.html).
 - Start [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
 
-- Monday (3/16):
+- Monday (3/16): Richard, Brandon
 
-- Wednesday (3/18):
+- Wednesday (3/18): Katie, Christian M.
 
-## Week 10: MapReduce
+## Week 10: Big data storage
 
-- Advanced MapReduce tasks
+- Explanation of "NoSQL" and more advanced HDFS-based storage (Hive, Pig, etc.).
 - Work on [group project 3](/assignments/2015-04-07-group-project-3.html).
 
 Demos:
 
-- Monday (3/23):
+- Monday (3/23): Sebastian, Christopher
 
-- Wednesday (3/25):
+- Wednesday (3/25): Nathan, Michael C.
 
 ## Week 11: Machine learning, Mahout
 
@@ -141,7 +141,7 @@ Demos:
 
 - Monday (3/30):
 
-- Wednesday (4/1):
+- Wednesday (4/1): Cornell
 
 ## Week 12: Machine learning, Mahout
 
