@@ -20,7 +20,7 @@ Work hard in this class and you should be able to:
 
 - Eliz Hall 214-9, 386-740-2519
 
-- Office hours: Mon: 1:30-2:30, Tue: 12-2, Thur: 1-2
+- Office hours: Mon: 2:30-3:30, Tue: 12-2, Thur: 1-2
 
 ## Textbooks
 
@@ -30,17 +30,17 @@ Work hard in this class and you should be able to:
 ## Grading
 
 <table>
-<tr><td>Class demonstrations (3)</td><td>15%</td></tr>
+<tr><td>Class demonstrations (2)</td><td>10%</td></tr>
 <tr><td>Assignments (4)</td><td>25%</td></tr>
 <tr><td>Group project 1</td><td>10%</td></tr>
 <tr><td>Group project 2</td><td>10%</td></tr>
 <tr><td>Group project 3</td><td>10%</td></tr>
-<tr><td>Group project 4</td><td>30%</td></tr>
+<tr><td>Group project 4</td><td>35%</td></tr>
 </table>
 
 ### Class demonstrations
 
-You will be required to demonstrate (for 5-15 minutes) a data mining/analysis/programming technique in front of the class, on three separate occasions. The techniques demonstrated will be added (by me) to the "cookbooks" on this website.
+You will be required to demonstrate (for 5-15 minutes) a data mining/analysis/programming technique in front of the class, on two separate occasions. The techniques demonstrated will be added (by me) to the "cookbooks" on this website.
 
 The purpose of these demonstrations is to ensure you are engaged with the material but also to show others a wide variety of techniques for handling data. We will use a wide range of tools in this class, and will not have time to learn most of them in depth. Thus, it will be useful for everyone to learn from each other the various tricks each of us discovers as we munge, analyze, and visualize our datasets.
 
