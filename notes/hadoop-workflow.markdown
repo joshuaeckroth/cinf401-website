@@ -87,7 +87,7 @@ Copy your JAR file to delenn. If you get an error about the Java version, you'll
 Copy your source files, and compile them as follows:
 
 ```
-javac -cp `hadoop classpath` *.java
+javac -cp `hadoop classpath`:. *.java
 ```
 
 Then make a JAR (name your JAR whatever you want; `wc.jar` is used here):
