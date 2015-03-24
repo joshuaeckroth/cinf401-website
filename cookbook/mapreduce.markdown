@@ -87,8 +87,11 @@ Use it like so:
 
 {% highlight java %}
 // in main()
+Configuration conf = new Configuration();
+conf.set("file.pattern", ".*(Users\\.xml|postsanswers\\.txt)");
+Job job = Job.getInstance(conf, "users reputation");
 
-conf.set("file.pattern", ".*(Users|Posts)\\.xml");
+// ...
 FileInputFormat.setInputPathFilter(job, RegexPathFilter.class);
 {% endhighlight %}
 
