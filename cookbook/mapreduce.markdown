@@ -7,6 +7,20 @@ title: "Cookbook: MapReduce"
 
 *Note: See the corresponding [lecture notes about MapReduce](/notes/mapreduce.html). This page has cookbook recipes.*
 
+## Kill a job
+
+On delenn, first list the active jobs:
+
+```
+hadoop job -list
+```
+
+Find yours, then kill it:
+
+```
+hadoop job -kill <job-id>
+```
+
 
 ## Find out which file is being processed by map
 
