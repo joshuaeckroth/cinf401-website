@@ -285,3 +285,21 @@ g <- graph.lattice(c(16, 16)) # create a lattice graph
 E(g)$weight <- runif(ecount(g), 1, 8) # give random weights to edges
 plot(g, vertex.label=NA, edge.width=E(g)$weight) # plot a graph
 {% endhighlight %}
+
+## GUIs with Tcl/Tk
+
+Contributed by George Robbins.
+
+Use the `tcltk` library to show GUIs in R. [Here](http://thebiobucket.blogspot.com/2012/08/tcltk-gui-example-with-variable-input.html) is a good example, and [here](http://www.sciviews.org/_rgui/tcltk/) are lots more examples.
+
+## Run queries against Google BigQuery
+
+Contributed by Jacob Hell.
+
+Google BigQuery is a SQL-like query system for huge datasets, stored on Google servers. Read more about [BigQuery](https://cloud.google.com/bigquery/what-is-bigquery).
+
+Here are some resources:
+
+- [The R package](https://github.com/hadley/bigrquery)
+- [A tutorial](http://thinktostart.com/using-google-bigquery-with-r/)
+- [A longer example for e-commerce](http://www.lunametrics.com/blog/2014/06/25/google-analytics-data-mining-bigquery-r/)

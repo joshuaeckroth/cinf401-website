@@ -420,3 +420,60 @@ m <- gvisMotionChart(d, idvar = "Tree", timevar = "age")
 plot(m)
 {% endhighlight %}
 
+## Animated plots
+
+Contributed by Katie Porterfield.
+
+Use the `caTools` library to save plots as animated GIFs. Use the `animate` library to create the animated plots. [This blog entry](http://www.r-bloggers.com/animations-and-gifs-using-ggplot2/) has some good examples.
+
+## Multidimensional scaling
+
+Plot relative distances in 2D between a bunch of high-dimensional points.
+
+First, compute the all-pairs distances:
+
+{% highlight r %}
+myDists <- dist(d)
+{% endhighlight %}
+
+Then compute x,y values for each row, keeping the relative distances:
+
+{% highlight r %}
+s <- cmdscale(myDists)
+{% endhighlight %}
+
+Finally, plot it:
+
+{% highlight r %}
+ggplot(data.frame(x=s[,1], y=s[,2])) + geom_point(aes(x=x, y=y))
+{% endhighlight %}
+
+Here is an example on the iris dataset, which has 4-dimensional data:
+
+{% highlight r %}
+> head(iris)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+
+> myDists <- dist(iris[,1:4])
+> s <- cmdscale(myDists)
+> head(s)
+          [,1]       [,2]
+[1,] -2.684126  0.3193972
+[2,] -2.714142 -0.1770012
+[3,] -2.888991 -0.1449494
+[4,] -2.745343 -0.3182990
+[5,] -2.728717  0.3267545
+[6,] -2.280860  0.7413304
+
+> ggplot(data.frame(x=s[,1], y=s[,2])) + geom_point(aes(x=x, y=y))
+{% endhighlight %}
+
+![Iris cmdscale](/images/iris-cmdscale.png)
+
+

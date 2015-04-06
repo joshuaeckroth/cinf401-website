@@ -872,9 +872,6 @@ You can merge on a key composed of 2+ columns if they're named the same in both 
 3      Mary  Staples 111230 1982-01-05     blue
 {% endhighlight %}
 
-## Arrays
-
-
 
 ## String operations
 
@@ -882,4 +879,4 @@ You can merge on a key composed of 2+ columns if they're named the same in both 
 
 `str_sub(string, start, end)`
 
-## Statistics
+`str_replace(string, pattern, replacement)`
