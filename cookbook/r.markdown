@@ -303,3 +303,84 @@ Here are some resources:
 - [The R package](https://github.com/hadley/bigrquery)
 - [A tutorial](http://thinktostart.com/using-google-bigquery-with-r/)
 - [A longer example for e-commerce](http://www.lunametrics.com/blog/2014/06/25/google-analytics-data-mining-bigquery-r/)
+
+## Read an image into a matrix
+
+{% highlight r %}
+library(jpeg)
+img <- readJPEG(file)
+{% endhighlight %}
+
+The `img` matrix will have dimensions (given by `dim(img)`) like:
+
+{% highlight r %}
+> dim(img)
+500 375 3
+{% endhighlight %}
+
+...meaning: 500 height, 375 width, 3 color channels (RGB).
+
+To get particular pixel color values (for RGB separately):
+
+{% highlight r %}
+> img[250, 100, 1] # this is y=250, x=100, red
+> img[250, 100, 2] # this is y=250, x=100, green
+> img[250, 100, 3] # this is y=250, x=100, blue
+{% endhighlight %}
+
+You can convert the matrix to a data frame if you'd like, with each row representing a different pixel (x, y, r, g, b):
+
+{% highlight r %}
+# from: http://www.r-bloggers.com/r-k-means-clustering-on-an-image/
+image.to.data.frame <- function(img) {
+    # Obtain the dimension
+    imgDm <- dim(img)
+
+    # Assign RGB channels to data frame
+    data.frame(
+            x = rep(1:imgDm[2], each = imgDm[1]),
+            y = rep(imgDm[1]:1, imgDm[2]),
+            R = as.vector(img[,,1]),
+            G = as.vector(img[,,2]),
+            B = as.vector(img[,,3])
+            )
+}
+{% endhighlight %}
+
+## Crop or resize an image
+
+Assuming you've loaded an image into a matrix, as above, you can crop very easily:
+
+{% highlight r %}
+> imgCropped <- img[topY:bottomY,leftX:rightX,]
+{% endhighlight %}
+
+Note, in computer graphics, the y-coordinate increases as you go down the screen. So `topY < bottomY` in numeric value.
+
+To resize, use the function below. Note, it needs the `EBImage` library which must be installed like so:
+
+{% highlight r %}
+# get EBImage with this code:
+source("http://bioconductor.org/biocLite.R")
+biocLite("EBImage")
+{% endhighlight %}
+
+
+This function takes an argument giving the maximum width or height (if the image is taller than wide, it will resize so the height is the specified `rsize`; and vice versa):
+
+{% highlight r %}
+library(EBImage)
+
+# from: http://www.mepheoscience.com/colourful-ecology-part-1-extracting-colours-from-an-image-and-selecting-them-using-community-phylogenetics-theory/
+resize.image <- function(img, rsize=100) {
+  if (max(dim(img)[1:2]) > rsize) {
+    if (dim(img)[1] > dim(img)[2]) {
+      img <- resize(img, w = rsize)
+    } else {
+      img <- resize(img, h = rsize)
+    }
+  } else {
+    img
+  }
+}
+{% endhighlight %}
