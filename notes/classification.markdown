@@ -307,109 +307,61 @@ selected attributes of $x_q$.
 
 ## Naïve Bayesian classification
 
-- The "naïve assumption" is that the presence of a word does not give
-  any information about the probability of the presence of any other
-  word. This assumption gives us $P(w_1, w_2, \dots|C_c) = \prod_i
-  P(w_i|C_c)$.
-- $d_i$ is the number of documents (in the training set, of course)
-  with word $i$.
-- $d_{ci}$ is the number of documents in category $C_c$ with the word
-  $i$.
-- $n_c$ is the number of documents in the category $C_c$.
-- $n$ is the number of documents.
-- $|C|$ is the number of categories.
-- $P(C_c) = \frac{n_c + 1}{n + |C|}$ is the probability of any random
-  document having category $C_c$.
-- $\hat{X} = <w_1, w_2, \dots, w_k>$ is a binary document vector where
-  each $w_i \in \{0,1\}$.
-- $P(\hat{X}|C_c) = P(w_1, w_2, \dots, w_k | C_c) = \prod_i
-  P(w_i|C_c)$ is the probability of the document having the words
-  that it does assuming that the document comes from category $C_c$.
-- $P(w_i|C_c) = \frac{d_{ci} + 1}{d_i + n_c}$ is the probability of a
-  document from category $C_c$ having word $w_i$.
-- $\arg\max_{C_c} P(\hat{X}|C_c) P(C_c)$ is the question: which
-  category $C_c$ maximizes the probability that the document has these
-  words?
-- $\arg\max_{C_c} \sum_i \log P(w_i|C_c) + \log P(C_c)$ is the new
-  question using log-probability to avoid "underflow" in the
-  floating-point values.
+- Naïve Bayesian classification uses Bayes' rule to determine the probability of each class (e.g., spam, not spam) for a given new instance.
+- The training set is used to remember the probability of each feature appearing in an instance, given each class. E.g., the probability that a spam email has the word "money".
+- The "naïve assumption" is the assumption that the value of some feature in an instance is completely independent (in a statistical sense) than the values of all the other features. Without this assumption, Bayesian classification is computationally intractable (i.e., far too slow).
 
-### Feature vectors
+### Background: Bayesian reasoning
 
-Documents are simply binary word vectors. Each dimension in the vector
-represents a unique word. The value in this dimension is 0 or 1
-depending on whether the document has at least one occurrence of that
-word.
+### The naïve assumption
 
-### Category vectors
+
+
+### Training a naïve Bayesian model
+
+Each instance in the training set and each new, novel instance should have the same kinds of feature vectors. Some features might be continuous  (e.g., a person's height), some might be nominal/discrete (e.g., male vs. female).
+
+In any case, we want to "learn" $P(f_i|C_k)$ for every feature $f_i$ and class $C_k$, that is, we want to know the probability of feature $i$ having the value it does given that we already know the feature is from an instance in the class $k$.
+
+For example, we want to know $P(money|spam)$ and $P(money|notspam)$, among all the other words that may appear in an email.
+
+For discrete features, like words in an email, we can simply count how often each word appeared in instances in each class. So, $P(money|spam) = 12/55$ if "money" appeared in 12 of 55 spam instances in the training set. Sometimes, a word, like "stetson", may not appear in any spam instances in our training set. But that word might appear in real spam in the future. Rather than make $P(stetson|spam)=0$, which seems logical, we add $+1$ to the top and bottom of every fraction (for every discrete feature) to be sure no probability is 0. (This is called [Laplace smoothing](http://en.wikipedia.org/wiki/Additive_smoothing).) That makes $P(money|spam)=(12+1)/(55+1)=13/56$, and $P(stetson|spam)=1/56$. You'll see in the remaining sections that this is a good idea. If we didn't do this, a new email having the word "stetson" would make its probability of being spam 0% because "stetson" never appeared in training spam.
 
 <p>
-Each category vector is represented as a series of probabilities, one
-probability per word (each vector dimension represents a word, just
-like a document feature vector). Each probability means, "the
-probability of this word being present in a document that is a member
-of this category." Thus, the category vector has terms $C_c = (p_{c1}, p_{c2}, \dots, p_{ck})$, and
+For continuous features, we assume the values are normally distributed and use a bell curve to estimate $P(f_i|C_k)$. A bell curve, or Gaussian function, is defined by the mean and standard deviation: $P(f_i|C_k) = \left( 1/\sqrt{2\pi \sigma^2_k} \right) e^{-(f_i-\mu_k)^2/(2\sigma^2_k)}$, where $\sigma_k$ is the standard deviation of this feature for class $k$ and $\mu_k$ is the mean of this feature for class $k$. Of course, nobody actually codes this formula. We can use builtin functions, like the R function <code>pnorm(val, mean=m, sd=v)</code>.
 </p>
 
-<div>
-$$p_{ci} = P(w_i|C_c) = \frac{d_{ci}+1}{d_i+n_c},$$
-</div>
+Finally, we need to estimate the "prior" probabilities of any random instance being a member of each class. This is $P(C_k)$ for each class $k$. You can make them all equal (so 1/m for m classes) or count the number of training instances in each class and divide by the number of training instances total.
 
-where $d_{ci}$ is the number of documents in $C_c$ that have word $i$
-(anywhere in the document, any number of occurrences), $d_i$ is the
-number of documents in *any* category that have word $i$, and $n_c$ is
-the number of documents in category $C_c$. We add 1 and add $n_c$ so
-that $P(w_i|C_c)$ is never equal to 0. (This is called [Laplace
-smoothing](http://en.wikipedia.org/wiki/Additive_smoothing).)
-
-### Algorithm
-
-We assume, for simplicity, that the occurrences of words in documents
-are completely independent (this is what makes the method
-"naïve"). This is patently false since, for instance, the words
-"vision" and "image" often both appear in documents about computer
-vision; so seeing the word "vision" suggests that "image" will also
-appear in the document.
-
-We further assume that the order the words appear in the document does
-not matter.
-
-Because we make this independence assumption, we can calculate the
-probability of a document being a member of some category quite
-easily:
-
-$$P(\hat{X}|C_c) = \prod_i P(w_i|C_c),$$
-
-where $P(w_i|C_c) = p_{ci}$ (from the definition above).
-
-Now, Bayes' theorem gives us:
-
-$$P(C_c|\hat{X}) = P(\hat{X}|C_c)P(C_c) / P(\hat{X}),$$
-
-with,
-
-$$P(C_c) = \frac{n_c + 1}{n + |C|},$$
-
-where $n_c$ is the number of documents in category $C_c$ and $n$ is
-the number of documents overall. Again, we use Laplace smoothing; this
-allows us to avoid probabilities equal to 0.0.
-
-Since we want to find the category $C_c$ that makes the quantity
-maximal, we can ignore $P(\hat{X})$ because it does not change
-depending on which category we are considering.
-
-Thus, we are actually looking for:
+Given these probabilities, and applying Bayes' rule plus the naïve assumption, we can calculate the probability that a new instance has class $k$ given its features $\vec{f}$:
 
 <div>
-$$\arg\max_{C_c} P(C_c|\hat{X}) = \arg\max_{C_c} P(\hat{X}|C_c)P(C_c)$$
-</div>
+$$
+\begin{eqnarray}
+P(C_k|\vec{f}) &=& P(\vec{f}|C_k)P(C_k)/P(\vec{f}) \\\\
+&=& P(f_1|C_k)P(f_2|C_k)\cdots P(f_n|C_k)P(C_k)/P(\vec{f}) \qquad \text{naïve assumption} \\\\
+\end{eqnarray}
+$$
 
-We just check all the categories, and choose the single best or top $N$.
+We have each of these probabilities, except $P(\vec{f})$. We could compute that, but it's not important. We only want to figure out which class has a greater "posterior" probability:
+
+<div>
+$$
+P(C_1|\vec{f}) > P(C_2|\vec{f}) \qquad \text{??}
+$$
+<div>
+
+More generally, we want to find the $k$ that makes the probability maximum:
+
+<div>
+$$
+\
+
 
 ### A problem with tiny values
 
-With a lot of unique words, we create very small values by multiplying
-many $p_{ci}$ terms. On a computer, the values may become so small
+With a lot of features, we create very small values by multiplying
+many probabilities. On a computer, the values may become so small
 that they may "underflow" (run out of bits required to represent the
 value). To prevent this, we just throw a logarithm around everything:
 
