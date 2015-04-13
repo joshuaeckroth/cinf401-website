@@ -476,4 +476,18 @@ Here is an example on the iris dataset, which has 4-dimensional data:
 
 ![Iris cmdscale](/images/iris-cmdscale.png)
 
+Here is a better demo. Consider the [distances between several US cities](http://www.mapcrow.info/united_states.html).
+
+Read this into R:
+
+{% highlight r %}
+library(XML)
+table <- readHTMLTable("http://www.mapcrow.info/united_states.html", colClasses="numeric")$`NULL`[,2:32]
+s <- cmdscale(as.matrix(table))
+ggplot(data.frame(x=-s[,1], y=s[,2], city=colnames(table))) + geom_text(aes(x=x, y=y, label=city), size=2)
+{% endhighlight %}
+
+You get this graph (after flipping the x-axis). Notice that the city's relative locations are correct, since multidimensional scaling tries to respect these distances while arranging the points.
+
+![MDS US Cities](/images/mds-us-cities.png)
 
