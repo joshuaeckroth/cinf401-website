@@ -384,3 +384,74 @@ resize.image <- function(img, rsize=100) {
   }
 }
 {% endhighlight %}
+
+## Plot cats
+
+Yeah.
+
+{% highlight r %}
+# get EBImage with this code:
+# source("http://bioconductor.org/biocLite.R")
+# biocLite("EBImage")
+
+library(raster)
+library(jpeg)
+library(data.table)
+library(bit64)
+library(stringr)
+library(EBImage)
+library(reshape2)
+library(ggplot2)
+library(plyr)
+library(fpc)
+
+plotCats <- function(dfeatClusters)
+{
+    s <- cmdscale(dist(dfeatClusters[,c("color1", "color2")]))
+    sdf <- data.frame(x=s[,1], y=s[,2], cluster=dfeatClusters$cluster, file=dfeatClusters$file, cat=str_sub(dfeat$file, 5), leftEar3Y=dfeat$leftEar3Y, leftEar3X=dfeat$leftEar3X, rightEar1X=dfeat$rightEar1X, leftEar1Y=dfeat$leftEar1Y, color1=rgb(dfeat$R_1, dfeat$G_1, dfeat$B_1), color2=rgb(dfeat$R_2, dfeat$G_2, dfeat$B_2), color3=rgb(dfeat$R_3, dfeat$G_3, dfeat$B_3))
+    sdfmelt <- melt(sdf, c("x", "y", "cat"), c("file"))
+    minX <- min(sdf$x)
+    maxX <- max(sdf$x)
+    minY <- min(sdf$y)
+    maxY <- max(sdf$y)
+    xsize <- (maxX-minX)/60.0
+    ysize <- (maxY-minY)/60.0
+    sdf$labelx1 <- sdf$x-xsize/4
+    sdf$labely1 <- sdf$y+ysize
+    sdf$labelx2 <- sdf$x
+    sdf$labely2 <- sdf$y+ysize
+    sdf$labelx3 <- sdf$x+xsize/4
+    sdf$labely3 <- sdf$y+ysize
+    count <- nrow(sdf)
+    p <- ggplot(sdf[1:count,], aes(x=x, y=y)) +
+        mapply(function(xx, yy, file, leftEar3Y, leftEar3X, rightEar1X, leftEar1Y) {
+                img <- readJPEG(as.character(file))
+                if(leftEar3Y < 0 && leftEar1Y > leftEar3Y) {
+                    tmp = -leftEar3Y
+                    leftEar3Y = -leftEar1Y
+                    leftEar1Y = tmp
+                }
+                if(leftEar1Y < leftEar3Y) {
+                    tmp = leftEar3Y
+                    leftEar3Y = leftEar1Y
+                    leftEar1Y = tmp
+                }
+                imgCropped <- img[max(1,leftEar3Y):(leftEar1Y+5),leftEar3X:rightEar1X,]
+                imgResized <- resize.image(imgCropped, 100)
+                xmin <- xx-xsize/2.0
+                xmax <- xx+xsize/2.0
+                ymin <- yy-ysize/2.0
+                ymax <- yy+ysize/2.0
+                annotation_raster(imgResized, xmin, xmax, ymin, ymax)
+            },
+            sdf[1:count,]$x, sdf[1:count,]$y, sdf[1:count,]$file,
+            sdf[1:count,]$leftEar3Y, sdf[1:count,]$leftEar3X,
+            sdf[1:count,]$rightEar1X, sdf[1:count,]$leftEar1Y) +
+        geom_text(aes(x=labelx1, y=labely1, label=cluster, color=color1), size=4) +
+        geom_text(aes(x=labelx2, y=labely2, label=cluster, color=color2), size=3) +
+        geom_text(aes(label=file), size=1) +
+        scale_color_identity(guide=FALSE)
+    ggsave("cat-clusters.pdf", p, dpi=300, w=20, h=20)
+    p
+}
+{% endhighlight %}
