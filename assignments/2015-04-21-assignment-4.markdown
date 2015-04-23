@@ -7,7 +7,7 @@ categories: [assignments]
 
 # Assignment 4
 
-Read [Big Data Ethics](/big-data-ethics-zwitter.pdf) by Andrej Zwitter.
+Read [Big Data Ethics](/big-data-ethics-zwitter.pdf) by Andrej Zwitter. Answer the questions below. Make a git repository as usual.
 
 ## Scenario 1
 
