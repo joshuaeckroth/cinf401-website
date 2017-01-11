@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Group project 2
-due: "Mar 27, 11:59pm"
+title: Project 2
+due: "Wed Mar 22"
 categories: [assignments]
 ---
 
-# Group project 2
+# Project 2
 
 Using a data dump from [StackExchange](http://stackexchange.com/) (all [sites](http://stackexchange.com/sites) dumped; [dataset torrent](https://archive.org/details/stackexchange)), answer the following questions:
 

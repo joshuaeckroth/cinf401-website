@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Group project 1
-due: "Feb 27, 11:59pm"
+title: Project 1
+due: "Wed Mar 1"
 categories: [assignments]
 ---
 
-# Group project 1
+# Project 1
 
 Using [Backblaze's hard drive data](https://www.backblaze.com/hard-drive-test-data.html) (2014 only), convince me of the following:
 

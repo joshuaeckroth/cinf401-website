@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Assignment 2
-due: "Feb 3, 11:59pm"
+due: "Mon Jan 30"
 categories: [assignments]
 ---
 

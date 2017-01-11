@@ -4,12 +4,15 @@ html, * {
 }
 
 body {
-    color: #111;
-    font-size: 16px;
+    color: #41463d;
+    font-size: 20px;
     font-family: "Lato", sans-serif;
     line-height: 1.5;
     padding: 20px;
     background: #fff;
+    /* Background pattern from subtlepatterns.com */
+    background-image: url("/images/asanoha-400px/asanoha-400px.png");
+    background-repeat: repeat;
 }
 
 #container-tight {
@@ -30,7 +33,7 @@ h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #212121;
+    color: #41463d;
     font-family: "Crete Round", serif;
 }
 
@@ -58,7 +61,7 @@ ul.posts {
 a, a:visited, a:active, a:hover {
     text-decoration: none;
     font-weight: bold;
-    color: #5c6bc0;
+    color: #9d8df1;
 }
 
 table#index {
@@ -83,22 +86,19 @@ td#metabox a,
 td#metabox a:visited,
 td#metabox a:active,
 td#metabox a:hover {
-    color: #9fa8da;
 }
 
 td#metabox {
-    background: #5c6bc0;
-    color: #fff;
     padding: 10px;
 }
 
 td#metabox div.classname {
-    font-size: 32px;
+    font-size: 50px;
     font-weight: bold;
 }
 
 td#metabox div.semester {
-    font-size: 22px;
+    font-size: 26px;
     margin-top: 20px;
 }
 
@@ -108,7 +108,7 @@ td#metabox div.email {
 
 td#metabox div.officehours {
     margin: 20px 0;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .post-title {
@@ -117,18 +117,15 @@ td#metabox div.officehours {
 }
 
 .post-categories {
-    color: #616161;
     font-weight: bold;
     margin-right: 10px;
 }
 
 .post-date {
-    color: #e0e0e0;
     margin-right: 10px;
 }
 
 .post-due {
-    color: #616161;
 }
 
 ul.posts li {
@@ -137,7 +134,7 @@ ul.posts li {
 }
 
 div.license {
-    font-size: 12px;
+    font-size: 16px;
     clear: both;
     padding-top: 20px;
 }
@@ -162,15 +159,17 @@ div.metatop span.homelink {
 
 table {
     margin: 0 auto;
-    border: 1px solid #5c6bc0;
+    border: 1px solid #9d8df1;
 }
 
 td {
     padding: 5px;
+    font-size: 18px;
 }
 
 thead th {
     padding: 10px 5px;
+    font-weight: bold;
 }
 
 table#toc {
@@ -178,18 +177,18 @@ table#toc {
 }
 
 pre {
-    border-left: 4px solid #5c6bc0;
+    border-left: 4px solid #9d8df1;
     padding-left: 15px;
     margin: 2em 0;
 }
 
 pre, code, tt {
     font-family: "Ubunto Mono", monospace;
-    font-size: 14px;
+    font-size: 18px;
 }
 
 code {
-    border: 1px dotted #5c6bc0;
+    border: 1px dotted #9d8df1;
     padding: 2px;
 }
 
@@ -199,7 +198,7 @@ pre code {
 }
 
 blockquote {
-    border-left: 4px solid #5c6bc0;
+    border-left: 4px solid #9d8df1;
     padding-left: 15px;
     margin: 2em 0;
     padding-left: 30px;
@@ -207,6 +206,9 @@ blockquote {
 
 img {
     display: block;
+    border: 3px solid #dddddd;
+    border-radius: 4px;
+    padding: 5px;
     margin: 0 auto;
 }
 
