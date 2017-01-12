@@ -4,5 +4,4 @@ kramdown:
 gems:
   - jekyll-sitemap
   - jemoji
-highlighter: rougify
 
