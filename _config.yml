@@ -1,9 +1,8 @@
-safe: true
-markdown: rdiscount
-rdiscount:
-  extensions: [smart]
-highlighter: pygments
-permalink: none
+kramdown:
+   input: GFM
+   hard_wrap: false
 gems:
+  - jekyll-sitemap
   - jemoji
+highlighter: rougify
 

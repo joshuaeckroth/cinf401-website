@@ -5,9 +5,9 @@ title: Syllabus
 
 # Syllabus
 
-<p>
 CINF 401 - 01, Spring 2017 &mdash; Big Data Mining and Analytics
-</p>
+
+MWF 11-11:50a Eliz Hall 205; pre-reqs: CSCI 221
 
 Work hard in this class and you should be able to:
 

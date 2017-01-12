@@ -27,7 +27,7 @@ Data cleaning is often necessary when working with human-entered data and joinin
 
 - Keep only raw data, not summary statistics.
 
-    - Some of the data you'll find will include summary statistics, such as "year to date" totals. You can compute these yourself with some code, as long as you have the raw data. The summary data just gets in the way, so remove them before you start mining.
+- Some of the data you'll find will include summary statistics, such as "year to date" totals. You can compute these yourself with some code, as long as you have the raw data. The summary data just gets in the way, so remove them before you start mining.
 
 ## Common data formats
 
