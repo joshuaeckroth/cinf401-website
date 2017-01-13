@@ -13,11 +13,11 @@ Every student should follow these procedures once, at the beginning of the semes
 
 We will use the school's "delenn" server for our work. You will also use your own computer.
 
-Ask me for your login name and password, and delenn's IP address. delenn cannot be access with a domain name outside of the University. (Inside the University's network, it's `delenn.ad.stetson.edu`.) So, in order to access delenn from home, or wherever, you'll need the IP address from me.
+Ask me for your login name and password. The address is `delenn.artifice.cc` and the port is 2222. **Take note of the port.**
 
 ## Configure SSH
 
-delenn serves various web interfaces on specific ports. One of these (port 8080) is RStudio, the others are related to Hadoop. The University firewall does not allow us to access these ports directly, so we will tunnel them through SSH.
+delenn serves various web interfaces on specific ports. One of these (port 8080) is RStudio, the others are related to Hadoop. These ports will only be accessible via a tunnel through SSH.
 
 **You must connect to delenn via SSH before you can use RStudio or Hadoop web interfaces.** If you don't connect with SSH first, the ports will not be available.
 
@@ -37,7 +37,7 @@ Edit the file `~/.ssh/config` and add this to the bottom:
 
 ```
 Host delenn
-  HostName 1.2.3.4  <------ replace
+  HostName delenn.artifice.cc
   User jeckroth  <--------- replace
   LocalForward 8080 127.0.0.1:8080   # RStudio: http://127.0.0.1:8080/
   LocalForward 9000 127.0.0.1:9000   # Hadoop web interface: http://127.0.0.1:9000/hadoop/

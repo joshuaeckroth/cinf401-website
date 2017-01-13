@@ -115,8 +115,3 @@ From [MapR](https://www.mapr.com/resources/customer-case-studies), 2014.
 
 From: Chen Zhang, Hans De Sterck, Ashraf Aboulnaga, Haig Djambazian, and Rob Sladek. "Case study of scientific data processing on a cloud using Hadoop." In High performance computing systems and applications, pp. 400-415. Springer Berlin Heidelberg, 2010. [PDF](http://202.154.59.182/mfile/files/Information%20System/High%20Performance%20Computing%20Systems%20and%20Applications%3B%2023rd%20HPCS%202009/Chapter%2029%20Case%20Study%20of%20Scientific%20Data%20Processing%20on%20a%20Cloud%20Using%20Hadoop.pdf).
 
-## More big data
-
-<div style="text-align: center">
-<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/105081265&amp;color=ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>
-</div>
