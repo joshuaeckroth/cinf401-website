@@ -9,7 +9,7 @@ categories: [assignments]
 
 ## Task 1
 
-Grab the first table of [Foreign Terrorist Organizations](http://www.state.gov/j/ct/rls/other/des/123085.htm) (the one called "Designated Foreign Terrorist Organizations") entirely using R. The R book, p. 80 has an example using the `XML` library and `readHTMLTable` function.
+Grab the first table of [Foreign Terrorist Organizations](http://www.state.gov/j/ct/rls/other/des/123085.htm) (the one called "Designated Foreign Terrorist Organizations") entirely using R. Consider using the `readHTMLTable` function in the `XML` library in R.
 
 Produce a data frame sorted by terrorist name, i.e., the following:
 

@@ -158,7 +158,11 @@ data.frame.wide <- function(x, vid, vmeasure, long_col){
     newcols <- as.vector(unique(x[[long_col]]))
     tmpd1 <- data.frame(xc[!is.na(xc[[newcols[1]]]),vid])
     colnames(tmpd1) <- vid
-    return(cbind(tmpd1, lapply(newcols, function(c) { tmpd2 <- data.frame(na.omit(xc[[c]])); colnames(tmpd2) <- c(c); return(tmpd2); })))
+    return(cbind(tmpd1, lapply(newcols, function(c) {
+      tmpd2 <- data.frame(na.omit(xc[[c]]));
+      colnames(tmpd2) <- c(c);
+      return(tmpd2);
+    })))
 }
 {% endhighlight %}
 
@@ -371,7 +375,9 @@ This function takes an argument giving the maximum width or height (if the image
 {% highlight r %}
 library(EBImage)
 
-# from: http://www.mepheoscience.com/colourful-ecology-part-1-extracting-colours-from-an-image-and-selecting-them-using-community-phylogenetics-theory/
+# from: http://www.mepheoscience.com/colourful-ecology-part-1-
+#   extracting-colours-from-an-image-and-selecting-them-using-
+#   community-phylogenetics-theory/
 resize.image <- function(img, rsize=100) {
   if (max(dim(img)[1:2]) > rsize) {
     if (dim(img)[1] > dim(img)[2]) {
@@ -408,7 +414,13 @@ library(fpc)
 plotCats <- function(dfeatClusters)
 {
     s <- cmdscale(dist(dfeatClusters[,c("color1", "color2")]))
-    sdf <- data.frame(x=s[,1], y=s[,2], cluster=dfeatClusters$cluster, file=dfeatClusters$file, cat=str_sub(dfeat$file, 5), leftEar3Y=dfeat$leftEar3Y, leftEar3X=dfeat$leftEar3X, rightEar1X=dfeat$rightEar1X, leftEar1Y=dfeat$leftEar1Y, color1=rgb(dfeat$R_1, dfeat$G_1, dfeat$B_1), color2=rgb(dfeat$R_2, dfeat$G_2, dfeat$B_2), color3=rgb(dfeat$R_3, dfeat$G_3, dfeat$B_3))
+    sdf <- data.frame(x=s[,1], y=s[,2], cluster=dfeatClusters$cluster,
+             file=dfeatClusters$file, cat=str_sub(dfeat$file, 5),
+             leftEar3Y=dfeat$leftEar3Y, leftEar3X=dfeat$leftEar3X,
+             rightEar1X=dfeat$rightEar1X, leftEar1Y=dfeat$leftEar1Y,
+             color1=rgb(dfeat$R_1, dfeat$G_1, dfeat$B_1),
+             color2=rgb(dfeat$R_2, dfeat$G_2, dfeat$B_2),
+             color3=rgb(dfeat$R_3, dfeat$G_3, dfeat$B_3))
     sdfmelt <- melt(sdf, c("x", "y", "cat"), c("file"))
     minX <- min(sdf$x)
     maxX <- max(sdf$x)

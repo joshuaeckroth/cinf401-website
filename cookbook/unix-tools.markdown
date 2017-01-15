@@ -13,9 +13,6 @@ Contributed by Antonio Ruiz. Download this [VirtualBox image](http://datascience
 
 Regular expressions are not only found in Unix, but a lot of Unix tools use them. For example, `grep`.
 
-### Regex patterns
-
-
 
 ## Menagerie of little tools
 
@@ -60,12 +57,6 @@ tail -f a.txt
 - `-P` --- use Perl-style regular expressions (lots of extra features)
 
 ## Bash
-
-### Pipes
-
-### Scripts
-
-### Conditionals
 
 ### Loops
 

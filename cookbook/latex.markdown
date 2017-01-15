@@ -5,10 +5,6 @@ title: "Cookbook: LaTeX"
 
 # Cookbook: LaTeX
 
-## Textbook: R for Everyone
-
-- Chapter 23
-
 ## External resources
 
 - A general [guide to LaTeX](http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/) (not specific to usage with R and knitr)

@@ -11,7 +11,7 @@ The "gg" of ggplot stands for "grammar of graphics." The ggplot library provides
 
 Every plot starts with the `ggplot()` function. Then, you "add" graphics to it (using `+`), such as `geom_line()` or `geom_point()`. The examples below and in the cookbook illustrate this point.
 
-The [ggplot docs](http://docs.ggplot2.org/current/) might prove useful to you, as will the R book, pp. 86-98, and the [Cookbook for R](http://www.cookbook-r.com/Graphs/).
+The [ggplot docs](http://docs.ggplot2.org/current/) might prove useful to you, as will the [Cookbook for R](http://www.cookbook-r.com/Graphs/).
 
 ## Aesthetics
 

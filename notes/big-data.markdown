@@ -13,7 +13,7 @@ This class is nominally about big data. It is worthwhile to figure out what we'r
 
 ## What? Why?
 
-Data is everywhere. Like Neo in the Matrix, once you start looking for public datasets or compiling your own, you begin to realize that everything has a data stream. Website interlinks, traffic sensors, thermostats, governmental forms, click habits, phone calls, geo "check ins", hospital records, purchase histories, etc. etc. Data can be found everywhere, and some of it is huge.
+Data is everywhere. Once you start looking for public datasets or compiling your own, you begin to realize that everything has a data stream. Website interlinks, traffic sensors, thermostats, governmental forms, click habits, phone calls, geo "check ins", hospital records, purchase histories, etc. etc. Data can be found everywhere, and some of it is huge.
 
 This class is about two things (besides the quote at the top of the [syllabus](/notes/syllabus.html)): what can we do with data, and what techniques are unique to handling really big data.
 
@@ -34,6 +34,25 @@ In order to make sense of why "big data" is a problem, requiring unique solution
 Image found at [technoducation.wordpress.com](http://technoducation.wordpress.com/).
 
 Check out this [interactive visualization](http://www.eecs.berkeley.edu/~rcs/research/interactive_latency.html) of latency for various types of memory/disk/network access. It shows the staggering orders-of-magnitude differences between processor cache and RAM access vs. disk access vs. network access.
+
+Here are the numbers in summary (adapted from [here](https://gist.github.com/hellerbarde/2843375)):
+
+```
+L1 cache reference ......................... 0.5 ns
+Branch mispredict ............................ 5 ns
+L2 cache reference ........................... 7 ns
+Mutex lock/unlock ........................... 25 ns
+Main memory reference ...................... 100 ns             
+Compress 1K bytes with Zippy ............. 3,000 ns  =   3 µs
+Send 2K bytes over 1 Gbps network ....... 20,000 ns  =  20 µs
+SSD random read ........................ 150,000 ns  = 150 µs
+Read 1 MB sequentially from memory ..... 250,000 ns  = 250 µs
+Round trip within same datacenter ...... 500,000 ns  = 0.5 ms
+Read 1 MB sequentially from SSD* ..... 1,000,000 ns  =   1 ms
+Disk seek ........................... 10,000,000 ns  =  10 ms
+Read 1 MB sequentially from disk .... 20,000,000 ns  =  20 ms
+Send packet CA->Netherlands->CA .... 150,000,000 ns  = 150 ms
+```
 
 When you run out of memory at some level (say, RAM, or disk space), you have a few options for how to proceed:
 
@@ -58,7 +77,7 @@ Now, here is my definition of "big data":
 
 > A data mining/analysis task may be described as "big data" if the data to be processed has such high volume or velocity that **more than one** commodity machine is required to store and/or process the data.
 
-I define a "commodity" data storage system and "commodity" machine as those that may be found in a typical small-to-medium business's data center. Current (2015) examples include:
+I define a "commodity" data storage system and "commodity" machine as those that may be found in a typical small-to-medium business's data center. Current (2017) examples include:
 
 Commodity data storage system:
 
@@ -113,5 +132,5 @@ From [MapR](https://www.mapr.com/resources/customer-case-studies), 2014.
 >
 > [T]he use of Hadoop allows to speed up calculations by a factor that equals the number of worker nodes, except for startup effects, which are relatively small when the execution time of individual tasks is large enough.
 
-From: Chen Zhang, Hans De Sterck, Ashraf Aboulnaga, Haig Djambazian, and Rob Sladek. "Case study of scientific data processing on a cloud using Hadoop." In High performance computing systems and applications, pp. 400-415. Springer Berlin Heidelberg, 2010. [PDF](http://202.154.59.182/mfile/files/Information%20System/High%20Performance%20Computing%20Systems%20and%20Applications%3B%2023rd%20HPCS%202009/Chapter%2029%20Case%20Study%20of%20Scientific%20Data%20Processing%20on%20a%20Cloud%20Using%20Hadoop.pdf).
+From: Chen Zhang, Hans De Sterck, Ashraf Aboulnaga, Haig Djambazian, and Rob Sladek. "Case study of scientific data processing on a cloud using Hadoop." In High performance computing systems and applications, pp. 400-415. Springer Berlin Heidelberg, 2010.
 

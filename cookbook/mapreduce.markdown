@@ -12,13 +12,13 @@ title: "Cookbook: MapReduce"
 On delenn, first list the active jobs:
 
 ```
-hadoop job -list
+mapred job -list
 ```
 
 Find yours, then kill it:
 
 ```
-hadoop job -kill <job-id>
+mapred job -kill <job-id>
 ```
 
 

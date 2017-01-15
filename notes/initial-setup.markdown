@@ -17,17 +17,17 @@ Ask me for your login name and password. The address is `delenn.artifice.cc` and
 
 ## Configure SSH
 
-delenn serves various web interfaces on specific ports. One of these (port 8080) is RStudio, the others are related to Hadoop. These ports will only be accessible via a tunnel through SSH.
+delenn serves various web interfaces on specific ports. Port 8080 is RStudio, while 9000 will be used for Hadoop services. These ports will only be accessible via a tunnel through SSH.
 
 **You must connect to delenn via SSH before you can use RStudio or Hadoop web interfaces.** If you don't connect with SSH first, the ports will not be available.
 
-Since we are using port forwarding, you will access delenn web interfaces by connecting to [localhost:8080](http://localhost:8080) or [localhost:50070](http://localhost:50070), etc.
-
-RStudio uses port 8080. Hadoop services use ports 50070, 8088, 19888. See the [Hadoop dev env](/notes/hadoop-dev-env.html) notes for details.
+Since we are using port forwarding, you will access delenn web interfaces by connecting to [localhost:8080](http://localhost:8080) for RStudio or [localhost:9000](http://localhost:9000) for Hadoop services.
 
 ### PuTTY (Windows)
 
 ![PuTTY tunneling](/images/putty-1.png)
+
+Add port forwarding for ports 8080 and 9000:
 
 ![PuTTY tunneling](/images/putty-2.png)
 

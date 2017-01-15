@@ -109,7 +109,7 @@ It must be said, correlation does not equal causation. Even with very high corre
 ### Covariation
 
 <p>
-As our R book says (p. 199), covariance is like a measure of variance between variables. It is very similar to correlation but not scaled by the standard deviations. Thus, its formula is,
+Covariance is like a measure of variance between variables. It is very similar to correlation but not scaled by the standard deviations. Thus, its formula is,
 $$
 cov(X,Y) = \frac{\sum_i (x_i-\bar{x})(y_i-\bar{y})}{n-1}.
 $$

@@ -7,8 +7,6 @@ title: "Cookbook: ggplot"
 
 *Note: See the corresponding [lecture notes about ggplot](/notes/ggplot.html). This page has cookbook recipes.*
 
-Also see the R book, pp. 86-98.
-
 ## Common plots
 
 ### Points

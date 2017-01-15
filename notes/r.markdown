@@ -34,7 +34,7 @@ Variable assignment should be done like this: `x <- 5`.
 
 ![Deal with it](/images/r-assignment-syntax.gif)
 
-Or, you can do this: `5 -> z`. Ironically, the book (p. 37) has it backwards.
+Or, you can do this: `5 -> z`.
 
 ## Data structures
 
@@ -49,7 +49,7 @@ R has these main types (classes actually):
 - `Date` or `POSIXct`
 - `logical` --- a.k.a. booleans (`TRUE` or `T`, and `FALSE` or `F`)
 
-Note, regarding `T` and `F` shorthands for `TRUE` and `FALSE` logical values. The book (p. 42) has an interesting statement about this:
+Note, regarding `T` and `F` shorthands for `TRUE` and `FALSE` logical values. [*R for Everyone*](http://www.jaredlander.com/r-for-everyone/) has an interesting statement about this:
 
 > R provides `T` and `F` as shortcuts for `TRUE` and `FALSE`, respectively, but it is best practice not to use them, as they are simply variables storing the values `TRUE` and `FALSE` and can be overwritten (!!), which can cause a great deal of frustration... (!! added by me)
 
@@ -91,7 +91,7 @@ R is a "vector language." Most functions can be applied to an entire vector at o
 
 R has a `list` type, as well, which can hold values of different types. Most functions expect vectors, so we don't often, if ever, use lists outright.
 
-Here are some vector operations. See the book, pp. 44-48 for more examples.
+Here are some vector operations.
 
 {% highlight r %}
 v1 <- c(3, 7, 12)
@@ -385,8 +385,6 @@ You can also subset a data frame by complex boolean expressions:
 
 ## Reshaping data frames (`melt` and `dcast`)
 
-(See the R book, pp. 149-152.)
-
 The `reshape2` package provides some powerful functions for dramatic transforms of data frames. These transformations come in two forms (which are inverses of each other): melting and casting.
 
 Both melting and casting assume that your data frames consist only of "identifier" and "measured" variables or columns:
@@ -589,7 +587,7 @@ If you use `library(plyr)`, you can also do subsets. Notice the `subset = .(Time
 
 ## Aggregation on data frames
 
-A different way to produce column means or sums or whatever, without using `melt` and `dcast`, is to use `aggregate`. See the R book, pp. 120-123.
+A different way to produce column means or sums or whatever, without using `melt` and `dcast`, is to use `aggregate`.
 
 We'll use the `ChickWeight` data frame again.
 
