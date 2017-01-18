@@ -39,6 +39,7 @@ Edit the file `~/.ssh/config` and add this to the bottom:
 Host delenn
   HostName delenn.artifice.cc
   User jeckroth  <--------- replace
+  Port 2222
   LocalForward 8080 127.0.0.1:8080   # RStudio: http://127.0.0.1:8080/
   LocalForward 9000 127.0.0.1:9000   # Hadoop web interface: http://127.0.0.1:9000/hadoop/
 ```
