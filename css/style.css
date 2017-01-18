@@ -34,7 +34,8 @@ h2, h3, h4, h5, h6 {
 
 h1, h2, h3, h4, h5, h6 {
     color: #41463d;
-    font-family: "Crete Round", serif;
+    font-weight: bold;
+    /*font-family: "Crete Round", serif;*/
 }
 
 strong {
@@ -89,7 +90,7 @@ td#metabox a:hover {
 }
 
 td#metabox {
-    padding: 10px;
+    padding: 50px 10px 10px 10px;
 }
 
 td#metabox div.classname {

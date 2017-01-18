@@ -16,7 +16,7 @@ Work hard in this class and you should be able to:
 
 ## About me
 
-- Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu)
+- Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
 
 - Eliz Hall 214-9, 386-740-2519
 
@@ -37,7 +37,7 @@ This course has no required textbook. All required material can be found on this
 
 ### Class demonstrations
 
-You will be required to demonstrate (for 5-15 minutes) a data mining/analysis/programming technique in front of the class, on two separate occasions. The techniques demonstrated will be added (by me) to the "cookbooks" on this website. You will not receive credit if your demonstration is the same as a prior demonstration this semester or a prior demonstration documented in the various cookbooks.
+You will be required to demonstrate (for 5 minutes) a data mining/analysis/programming technique in front of the class, on two separate occasions. You are required to submit to me (via email or git) some notes in Markdown format to add to a cookbook on this site. You will not receive credit if your demonstration is the same as a prior demonstration this semester or a prior demonstration documented in the various cookbooks.
 
 The purpose of these demonstrations is to ensure you are engaged with the material but also to show others a wide variety of techniques for handling data. We will use a wide range of tools in this class, and will not have time to learn most of them in depth. Thus, it will be useful for everyone to learn from each other the various tricks each of us discovers as we munge, analyze, and visualize our datasets.
 
@@ -66,7 +66,7 @@ A project can involve 1 or 2 people. These projects are more complex than assign
 
 Members of the same group may receive different grades, if I have evidence or a strong belief that not all group members contributed equally.
 
-All projects are due by 11:59pm on the stated due date, except for the final project, which you will present during our "final exam" time (May 6, 5-7pm). There is no final exam, only these presentations.
+All projects are due by 11:59pm on the stated due date, except for the final project, which you will present during our "final exam" time (May 6, 5-7pm). There is no final exam on that day, only these presentations.
 
 ### Late work
 
@@ -106,7 +106,7 @@ Assignment and project due dates:
 
 ## Honor code
 
-You are allowed to a small amount of code from websites (assuming the code is open source). You must indicate where you got the code (put comments in the code). More than 50% of your work or your group's combined work must be original.
+You are allowed to use a small amount of code from websites (assuming the code is open source). You must indicate where you got the code (put comments in the code). More than 50% of your work or your group's combined work must be original.
 
 I am strongly in agreement with the [Stetson University Honor Code](http://www.stetson.edu/other/honor-system/). Any form of cheating is not acceptable, will not be tolerated, and could lead to dismissal from the University.
 
