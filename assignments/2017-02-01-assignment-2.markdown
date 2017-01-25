@@ -13,7 +13,7 @@ Write all of your code in an RMarkdown file. Show every step of your process.
 
 Grab the first table of [Foreign Terrorist Organizations](http://www.state.gov/j/ct/rls/other/des/123085.htm) (the one called "Designated Foreign Terrorist Organizations") **entirely using R** (do not copy-paste the content or download ahead of time). Consider using the `readHTMLTable` function in the `XML` library in R. Note that `readHTMLTable` cannot open `https:` connections, so you'll need to do some googling to figure this out.
 
-Produce a data frame sorted by terrorist name, i.e., the following:
+Produce a data frame sorted by organization name, i.e., the following:
 
 {% highlight r %}
    DateDesignated                           Name
