@@ -60,8 +60,9 @@ strikeFX(strikes, geom="tile", layer=facet_grid(.~stand))
 
 Visit the [IPEDS Data Center](http://nces.ed.gov/ipeds/datacenter/Default.aspx). IPEDS provides data about US universities.
 
-- Choose "Download custom data files"
-- Select institutions "By Groups > EZ Group". Choose a group, e.g., US Institutions. Click "Search".
+- Choose "Compare Institutions"
+- Choose "Final release data" if asked
+- Select institutions "By Groups > EZ Group". Choose a group, e.g., US Only. Click "Search".
 - Next, select variables with the "By Variables" link above the table. Choose "Browse / Search Variables".
 - Drill down to find variables. Be sure to select each year, and select your variables for that year. Then click "Continue".
 - When ready, click "Output" at the top of the menu bar. You should see a table of CSV links.
