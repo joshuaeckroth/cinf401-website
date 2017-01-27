@@ -138,6 +138,9 @@
           <td>
             <h2>Assignments</h2>
             <ul class="posts">
+              <li>
+                <div class="post-title"><a href="/assignments/demo-days.html">Demo days</a></div>
+              </li>
               {% for p in site.pages sort_by:title order:ascending %}
               {% if p.categories contains 'assignments' %}
               <li>

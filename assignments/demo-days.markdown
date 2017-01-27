@@ -14,11 +14,13 @@ Feb 10:
 
 - Kathryn
 - Bryan
+- Ou
 
 Feb 17:
 
 - Malak
 - Isaac
+- Ou
 
 Feb 24:
 
