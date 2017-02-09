@@ -7,6 +7,10 @@ title: "Cookbook: ggplot"
 
 *Note: See the corresponding [lecture notes about ggplot](/notes/ggplot.html). This page has cookbook recipes.*
 
+## Cheatsheet
+
+Ou Zheng found this [amazing ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf) produced by RStudio.
+
 ## Common plots
 
 ### Points
