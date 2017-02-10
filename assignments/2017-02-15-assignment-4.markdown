@@ -37,11 +37,11 @@ Plot 2:
 
 Plot 3:
 
-- Isaac, Austin, Kim, Chris, Kathryn, Po
+- Isaac, Austin, Kim, Chris, Kathryn, Po, Shayne
 
 Plot 4:
 
-- Duncan, Christian, Bryan
+- Duncan, Christian, Bryan, Shayne
 
 Plot 5:
 
