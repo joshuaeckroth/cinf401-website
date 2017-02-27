@@ -469,3 +469,244 @@ plotCats <- function(dfeatClusters)
     p
 }
 {% endhighlight %}
+
+## dplyr SQL-style queries
+
+Contributed by Chris Finkle.
+
+Yet another package developed by Hadley Wickham, dplyr is a data manipulation tool designed specifically to work with dataframes and even SQL databases (hence the d in the name).
+
+It has five main functionalities which work in a similar manner to the functions we're used to, but have better names and more intuitive inputs:
+
+- Filter (pulls out rows that meet criteria)
+- Select (pulls out specified columns; think SQL)
+- Arrange (puts things in a specified order)
+- Mutate (creates new values based on old ones)
+- Summarise (like Aggregate, but cooler)
+- Group\_by (used with Summarise)
+
+The other big selling point is the pipe-style input using %>%, which increases R code's readability and flexibility.
+
+Let's see some examples! First, how about Filter? Let's look at the reshape library's Tips dataset. Suppose we want to look at only the rows in which there were smokers in the party.
+
+```
+suppressMessages(library(reshape))
+suppressMessages(library(dplyr))
+
+head(tips)
+
+filter(tips, smoker=="Yes") %>%
+  head()
+```
+
+What about just on the weekdays?
+
+```
+filter(tips, smoker=="Yes", day %in% c("Thu", "Fri")) %>%
+  head()
+```
+
+You'll notice that in the previous example I used 'head' with the %>% pipe. This can be used to chain together an arbitrary number of commands, even ones that aren't in dplyr. Let's demonstrate Select using it. Suppose we only care about total_bill, tip, party size, and time of the meal, and then only when the bill was more than $20 or the tip was more than $3 (for some reason).
+
+```
+tips %>%
+  select(total_bill, tip, size, time) %>%
+  filter(total_bill > 20 | tip > 3) %>%
+  head()
+```
+
+Now what if we want to arrange them in descending order of tip amount? Clearly such rearrangements have created problems in the past, since we needed a whole blog post to do them on assignment three. Not so here! Arrange is very straightforward:
+
+```
+tips %>%
+  select(total_bill, tip) %>%
+  arrange(desc(tip)) %>%
+  head()
+```
+
+(okay so if you want to do absolutely anything with preservation of rownames, no dice. But rownames suck anyway).
+
+Now let's try mutating. Remember, Mutate produces new values based on the ones you already have. An obvious choice on this dataset is finding what percentage the party tipped.
+
+```
+#this just prints the new result
+tips %>%
+  select(total_bill, tip) %>%
+  mutate(percentage = tip/total_bill * 100) %>%
+  head()
+
+#this stores it
+pct_tips <- tips %>% mutate(percentage = tip/total_bill*100)
+head(pct_tips)
+```
+
+Finally, let's look at Summarise and Group_by, which can do a lot of the heavy lifting we've relied on melt, dcast, and aggregate for. Specifically, let's try doing a couple of the practice problems on the R page on the website. (The ones with aggregate as the recommended method)
+
+```
+#Dataframe 1
+tips %>%
+  group_by(sex, day) %>%
+  summarise_each(funs(mean), total_bill, tip) %>%
+  head()
+
+#Dataframe 2
+tips %>%
+  group_by(sex, day) %>%
+  summarise(num_tips = n()) %>%
+  arrange(day) %>%
+  head()
+
+#or (simpler but omits column name)
+tips %>%
+  group_by(sex, day) %>%
+  tally() %>%
+  arrange(day) %>%
+  head()
+
+#You can even do some mild reshaping by using group_by without summarise: behold data frame 4
+tips %>%
+  group_by(day) %>%
+  select(smoker) %>%
+  table() %>%
+  head()
+```
+
+There are many more things you can do with dplyr, including window functions (which return a vector of values, e.g. lag or lead functions, cumulative aggregates), random samples, and connecting to proper SQL databases (select and filter commands can be converted directly into SQL by piping them into %>% explain(). It's really neat!). For more information and useful links, visit [this tutorial](http://rpubs.com/justmarkham/dplyr-tutorial) that I pretty much ripped off wholesale for this presentation.
+
+## Audio processing
+
+Contributed by Isaac Sarmiento.
+
+```
+library(tuneR)
+```
+
+Sound with 440Hz and followed by 220Hz:
+
+```
+Wav <- bind(sine(440), sine(220))
+show(Wav)
+plot(Wav)
+plot(extractWave(Wav, from = 1, to = 500))
+waspec <- periodogram(Wav,normalize=T,width=64)
+```
+
+The colors represent the most important acoustic peaks for a given time frame, with red representing the highest energies, then in decreasing order of importance, orange, yellow, green, cyan, blue, and magenta, with gray areas having even less energy and white areas below a threshold decibel level.
+
+```
+image(waspec,ylim=c(0,1500))
+```
+
+Now for MP3
+
+```
+mp <- readMP3("Tribe.mp3")
+mp
+summary(mp)
+plot(mp)
+
+mpmono <- mono(mp,"right")
+dmpmono <-downsample(mpmono,20000)
+
+summary(dmpmono)
+
+wmp <- periodogram(dmpmono,normalize=T,width=64)
+
+image(wmp,ylim=c(0,2000))
+```
+
+## Twitter with R
+
+Contributed by Ou Zheng.
+
+```
+#key words
+
+library(twitteR)
+options(httr_oauth_cache=T)
+api_key <- "..."
+api_secret <- "..."
+access_token <- "..."
+access_token_secret <- "..."
+setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
+searchTwitter("iphone")
+
+#user
+
+library(twitteR)
+Tweets <- userTimeline("realDonaldTrump", n=100)
+head(Tweets)
+
+#for follower
+
+library(twitteR)
+StetsonU <- getUser('StetsonU')
+follow.su <- StetsonU$getFollowers(n=500)
+df.su <- do.call('rbind',lapply(follow.su,as.data.frame))
+
+#statusesCount 
+#followersCount 
+#friendsCount 
+#created 
+
+df.sub <- subset(df.su,friendsCount<2300 & followersCount<3000 & statusesCount<10000)
+#df.sub <- df.su
+df.sub$time <- as.Date(df.sub$created)
+df.sub$ntime <- as.numeric(df.sub$time)
+library(ggplot2)
+p <- ggplot(df.sub,aes(x=time))
+p + geom_histogram(fill='red',colour='black',binwidth=30)
+
+
+p <- ggplot(df.sub,aes(x=friendsCount))
+p + geom_histogram(fill='red',colour='black',binwidth=30)
+
+
+p <- ggplot(data=df.sub,aes(x=friendsCount,y=followersCount))
+p + geom_point(aes(size=statusesCount,colour=ntime),alpha=0.8)
+
+#source
+
+library(dplyr)
+library(purrr)
+library(twitteR)
+api_key <- "..."
+api_secret <- "..."
+access_token <- "..."
+access_token_secret <- "..."
+setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
+
+# We can request only 3200 tweets at a time; it will return fewer
+# depending on the API
+trump_tweets <- userTimeline("realDonaldTrump", n = 100)
+trump_tweets_df <- tbl_df(map_df(trump_tweets, as.data.frame))
+library(tidyr)
+
+#We clean this data a bit, extracting the source application. (We’re looking
+#only at the iPhone and Android tweets- a much smaller number are from the web
+#client or iPad).
+
+tweets <- trump_tweets_df %>%
+  select(id, statusSource, text, created) %>%
+  extract(statusSource, "source", "Twitter for (.*?)<") %>%
+  filter(source %in% c("iPhone", "Android"))
+
+library(lubridate)
+library(scales)
+library(ggplot2)
+
+#Overall, this includes 628 tweets from iPhone, and 762 tweets from Android.
+#One consideration is what time of day the tweets occur, which we’d expect to
+#be a “signature” of their user. Here we can #certainly spot a difference:
+
+tweets %>%
+  count(source, hour = hour(with_tz(created, "EST"))) %>%
+  mutate(percent = n / sum(n)) %>%
+  ggplot(aes(hour, percent, color = source)) +
+  geom_line() +
+  scale_y_continuous(labels = percent_format()) +
+  labs(x = "Hour of day (EST)",
+       y = "% of tweets",
+       color = "")
+```
+

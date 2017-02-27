@@ -493,3 +493,66 @@ You get this graph (after flipping the x-axis). Notice that the city's relative 
 
 ![MDS US Cities](/images/mds-us-cities.png)
 
+
+## Interactive graphs
+
+Contributed by Malak Patel.
+
+```
+#http://davidgohel.github.io/ggiraph/index.html
+
+library(ggplot2)
+library(ggiraph)
+
+#hover effect 
+###Part 1
+g <- ggplot(mpg, aes( x = displ, y = cty, color = hwy) ) + theme_minimal()
+my_gg <- g + geom_point_interactive(aes(tooltip = model), size = 2) 
+
+###Part 2
+ggiraph(code = print(my_gg), width = .7)
+
+#hover red effect
+my_gg <- g + geom_point_interactive(aes(tooltip = model, data_id = model), size = 2) 
+ggiraph(code = print(my_gg), width = .7, hover_css ="cursor:pointer;fill:red;stroke:red;")
+
+#clickable graph
+###Part 1
+crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+head(crimes)
+
+###Part 2
+crimes$onclick <- sprintf("window.open(\"%s%s\")",
+  "http://en.wikipedia.org/wiki/", as.character(crimes$state) )
+
+gg_crime <- ggplot(crimes, aes(x = Murder, y = Assault, color = UrbanPop )) + 
+  geom_point_interactive(aes( data_id = state, tooltip = state, onclick = onclick ), size = 3 ) + 
+  scale_colour_gradient(low = "#999999", high = "#FF3333") + 
+  theme_minimal()
+
+###Part 3
+ggiraph(code = print(gg_crime),
+        hover_css = "fill-opacity:.3;cursor:pointer;")
+        
+       
+#Zoom effect
+ ggiraph(code = print(gg_crime + theme_linedraw()), zoom_max = 5)
+ 
+
+#https://rstudio.github.io/dygraphs/index.html
+#Another visual
+library(dygraphs)
+lungDeaths <- cbind(mdeaths, fdeaths)
+dygraph(lungDeaths)
+
+#Even more detail 
+dygraph(lungDeaths) %>% dyRangeSelector()
+
+#3d graph
+library(plotly)
+plot_ly(z = ~volcano, type = "surface")
+```
+
+
+
+
