@@ -113,3 +113,13 @@ I am strongly in agreement with the [Stetson University Honor Code](http://www.s
 ## Academic success center
 
 If a student anticipates barriers related to the format or requirements of a course, she or he should meet with the course instructor to discuss ways to ensure full participation. If disability-related accommodations are necessary, please register with the Academic Success Center (822-7127; [www.stetson.edu/asc](http://www.stetson.edu/asc)) and notify the course instructor of your eligibility for reasonable accommodations. The student, course instructor, and the Academic Success Center will plan how best to coordinate accommodations. The Academic Success Center is located at 209 E Bert Fish Drive, and can be contacted using the email address [asc@stetson.edu](mailto:asc@stetson.edu).
+
+## Publications related to this course
+
+- J. Eckroth. "Teaching Future Big Data Analysts: Curriculum and Experience Report." *Proceedings of the 7th NSF/TCPP Workshop on Parallel and Distributed Computing Education (EduPar-17)*, 2017 (in press)
+
+
+- J. Eckroth. "Teaching Big Data with a Virtual Cluster." *Proceedings of the 47th ACM Technical Symposium on Computing Science Education (SIGCSE)*, pp. 175–180, 2016 ([PDF](http://www2.stetson.edu/~jeckroth/downloads/eckroth-sigcse-2016.pdf), [ACM DL](http://dl.acm.org/citation.cfm?id=2844651))
+
+- J. Eckroth. "Foundations of a Cross-Disciplinary Pedagogy for Big Data." *Journal of Computing Sciences in Colleges* 31(3), pp. 110–118, 2015 ([PDF](http://www2.stetson.edu/~jeckroth/downloads/eckroth-big-data-pedagogy-ccsc-eastern-2015-final.pdf), [ACM DL](http://dl.acm.org/citation.cfm?id=2835394))
+
