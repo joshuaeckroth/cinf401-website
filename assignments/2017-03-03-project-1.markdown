@@ -20,7 +20,7 @@ Using [Backblaze's hard drive data](https://www.backblaze.com/hard-drive-test-da
 - **Do not add the data files to git.** Automatic failing grade if you do so. The internet weeps.
 - Since this project allows groups of two, you may want to divide the tasks listed above and work on them in parallel.
 - Create a single repository called `cinf401-project-1`, and indicate in a README the members of the group.
-- Eliminate drives with capacity < 1e14 since these are bogus values.
+- Eliminate drives with capacity > 1e14 since these are bogus values.
 - Write notes about how you processed the data files, if you did so outside of R. Show the commands used.
 - Write a **report** in RMarkdown, hiding all unnecessary R code. **You absolutely must avoid dumping large tables of numbers.** Show only small tables when necessary, otherwise show plots or write English.
 - **Include the RMarkdown source and rendered form in your repository.** This way I don't have to reprocess everyone's data files to generate the report.
