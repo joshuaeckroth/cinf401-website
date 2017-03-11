@@ -60,7 +60,7 @@ Now you can run your program. Click the Run button (green/white arrow). If succe
 **Note: Your program will crash if the `output` folder already exists. You must delete it before every run.** If using HDFS, you can use a command like the following (change the username!):
 
 ```
-hdfs dfs -rm -r /user/jeckroth/wordcount/output
+hdfs dfs -rm -r /users/jeckroth/wordcount/output
 ```
 
 ![Eclipse 10](/images/eclipse-hadoop-10.png)
@@ -78,8 +78,8 @@ Notice, in this example, that the argument `value` to the `map()` function is th
 First, put some files into HDFS:
 
 ```
-hdfs dfs -mkdir -p /user/jeckroth/wordcount/input
-hdfs dfs -put input/* /user/jeckroth/wordcount/input
+hdfs dfs -mkdir -p /users/jeckroth/wordcount/input
+hdfs dfs -put input/* /users/jeckroth/wordcount/input
 ```
 
 Or, you can use existing data, such as: [`/data/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt`](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/westburylab-usenet)
@@ -105,7 +105,7 @@ jar cfv wc.jar *.class
 Submit the job as follows:
 
 ```
-yarn jar wc.jar WordCount /user/jeckroth/wordcount/input /user/jeckroth/wordcount/output
+yarn jar wc.jar WordCount /users/jeckroth/wordcount/input /users/jeckroth/wordcount/output
 ```
 
 In the command above, `WordCount` is the class with the `main()` function, and the rest (the file paths) are just arguments to `main()`. Your `main()` may have different kinds of arguments, or no arguments.
@@ -115,7 +115,7 @@ Monitor your job's status on the ResourceManager's [web interface](http://localh
 When it's done, get the output out of HDFS:
 
 ```
-hdfs dfs -get /user/jeckroth/wordcount/output/part-r-00000
+hdfs dfs -get /users/jeckroth/wordcount/output/part-r-00000
 ```
 
 ...or use the [web interface](http://localhost:9000/hadoop/namenode:50070/explorer.html#/).

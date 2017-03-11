@@ -21,8 +21,8 @@ drwxrwx---   - root supergroup          0 2015-01-02 11:15 /tmp
 You probably want to make a directory first, then upload the files.
 
 ```
-$ hdfs dfs -mkdir -p /jeckroth/wordcount/input
-$ hdfs dfs -put input/* /jeckroth/wordcount/input
+$ hdfs dfs -mkdir -p /users/jeckroth/wordcount/input
+$ hdfs dfs -put input/* /users/jeckroth/wordcount/input
 ```
 
 ## Dealing with small files

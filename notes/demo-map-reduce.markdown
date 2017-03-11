@@ -75,7 +75,7 @@ Run on the delenn virtual cluster with the following command:
 
 ```
 yarn jar wc.jar WordCount /datasets/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt \
-  /jeckroth/wordcount/output-westburylab-usenet-1
+  /users/jeckroth/wordcount/output-westburylab-usenet-1
 ```
 
 ## Baseball Friends
