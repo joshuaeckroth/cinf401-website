@@ -74,7 +74,7 @@ public class WordCount {
 Run on the delenn virtual cluster with the following command:
 
 ```
-yarn jar wc.jar WordCount /datasets/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt \
+yarn jar wc.jar /datasets/westburylab-usenet/WestburyLab.NonRedundant.UsenetCorpus.txt \
   /users/jeckroth/wordcount/output-westburylab-usenet-1
 ```
 
