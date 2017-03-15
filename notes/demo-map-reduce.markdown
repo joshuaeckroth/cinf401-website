@@ -124,9 +124,9 @@ Aaden, Red Sox, Alannah, Alayna, Alex, Alondra, Amelia, Amir, Anika, ...
 ...the mapper will output the following for that single line of input:
 
 ```
-key = Aaden, value = Aaden, Red Sox   -- (account for the person's own team preference)
-key = Alannah, value = Aaden, Red Sox -- (account for Alannah being Aaden's friend and Aaden liking the Red Sox)
-key = Alayna, value = Aaden, Red Sox  -- (etc. same for rest)
+key = Aaden, value = Aaden, Red Sox   (account for the person's own team preference)
+key = Alannah, value = Aaden, Red Sox (account for Alannah being Aaden's friend and Aaden liking the Red Sox)
+key = Alayna, value = Aaden, Red Sox  (etc. same for rest)
 ...
 ```
 
@@ -134,6 +134,7 @@ Thus, the reducer gets a key/value pair like:
 
 ```
 key = Aaden, value = [Aaden, Red Sox; Aaliyah, Cardinals; ...]
+```
 
 ...and simply counts how many friends of Aaden (including Aaden himself) like each time.
 
