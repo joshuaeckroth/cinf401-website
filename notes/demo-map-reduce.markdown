@@ -136,7 +136,7 @@ Thus, the reducer gets a key/value pair like:
 key = Aaden, value = [Aaden, Red Sox; Aaliyah, Cardinals; ...]
 ```
 
-...and simply counts how many friends of Aaden (including Aaden himself) like each time.
+...and simply counts how many friends of Aaden (including Aaden himself) like each team.
 
 ### Implementation
 
