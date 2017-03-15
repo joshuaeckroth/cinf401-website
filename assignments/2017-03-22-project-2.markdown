@@ -7,28 +7,33 @@ categories: [assignments]
 
 # Project 2
 
-Using a data dump from [StackExchange](http://stackexchange.com/) (all [sites](http://stackexchange.com/sites) dumped; [dataset torrent](https://archive.org/details/stackexchange)), answer the following questions:
+[StackExchange](http://stackexchange.com/) is a [multi-site](http://stackexchange.com/sites) platform for asking and answering questions. Users earn reputation when their posts (questions and answers) are upvoted ([details here](https://meta.stackexchange.com/a/7238)).
 
-- Do high-reputation users answer questions faster?
+## Setup
 
-- Is it better to answer a question very quickly (or even first) to earn high reputation, or does time-to-answer not matter much at all? (Maybe quality of answer matters more.)
+Create a single repository called `cinf401-project-2`, and indicate in a README the members of the group. **Submit your Java source code, your R code, and your R Markdown. Do not include your data files.**
 
-The data live in HDFS at `/data/stackexchange` ([web view](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/stackexchange)). Have a look at `readme.txt` to understand the fields in the various XML files.
+All users, posts, etc. have been data acquired from [this torrent](https://archive.org/details/stackexchange) and uploaded in HDFS under `/data/stackexchange` ([web view](http://localhost:9000/hadoop/namenode:50070/explorer.html#/data/stackexchange)). Have a look at `/bigdata/data/stackexchange/readme.txt` (on delenn, not HDFS) to understand the fields in the various XML files.
 
-Use MapReduce and then analyze in R. Add your MapReduce code to your git repository.
+Using Hadoop and MapReduce, plus minimal R processing, complete the three tasks below.
 
-Study these questions across all the StackExchange sites combined. But also highlight/plot the results from a few large sites if they stand out as very different than the majority.
+## Task 1
 
-Use statistics where appropriate. Write a good English report; don't spew R code or output in your report.
+What is the age distribution of users across all sites as a whole? Be sure only unique users are counted (identified by AccountId field) and nobody is double-counted. Show your findings with an appropriate plot. Ensure your plot has easy-to-understand axis labels and all labels are readable.
 
-## Extra credit
+## Task 2
 
-For a couple extra points, answer one or more of the following questions. You must also answer the questions above.
+What are the top 10 tags (by frequency of posts) for each stackexchange subsite? Show as a list or table for each subsite, in alphabetical order by subsite name.
 
-- Does the first answer usually get the most votes?
+## Task 3
 
-- Does the first answer usually get accepted?
+How strong is the correlation between user reputation and number of posts (questions or answers) by that user? Look at all stackexchange sites as a whole. Sum the different reputation values and post counts for the same user (identified by AccountId) across all the sites in which they are a member. (Be aware that the posts files do not include the user's AccountId, only the site-specific user id.) Report your findings with a scatterplot and correlation value.
 
-- In summary, what are the advantages (if any) of giving the first answer?
+## Notes
 
+Considering the dataset lives on delenn in regular files, it may be faster to process the files with traditional unix tools or scripting languages (assuming you arranged a parallel processing strategy). The purpose of the project is to practice with MapReduce, but IRL we should always choose "the best tool for the job."
+
+Refer to the [MapReduce cookbook](/cookbook/mapreduce.html) for guidance on how to run an MR job over multiple files.
+
+Store your MR output in HDFS under a file path like `/users/jeckroth/gp2/...` (but obviously not `jeckroth`).
 

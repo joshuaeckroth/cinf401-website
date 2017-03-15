@@ -94,10 +94,10 @@ Copy your source files, and compile them as follows:
 javac -cp `hadoop classpath`:. *.java
 ```
 
-Then make a JAR (name your JAR whatever you want; `wc.jar` is used here):
+Then make a JAR (name your JAR whatever you want; `wc.jar` is used here), naming the main class as the third argument:
 
 ```
-jar cfv wc.jar *.class
+jar cfve wc.jar WordCount *.class
 ```
 
 ### Submit the job
