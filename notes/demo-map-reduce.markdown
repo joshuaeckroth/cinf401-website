@@ -113,27 +113,29 @@ Abrielle,Red Sox,72,30
 
 Each row in the output lists a person's name and a team, then the count of that person's friends who like the Red Sox (first number) and Cardinals (second number). Since Aaden likes the Red Sox, he is included in the 48 count, as well as 47 of his friends who also likes the Red Sox. In the second row, Aaden has 18 friends who like the Cardinals (this time, not including himself, since he likes the Red Sox and not the Cardinals).
 
-### Smaller example
-
-This input file:
-
-```
-Mary, Red Sox, Jane, John
-Jane, Cardinals, John, Mike, Mary
-John, Red Sox, Mary, Jane
-Mike, Cardinals, Jane
-```
-
-should produce this output file:
-
-```
-Mary, Red Sox, Jane, John
-Jane, Cardinals, John, Mike, Mary
-John, Red Sox, Mary, Jane
-Mike, Cardinals, Jane
-```
-
 ### Strategy
+
+The map stage will receive one line of the input file. Using that line, we need to report the person's team preference as well as the person's friends. We don't know the friends' team preferences yet (not by looking at a single line), so we'll have to be clever. The mapper will output "key = person name", value = "friend with other person, who likes specific team". So, for the input line:
+
+```
+Aaden, Red Sox, Alannah, Alayna, Alex, Alondra, Amelia, Amir, Anika, ...
+```
+
+...the mapper will output the following for that single line of input:
+
+```
+key = Aaden, value = Aaden, Red Sox   -- (account for the person's own team preference)
+key = Alannah, value = Aaden, Red Sox -- (account for Alannah being Aaden's friend and Aaden liking the Red Sox)
+key = Alayna, value = Aaden, Red Sox  -- (etc. same for rest)
+...
+```
+
+Thus, the reducer gets a key/value pair like:
+
+```
+key = Aaden, value = [Aaden, Red Sox; Aaliyah, Cardinals; ...]
+
+...and simply counts how many friends of Aaden (including Aaden himself) like each time.
 
 ### Implementation
 
