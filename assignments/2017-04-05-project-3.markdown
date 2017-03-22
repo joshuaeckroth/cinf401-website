@@ -7,6 +7,17 @@ categories: [assignments]
 
 # Project 3
 
-TBD
+Using Google's [NYC Taxi data in BigQuery](https://cloud.google.com/bigquery/public-data/nyc-tlc-trips), choose a year of yellow taxi data to analyze and produce the following plots. Match the styling of each plot (axes, legends, titles, etc.).
 
+## Plot 1: Frequency per hour and day
+
+![Taxi frequency](/images/taxi-frequency-small.png)
+
+## Plots 2 & 3: Weekday morning and evening trips
+
+Show begin/end of each trip in the morning/evening commute hours across days Mon-Fri. Limit the latitude/longitude values to just 3 digits after the decimal point, and compute the number of trips from the same pickup/dropoff lat/lon. Show a circle at the end of the trip (dropoff lat/lon) and sized according to the number of trips with that same pickup/dropoff. Drop records with counts less than 50. Use an alpha=0.05 for the lines and alpha=0.5 for the circles. Limit the plot to the "Midtown Manhattan" map at zoom level 14. See the [ggplot cookbook](/cookbook/ggplot.html#tocAnchor-1-17) for help plotting on maps.
+
+![Morning commutes](/images/taxi-morning-small.png)
+
+![Evening commutes](/images/taxi-evening-small.png)
 
