@@ -5,16 +5,27 @@ title: Hive
 
 # Hive
 
-## Installation and running
+## Running on delenn
+
+Be sure to change the username.
 
 ```
-rm ../../hadoop-2.6.0/share/hadoop/yarn/lib/jline-0.9.94.jar
+beeline -n jeckroth -p "" -u jdbc:hive2://localhost:10000
 ```
 
+Initially, you'll have no tables:
+
 ```
-hive -e "query..." > output.txt
+0: jdbc:hive2://localhost:10000> show tables;
++-----------+--+
+| tab_name  |
++-----------+--+
++-----------+--+
+No rows selected (2.666 seconds)
+0: jdbc:hive2://localhost:10000>
 ```
 
+{% comment %}
 
 ## Queries for StackExchange data
 
@@ -177,3 +188,4 @@ create table superbowl_tfidf_norm as select a.uuid, a.word, a.tfidf/b.mag as tfi
 create table superbowl_cosine_sims as select a.uuid, b.uuid, sum(abmult) as sim from superbowl_tfidf_norm as a join superbowl tfidf_norm as b join (select a2.uuid as a_uuid, b2.uuid as b_uuid (a2.tfidf * b2.tfidf) as abmult from superbowl_tfidf_norm as a2 join superbowl_tfidf_norm as b2 on a2.word = b2.word) on a.uuid = a_uuid and b.uuid = b_uuid group by a.uuid, b.uuid;
 {% endhighlight %}
 
+{% endcomment %}
