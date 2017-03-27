@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Project 5
-due: "Sat May 5, 5pm"
+due: "Sat May 6, 5pm"
 categories: [assignments]
 ---
 
