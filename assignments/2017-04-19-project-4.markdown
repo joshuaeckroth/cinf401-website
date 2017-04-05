@@ -40,5 +40,5 @@ dec = dec_for_this_image + (0.25/3600) * ((img_height-y)-img_height/2)
 
 where `ra_for_this_image` and `dec_for_this_image` are found in the file `/bigdata/data/pan-starrs1/radec.csv`. If RA<0, add 360. RA/Dec coordinates can be entered on [this website](http://ps1images.stsci.edu/cgi-bin/ps1cutouts) in the form ra,dec e.g. 206.126,7.15499.
 
-Use Spark. Likely use OpenCV. Consider using the GPU.
+Use Spark. Likely use OpenCV. Consider using the GPU. Do not use R. Your final output (top-100) must be produced by Spark.
 
