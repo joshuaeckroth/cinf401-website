@@ -573,6 +573,52 @@ tips %>%
 
 There are many more things you can do with dplyr, including window functions (which return a vector of values, e.g. lag or lead functions, cumulative aggregates), random samples, and connecting to proper SQL databases (select and filter commands can be converted directly into SQL by piping them into %>% explain(). It's really neat!). For more information and useful links, visit [this tutorial](http://rpubs.com/justmarkham/dplyr-tutorial) that I pretty much ripped off wholesale for this presentation.
 
+## MySQL connections
+
+Contributed by Matt Klumb.
+
+```
+library("RMySQL") 
+#Connects to database this example uses a local. 
+mydb = dbConnect(MySQL(), user='root', password='password', dbname='R', host='127.0.0.1', port=3305)
+#Executes Query to pull information form database.
+q1 <- dbSendQuery(mydb, "select * from student")
+data <- fetch(q1)
+data
+##   id student_firstname student_lastname student_degreeID
+## 1  1              Bill            Lopez                2
+## 2  2             Frank          Johnson                2
+## 3  3             Roger           Dogger                1
+## 4  4              Mike          Trueman                1
+q2 <- dbSendQuery(mydb, "select student_lastname from student")
+data2 <- fetch(q2)
+data2
+##   student_lastname
+## 1            Lopez
+## 2          Johnson
+## 3           Dogger
+## 4          Trueman
+#Executes left join to pull data from two tables.
+q3 <- dbSendQuery(mydb, "select student_firstname, degree_name FROM student LEFT JOIN degree ON student.student_degreeID = degree.degree_Id;")
+data3 <- fetch(q3)
+data3
+##   student_firstname degree_name
+## 1             Roger         CIS
+## 2              Mike         CIS
+## 3              Bill        HIST
+## 4             Frank        HIST
+#Sends information into the Database using insert.
+q4 <- dbSendQuery(mydb, "INSERT INTO student VALUES (NULL,'Mike','Trueman',1);")
+data
+##   id student_firstname student_lastname student_degreeID
+## 1  1              Bill            Lopez                2
+## 2  2             Frank          Johnson                2
+## 3  3             Roger           Dogger                1
+## 4  4              Mike          Trueman                1
+dbDisconnect(mydb)
+## [1] TRUE
+```
+
 ## Audio processing
 
 Contributed by Isaac Sarmiento.
@@ -710,3 +756,73 @@ tweets %>%
        color = "")
 ```
 
+## String operations
+
+###Basic String Operations
+
+Contributed by Chris Finkle.
+
+In R, the default handling of strings is not terribly easy or intuitive. Stringr makes things better. It has some basic string functionalities and also makes using regex much easier.
+
+`str_c` replicates R's `paste` functionality but with some added options.
+
+```
+library(stringr)
+
+str_c("Letter: ", letters)
+str_c("Letter", letters, sep = ": ")
+str_c(letters, " is for", "...")
+str_c(letters[-26], " comes before ", letters[-1])
+
+str_c(letters, collapse = "")
+str_c(letters, collapse = ", ")
+```
+
+`str_sub` is like `substr` except it understands negative indices (you may be familiar with these from Python)
+
+```
+ex <- "This is an example string"
+
+str_sub(ex, 5, 10)
+
+str_sub(ex, -1)
+str_sub(ex, -10)
+str_sub(ex, end = -10)
+```
+
+`str_trim` removes whitespace from either end; `str_pad` adds it (cf. the infamous Leftpad)
+
+###RegEx
+
+`str_detect` returns a logical vector based on detection (or not) of a specified pattern.
+
+```
+
+ex <- c("This", "is", "an", "example", "vector")
+
+str_detect(ex, "is")
+str_detect(ex, "^[aeiou]")
+```
+
+`str_locate` works much like `regexpr`, returning a numeric matrix with the indices at which patterns occur.
+
+```
+ex <- c("This", "is", "an", "example", "vector", "ooooh")
+
+str_locate(ex, "is")
+
+#str_locate_all works like gregexp and returns a list of matrices for each string searched
+str_locate_all(ex, "[aeiou]+")
+```
+
+`str_extract` actually takes out the matching pattern. `str_match` does so using capture groups. `str_replace` replaces the matching text.
+
+```
+ex <- c("Star Wars", "Battlestar Galactica", "The secret of Eckroth's server names is they're Babylon 5 characters", "Star Trek")
+
+str_extract(ex, "[Ss]tar ([:alpha:]+)")
+
+str_match(ex, "[Ss]tar ([:alpha:]+)") #[,1] is the whole pattern, [,2] is the first capture group
+
+str_replace(ex, "[Ss]tar ([:alpha:]+)", "Star Wars Holiday Special")
+```

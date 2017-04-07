@@ -499,8 +499,6 @@ You get this graph (after flipping the x-axis). Notice that the city's relative 
 Contributed by Malak Patel.
 
 ```
-#http://davidgohel.github.io/ggiraph/index.html
-
 library(ggplot2)
 library(ggiraph)
 
@@ -533,12 +531,10 @@ gg_crime <- ggplot(crimes, aes(x = Murder, y = Assault, color = UrbanPop )) +
 ###Part 3
 ggiraph(code = print(gg_crime),
         hover_css = "fill-opacity:.3;cursor:pointer;")
-        
-       
+
 #Zoom effect
  ggiraph(code = print(gg_crime + theme_linedraw()), zoom_max = 5)
  
-
 #https://rstudio.github.io/dygraphs/index.html
 #Another visual
 library(dygraphs)
@@ -552,7 +548,5 @@ dygraph(lungDeaths) %>% dyRangeSelector()
 library(plotly)
 plot_ly(z = ~volcano, type = "surface")
 ```
-
-
 
 
