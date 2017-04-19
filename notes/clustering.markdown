@@ -5,14 +5,7 @@ title: Clustering
 
 # Clustering
 
-- Clustering is used for finding groups or "clusters" of data for
-  which the true groups/labels are unknown.
-- k-means is an iterative algorithm which assigns cluster "centroids"
-  (an average of the points that make up a cluster) and then reassigns
-  points to the new cluster-centroids. The algorithm stops when points
-  don't change their cluster assignments.
-- k-means requires deciding upfront the value of $k$.
-- k-means effectively creates a Voronoi diagram of the space.
+Clustering is used for finding groups or "clusters" of data for which the true groups/labels are unknown. k-means is a common clustering technique that assigns cluster "centroids" (an average of the points that make up a cluster) and then reassigns points to the new cluster-centroids, iteratively. The algorithm stops when points don't change their cluster assignments. k-means requires deciding upfront the value of $k$.
 
 ## Iris example
 
@@ -160,4 +153,92 @@ which is a measure of the average dissimilarity of the clusters. We
 can start at $k=1$ and increase it until we find a max silhouette (or
 at least a "local" max).
 
-   
+## k-means in Spark
+
+Using Yahoo Music user ratings with columns userid,artistid,rating:
+
+```
+1       1000125 90
+1       1006373 100
+1       1006978 90
+1       1007035 100
+1       1007098 100
+1       1007723 100
+1       1008659 100
+1       1008916 100
+1       1012809 70
+1       1014635 100
+1       1016419 100
+1       1016470 100
+```
+
+We need to create vectors representing each user's ratings for all artists (even those they didn't rate, which we'll call a 50 rating). Then we'll run kmeans.
+
+```
+# spark-submit --master local[10] kmeans.py
+
+from pyspark import SparkContext, SparkConf
+from pyspark.mllib.clustering import KMeans, KMeansModel
+import numpy as np
+import re
+from math import sqrt
+
+# if a user didn't rate an artist, we give the artist a 50 rating for that user
+def createUserVector(artistsList, ratings):
+    # should be few user ratings (but lots of artists), so create a dict of user ratings
+    userRatings = {}
+    for (artistid, rating) in ratings:
+        userRatings[artistid] = rating
+    # now create vector for all artists
+    result = []
+    for artistid in artistsList:
+        if artistid in userRatings:
+            result.append(userRatings[artistid])
+        else:
+            result.append(50)
+    return np.array(result)
+
+if __name__ == "__main__":
+    conf = SparkConf().setAppName("kmeans")
+    sc = SparkContext(conf=conf)
+
+    # input file format: userid, artistid, rating
+
+    ratings = sc.textFile("file:///home/jeckroth/cinf401-examples/spark/clustering/ydata.txt")
+    ratings = ratings.map(lambda line: map(lambda x: int(x), re.split(r'\s+', line)))
+
+    # need to find all unique artistids to know how many dimensions in user vector
+    artists = ratings.map(lambda (userid,artistid,rating): artistid)
+    artists = artists.distinct()
+    artistsCount = artists.count()
+    artistsList = artists.takeOrdered(artistsCount)
+
+    print "artist count:",len(artistsList)
+
+    # now create a rating vector for each user
+
+    # make userid a key so we can group
+    ratingsPerUser = ratings.map(lambda (userid,artistid,rating): (userid,(artistid,rating))).groupByKey()
+    # finally, for each user, produce a vector for user's rating for each artist
+    ratingsUserVectors = ratingsPerUser.map(lambda (userid,ratings): createUserVector(artistsList, ratings))
+
+    clusters = KMeans.train(ratingsUserVectors, 5, maxIterations=50)
+    print clusters
+
+    def error(point):
+        center = clusters.centers[clusters.predict(point)]
+        return sqrt(sum([x**2 for x in (point - center)]))
+
+    WSSSE = ratingsUserVectors.map(lambda point: error(point)).reduce(lambda x, y: x + y)
+    print("Within Set Sum of Squared Error = " + str(WSSSE))
+
+    clusters.save(sc, "file:///home/jeckroth/cinf401-examples/spark/clustering/output")
+```
+
+Run on delenn:
+
+```
+spark-submit --master local[10] --driver-memory 100G --executor-memory 16G kmeans.py
+```
+
+ 
