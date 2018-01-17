@@ -1,0 +1,109 @@
+---
+layout: post
+title: Assignment 1
+due: "Fri Jan 26"
+categories: [assignments]
+---
+
+# Assignment 1
+
+Create a new repository on Bitbucket, called "cinf401-assignment-1", and add me (joshuaeckroth) as a "reader". Then create a new project in RStudio with the same name and a new R Markdown file with the same name. See the [RStudio workflow](/notes/rstudio-workflow.html) for instructions.
+
+Complete the tasks below. Write your answers, intermixed with R code and plots (if/when appropriate), in the single R Markdown file. Commit and push your changes to Bitbucket so I can retrieve them on my own machine. I will regenerate your final report by "knitting" your R Markdown file. See the [syllabus](/notes/syllabus.html) for the general grading rubric.
+
+## Task 1
+
+Find two projects that purport to require "big data analysis." We looked at three case studies in the [big data notes](/notes/big-data.html). Answer these questions about the projects:
+
+- Who is responsible for this project?
+- What are the project's aims? What is its contribution to an organization or to society?
+- What kind of data will be (or is being) analyzed?
+- How much data is there? Estimate this if you are unable to find out precisely.
+- Why should the data be considered "big data"? Or should it not?
+- What tools will they use (are they using)? This information might not be available, but try to find out.
+
+## Task 2
+
+### Part A
+
+Create a vector of numeric values. Include at least seven values, two of which must be `NA`. Then show how to "normalize" the vector so that the magnitude of the vector (ignoring `NA`'s) is 1.0. Refer to MathWorld for definitions of [normalized vector](http://mathworld.wolfram.com/NormalizedVector.html) and [L2-norm](http://mathworld.wolfram.com/L2-Norm.html).
+
+### Part B
+
+Create a data frame with columns "A", "B", "C", and "D", satisfying the following properties:
+
+- Column A contains logical (`TRUE`/`FALSE`) values.
+- Column B contains numeric values.
+- Column C contains character values.
+- Column D contains dates.
+
+Insert five rows of data. Print/show the data frame.
+
+Next, set the column names of the data frame to "W", "X", "Y", and "Z". Print the data frame again.
+
+Update column X (previously called B) so that all of its numeric values are multiplied by 2. Then print just column X, just rows 2-5 (inclusive).
+
+## Task 3
+
+Go to the [IPEDS site](http://nces.ed.gov/ipeds/datacenter/Default.aspx) and follow the directions on the [data sources cookbook](/cookbook/data-sources.html), in the IPEDS section, to grab CSV datasets with the following qualities:
+
+- Final release data
+- US Institutions (should be about 7500 of them)
+- Variables: Graduation rate with Bachelor degree within 4 years, total (all students), all years
+
+You'll get a CSV file with several columns (institution fields, plus a column for each year). Cast/melt/merge/munge until you have a data frame that looks like this, with the exact column names shown (the rows may appear in a different order, that's no problem):
+
+```
+   UnitID                      InstitutionName Year Rate
+10 222178         Abilene Christian University 2016   45
+12 138558 Abraham Baldwin Agricultural College 2016    3
+14 172866                      Academy College 2016    0
+23 108232            Academy of Art University 2016    5
+61 126182               Adams State University 2016    8
+62 188429                   Adelphi University 2016   54
+...
+```
+
+Running `summary` on the data frame will summarize each column (mean, max, min, etc.). Do this so we can be sure you've combined all the data (see how all the years are represented):
+
+```
+     UnitID                      InstitutionName       Year           Rate       
+ Min.   :100654   Stevens-Henager College:   39   2015   :2068   Min.   :  0.00  
+ 1st Qu.:153834   Union College          :   27   2014   :2030   1st Qu.: 15.00  
+ Median :190716   Westminster College    :   27   2016   :2027   Median : 30.00  
+ Mean   :202669   Lincoln University     :   26   2013   :1997   Mean   : 33.58  
+ 3rd Qu.:218410   Anderson University    :   18   2012   :1935   3rd Qu.: 50.00  
+ Max.   :489937   Aquinas College        :   18   2011   :1894   Max.   :196.00  
+                  (Other)                :17279   (Other):5483                   
+```
+
+Show Stetson's individual year rates:
+
+```
+      UnitID    InstitutionName Year Rate
+5939  137546 Stetson University 2016   56
+13296 137546 Stetson University 2015   56
+20653 137546 Stetson University 2014   56
+28010 137546 Stetson University 2013   56
+35367 137546 Stetson University 2012   51
+42724 137546 Stetson University 2011   50
+50081 137546 Stetson University 2010   55
+57438 137546 Stetson University 2009   55
+64795 137546 Stetson University 2008   53
+```
+
+Now, make a data frame with the average 4-year graduation rate, across all years, for each school:
+
+```
+  UnitID                      InstituionName   AvgRate
+1 100654            Alabama A & M University 11.000000
+2 100663 University of Alabama at Birmingham 21.111111
+3 100690                  Amridge University  6.875000
+4 100706 University of Alabama in Huntsville 15.222222
+5 100724            Alabama State University  8.333333
+6 100751           The University of Alabama 38.666667
+...
+```
+
+Finally, show Steston's average rate. It should be 54.22 :(
+

@@ -1,0 +1,11 @@
+---
+layout: post
+title: Assignment 3
+due: "Fri Feb 16"
+categories: [assignments]
+---
+
+# Assignment 3
+
+TBD
+

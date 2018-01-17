@@ -5,34 +5,31 @@ title: Syllabus
 
 # Syllabus
 
-CINF 401 - 01, Spring 2017 &mdash; Big Data Mining and Analytics
+CINF 401 - 01, Spring 2018 &mdash; Big Data Mining and Analytics
 
-MWF 11-11:50a Eliz Hall 205; pre-reqs: CSCI 221
+MWF 2:30-3:20p Eliz Hall 205; pre-reqs: CSCI 221
 
-Work hard in this class and you should be able to:
-
-- <b>Get a high-paying job mining and analyzing big data.</b>
-
+This course is a survey of the means of acquiring, storing, accessing and analyzing large data sets. Topics include using common data sources and APIs for acquiring data related to social networks, science, including medicine and health, finance, economics, journalism, government and marketing, storing and accessing data via high performance distributed systems and relational and non-relational databases, and statistical and machine learning algorithms for mining and analyzing data.
 
 ## About me
 
 - Joshua Eckroth, [jeckroth@stetson.edu](mailto:jeckroth@stetson.edu), [homepage](http://www2.stetson.edu/~jeckroth/)
 
-- Eliz Hall 214-9, 386-740-2519
+- Eliz Hall 214, 386-740-2519
 
-- Office hours: Mon 2:30-4; Wed 12-1, 2:30-4
+- Office hours: TBD
 
 ## Textbook
 
-This course has no required textbook. All required material can be found on this site or the greater web.
+This course has no required textbook. All required material can be found on this site or the web.
 
 ## Grading
 
 <table>
 <tr><td>Class demonstrations (2)</td><td>5% each, 10% overall</td></tr>
-<tr><td>Assignments (5)</td><td>5% each, 25% overall</td></tr>
-<tr><td>Projects 1-4</td><td>10% each, 40% overall</td></tr>
-<tr><td>Project 5</td><td>25%</td></tr>
+<tr><td>Assignments (4)</td><td>5% each, 20% overall</td></tr>
+<tr><td>Projects 1-5</td><td>10% each, 50% overall</td></tr>
+<tr><td>Project 5</td><td>20%</td></tr>
 </table>
 
 ### Class demonstrations
@@ -66,7 +63,7 @@ A project can involve 1 or 2 people. These projects are more complex than assign
 
 Members of the same group may receive different grades, if I have evidence or a strong belief that not all group members contributed equally.
 
-All projects are due by 11:59pm on the stated due date, except for the final project, which you will present during our "final exam" time (May 6, 5-7pm). There is no final exam on that day, only these presentations.
+All projects are due by 11:59pm on the stated due date, except for the final project, which you will present during our "final exam" time. There is no final exam on that day, only these presentations.
 
 ### Late work
 
@@ -76,18 +73,18 @@ Due to the complexity of these assignments and the timing of group work, I will 
 
 - Week 1: R fundamentals
 - Week 2: R fundamentals
-- Week 3: Data munging
-- Week 4: Visualization
-- Week 5: Statistical analysis
-- Week 6: Hadoop, MapReduce
-- Week 7: Hadoop, MapReduce
+- Week 3: ETL, SQL
+- Week 4: ETL, SQL
+- Week 5: Visualization
+- Week 6: Statistics
+- Week 7: Benchmarking
 - Week 8: no class (break)
 - Week 9: Hadoop, MapReduce
-- Week 10: NoSQL, Hive, Pig
-- Week 11: Spark
-- Week 12: Spark
-- Week 13: TBD
-- Week 14: TBD
+- Week 10: Hadoop, MapReduce
+- Week 11: Hive, NoSQL
+- Week 12: Storm
+- Week 13: Spark
+- Week 14: OpenCV
 - Week 15: TBD
 - Week 16: TBD
 
@@ -103,7 +100,6 @@ Assignment and project due dates:
 {% endfor %}
 </ul>
 
-
 ## Honor code
 
 You are allowed to use a small amount of code from websites (assuming the code is open source). You must indicate where you got the code (put comments in the code). More than 50% of your work or your group's combined work must be original.
@@ -116,7 +112,7 @@ If a student anticipates barriers related to the format or requirements of a cou
 
 ## Publications related to this course
 
-- J. Eckroth. "Teaching Future Big Data Analysts: Curriculum and Experience Report." *Proceedings of the 7th NSF/TCPP Workshop on Parallel and Distributed Computing Education (EduPar-17)*, 2017 (in press)
+- J. Eckroth. "Teaching Future Big Data Analysts: Curriculum and Experience Report." *Proceedings of the 7th NSF/TCPP Workshop on Parallel and Distributed Computing Education (EduPar-17)*, pp. 346-351, 2017 ([PDF](http://www2.stetson.edu/~jeckroth/downloads/eckroth-edupar-17.pdf), [IEEE](http://ieeexplore.ieee.org/abstract/document/7965066/))
 
 
 - J. Eckroth. "Teaching Big Data with a Virtual Cluster." *Proceedings of the 47th ACM Technical Symposium on Computing Science Education (SIGCSE)*, pp. 175–180, 2016 ([PDF](http://www2.stetson.edu/~jeckroth/downloads/eckroth-sigcse-2016.pdf), [ACM DL](http://dl.acm.org/citation.cfm?id=2844651))

@@ -9,13 +9,21 @@ These notes detail procedures necessary to set up local and remote environments 
 
 Every student should follow these procedures once, at the beginning of the semester.
 
-## Obtain login credentials and delenn IP address
+## Connect to delenn
 
-We will use the school's "delenn" server for our work. You will also use your own computer.
+We will use the school's "delenn" server for our work.
 
-Ask me for your login name and password. The address is `delenn.artifice.cc` and the port is 2222. **Take note of the port.**
+Ask me for your login name and password. The address for SSH is `delenn.stetson.edu` and the port is 2222. **Take note of the port.**
 
-## Configure SSH
+### Off-campus access
+
+If you are off campus, you cannot connect to delenn with Putty/SSH until you first connect to the VPN.
+
+Download [FortiClient](http://www.forticlient.com/downloads). Configure it as an SSL VPN, IP address 147.253.200.11, port 443, and your Stetson username (e.g., jeckroth or dplante) and Stetson password (not delenn password!).
+
+![FortiClient VPN](/images/forticlient.png)
+
+### Configure SSH
 
 delenn serves various web interfaces on specific ports. Port 8080 is RStudio, while 9000 will be used for Hadoop services. These ports will only be accessible via a tunnel through SSH.
 
@@ -25,9 +33,7 @@ Since we are using port forwarding, you will access delenn web interfaces by con
 
 ### PuTTY (Windows)
 
-![PuTTY tunneling](/images/putty-1.png)
-
-Add port forwarding for ports 8080 and 9000:
+Port forwarding for ports 8080 and 9000:
 
 ![PuTTY tunneling](/images/putty-2.png)
 
@@ -37,7 +43,7 @@ Edit the file `~/.ssh/config` and add this to the bottom:
 
 ```
 Host delenn
-  HostName delenn.artifice.cc
+  HostName delenn.stetson.edu
   User jeckroth  <--------- replace
   Port 2222
   LocalForward 8080 127.0.0.1:8080   # RStudio: http://127.0.0.1:8080/
