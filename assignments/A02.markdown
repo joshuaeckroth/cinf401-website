@@ -30,7 +30,7 @@ Create two plots:
 
 ## Question 2
 
-Same as question 1 except focused on classes rather than keywords. Choose either the Industry or Technology taxonomy. Remove excessively common classes such as "Information Technology" and "Artificial Intelligence." Explode the classes by their hierarchy, e.g., one row with the class "Information Technology|Artificial Intelligence|Machine Learning|Reinforcement Learning" will become four rows: "Information Technology", "Artificial Intelligence", "Machine Learning", and "Reinforcement Learning." Of course, the first two ("Information Technology" and "Artificial Intelligence") will then be dropped because they are too common in this dataset.
+Same as question 1 except focused on classes rather than keywords. Choose either the Industry or Technology taxonomy. Remove excessively common classes such as "Information Technology" and "Artificial Intelligence." Explode the classes by their hierarchy, e.g., one row with the class "Information Technology\|Artificial Intelligence\|Machine Learning|Reinforcement Learning" will become four rows: "Information Technology", "Artificial Intelligence", "Machine Learning", and "Reinforcement Learning." Of course, the first two ("Information Technology" and "Artificial Intelligence") will then be dropped because they are too common in this dataset.
 
 Create two plots:
 
