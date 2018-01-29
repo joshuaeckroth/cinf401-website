@@ -7,5 +7,34 @@ categories: [assignments]
 
 # Assignment 2
 
-TBD
+Analyze the [AI-Alert](https://aitopics.org/class/AI-Alerts) click data in the file `/bigdata/data/aaai/click-classes.csv` on delenn. Answer one of two questions; your question will be assigned in class. Refer to example code in `/home/jeckroth/cinf401-examples/aaai/aaai-analysis.R` and related files.
+
+The `click-classes.csv` file has columns:
+
+- timestamp (seconds since Unix epoch)
+- clicked URL
+- keywords, separated by `;`
+- classes, separated by `;`, hierarchy separated by `|`, and the first word in the hierarchy is the taxonomy name
+
+## Question 1
+
+How has the interest in news about AI, as described by the extracted keywords, changed over time? Group the data by week since the email alerts are generated once per week.
+
+Remove excessively common keywords such as "artificial intelligence" that do not mean anything in the context of the dataset.
+
+Create two plots:
+
+1. a line plot of the most commonly clicked keywords over time, x-axis: time (weeks), y-axis: number of clicks per keyword, use color for the keyword.
+
+2. a bar chart of the top keywords overall, x-axis: keyword, y-axis: percent of overall clicks.
+
+## Question 2
+
+Same as question 1 except focused on classes rather than keywords. Choose either the Industry or Technology taxonomy. Remove excessively common classes such as "Information Technology" and "Artificial Intelligence." Explode the classes by their hierarchy, e.g., one row with the class "Information Technology|Artificial Intelligence|Machine Learning|Reinforcement Learning" will become four rows: "Information Technology", "Artificial Intelligence", "Machine Learning", and "Reinforcement Learning." Of course, the first two ("Information Technology" and "Artificial Intelligence") will then be dropped because they are too common in this dataset.
+
+Create two plots:
+
+1. a line plot of the most commonly clicked classes over time (in either Industry or Technology taxonomy), x-axis: time (weeks), y-axis: number of clicks per class, use color for the class.
+
+2. a bar chart of the top classes overall, x-axis: class, y-axis: percent of overall clicks.
 
