@@ -7,7 +7,7 @@ categories: [assignments]
 
 # Assignment 3
 
-The NYC Taxi Commission has published [trip data](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) for several years, found on delenn in `/bigdata/data/taxi` and `/ssd/data/taxi` (equivalent copies of the data; the former on RAID spinning disks, the latter on an SSD). The data is stored in CSV files named `yellow_tripdata_2*.csv` plus some compressed versions (gzip and lz4), and another file that is the join of all data: `yellow_tripdata-all.csv`. The fifth column of the CSV files contains the distance traveled (in miles). In total, there are 1.4 billion trips (rows) in the data.
+The NYC Taxi Commission has published [trip data](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) for several years, found on delenn in `/bigdata/data/taxi` and `/ssd/data/taxi` (equivalent copies of the data; the former on RAID spinning disks, the latter on an SSD). The data is stored in CSV files named `yellow_tripdata_2*.csv` plus some compressed versions (gzip and lz4). The fifth column of the CSV files contains the distance traveled (in miles). In total, there are 1.4 billion trips (rows) in the data.
 
 **Find the fastest way to compute the total (sum) traveled distance across all years.** The answer should be 7140380300 or equivalently 7.14038e+09. If you create data files as part of your procedure, the time required to do so must be included in your reported benchmark times. You can create your own intermediate files in `/bigdata/data/users/[your username]` or `/ssd/users/[your username]`.
 
