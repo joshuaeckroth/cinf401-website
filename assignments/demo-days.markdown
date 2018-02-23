@@ -8,8 +8,8 @@ title: Demo days
 ```
 Fri Feb 9 - Mimi, Andrew, Tierney
 Fri Feb 16 - Andrew
-Fri Feb 23 - Duncan, Hans, Mimi, Hayden
-Fri Mar 2 - Eddie, Sam, Brandon, Tierney
+Fri Feb 23 - Duncan, Hans, Mimi
+Fri Mar 2 - Eddie, Sam, Brandon, Tierney, Hayden
 Fri Mar 16 - Duncan, Hans, Tram, Dearvis
 Fri Mar 23 - Hayden, Emily, Sam
 Fri Apr 6 - Brandon, Tram, Dearvis
