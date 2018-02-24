@@ -1,11 +1,35 @@
 ---
 layout: post
 title: Assignment 4
-due: "Fri Feb 23"
+due: "Fri Mar 2"
 categories: [assignments]
 ---
 
 # Assignment 4
 
-TBD
+How to confirm or deny that these tweets are Russian?
+
+[Data source](https://www.nbcnews.com/tech/social-media/now-available-more-200-000-deleted-russian-troll-tweets-n844731)
+
+- hour of day of tweets:
+  - btw, the time posted (created\_at or created\_str) is in GMT
+  - are russian tweets posted in times that people commonly tweet?
+  - worldwide-times.csv, from `https://blog.bufferapp.com/best-time-to-tweet-research`
+  - are the tweets posted during russian work hours?
+  - eddie, mimi, tierney
+- timezone of users:
+  - are user accounts distributed according to timezone the same as US pop?
+    - just for those users who say they're in US timezone
+    - `https://metricmaps.org/2017/05/22/2846/`
+  - hayden, hans
+- days of the week that tweets occur, generally?
+  - vs. when people normally post on twitter
+  - brandon
+- time users were created
+  - pivotal points in election?
+  - compare actual creation times vs. uniform distribution
+  - emily, andrew, tram
+- followers vs. age of account
+  - probably buying followers if lots of followers for young accounts
+  - sam, duncan, dearvis
 
