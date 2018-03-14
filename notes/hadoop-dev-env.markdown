@@ -44,7 +44,7 @@ Next, you can proceed to the [Hadoop workflow notes](/notes/hadoop-workflow.html
 
 ## delenn environment
 
-delenn is a moderately-sized server (132 GB RAM, 32 CPU cores, 15 TB disk dedicated to Hadoop) running CentOS 6.4. It runs about 10 virtual machines to simulate a Hadoop cluster. A real Hadoop cluster should be made up of physical commodity hardware (normal servers, not supercomputers). But buying lots of servers is significantly more expensive than simulating them, so we simluate them. However, performance suffers in simulated environments. See the [Hadoop notes](/notes/hadoop.html) for more details about simulation vs. real hardware.
+delenn is a moderately-sized server (132 GB RAM, 32 CPU cores, 15 TB disk dedicated to Hadoop) running Arch Linuxl. It runs about 15 virtual machines to simulate a Hadoop cluster. A real Hadoop cluster should be made up of physical commodity hardware (normal servers, not supercomputers). But buying lots of servers is significantly more expensive than simulating them, so we simluate them. However, performance suffers in simulated environments. See the [Hadoop notes](/notes/hadoop.html) for more details about simulation vs. real hardware.
 
 ![Network diagram](/images/network-diagram.png)
 
