@@ -1,11 +1,153 @@
 ---
 layout: post
 title: Project 1
-due: "Fri Mar 2"
+due: "Fri Mar 23 / Wed Mar 28"
 categories: [assignments]
 ---
 
 # Project 1
 
-TBD
+Answer two questions about the airline on-time performance data. You will work in a group of two. Each person in the group answers their own unique question, but the two questions are similar so the group can work together on their respective solutions. You are graded individually. Submit either individually or as a group to bitbucket.
+
+This project has two phases. I will check the timestamps on bitbucket commits to ensure you complete the phases on time. Use the same repository for both phases.
+
+- Phase 1: due Fri Mar 23 11:59pm
+  - A subset of the data will be released on HDFS.
+  - Calculate a time budget for your group's Hadoop jobs. Include both group members' jobs.
+  - At the end of phase 2, I will sum the total time all of your jobs have taken, including those that helped you estimate the budget.
+  - If, at the end of phase 2, your jobs are not within 75-125% of your budget, you lose 1pt (20%).
+- Phase 2: due Wed Mar 28 11:59pm
+  - At the end of phase 1, all data will be released on HDFS (in the same folder as phase 1).
+  - Complete the two questions assigned to your group.
+
+Note, the full dataset has 177,920,678 lines across the CSV files.
+
+## Questions
+
+Group 1:
+
+- which airline has the highest average delay (Sam)
+- which city has the lowest average delay (Emily)
+
+Group 2:
+
+- what day had the worst weather-related delay of all time (Andrew)
+- what's the most consecutive days without any delay on any flight? (Tram)
+
+Group 3:
+
+- average number of flights per day of week (Dearvis)
+- total minutes in air for each airline (Eddie)
+
+Group 4:
+
+- what is the most popular city, and how many flights arrive and depart there per year? (Hans)
+- among airlines that have flights from 1997 (or earlier) and flights from 2017, which of these airlines has the fewest flights? (Mimi)
+
+Group 5:
+
+- what departure time block & day has the worst average delay? (Hayden)
+
+Group 6:
+
+- what plane (indicated by tail number) is delayed (for carrier reasons) most often? (Duncan)
+- what plane has the most traveled miles, and which airline is it? (Tierney)
+
+Group 7:
+
+- have any planes switched airlines?
+- have any days not had any flights?
+
+## Help with budgeting
+
+Suppose you believe you have 2% of the dataset and your job takes 30sec. So you estimate the full job will take 25min (50\*30 = 1500sec).
+
+It's not that simple.
+
+![foo](/images/prediction-error-trend.png)
+
+That curve was found by experiments on one of the group questions on various portions of the dataset (1%, 2%, 3%, etc). Notice there is a logarithmic decline in error. We can fit a function to this curve:
+
+```
+predicted time / true time = -0.5073 * ln(% of all input) + 2.35
+```
+
+Use that function to help you develop a budget.
+
+## Example MapReduce code
+
+This code finds all planes (tail numbers) that have changed airline ownership.
+
+```{java}
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.PathFilter;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+import java.util.Set;
+import java.util.HashSet;
+
+public class PlaneAirlines {
+
+    public static class TailnumMapper extends Mapper<Object, Text, Text, Text> {
+
+        private Text tailnum = new Text();
+        private Text airline = new Text();
+
+        public void map(Object key, Text value, Context context)
+            throws IOException, InterruptedException {
+                String[] fields = value.toString().split(",");
+                if(fields.length >= 10) {
+                    tailnum.set(fields[9]);
+                    airline.set(fields[7]);
+                    context.write(tailnum, airline);
+                }
+            }
+    }
+
+    public static class AirlineReducer extends Reducer<Text, Text, Text, IntWritable> {
+
+        private IntWritable result = new IntWritable();
+
+        public void reduce(Text key, Iterable<Text> values, Context context)
+            throws IOException, InterruptedException {
+                Set<String> airlines = new HashSet<String>();
+                for(Text val : values) {
+                    airlines.add(val.toString());
+                }
+                if(airlines.size() > 1) {
+                    result.set(airlines.size()); 
+                    context.write(key, result);
+                }
+            }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, "plane airlines");
+        job.setJarByClass(PlaneAirlines.class);
+        job.setMapperClass(TailnumMapper.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(Text.class);
+        job.setReducerClass(AirlineReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileInputFormat.setInputDirRecursive(job, true);
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+```
 

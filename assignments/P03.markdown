@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Project 3
-due: "Fri Apr 6"
+due: "TBD"
 categories: [assignments]
 ---
 
