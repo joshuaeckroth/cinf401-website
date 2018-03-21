@@ -105,7 +105,7 @@ jar cfve wc.jar WordCount *.class
 Submit the job as follows:
 
 ```
-yarn jar wc.jar /users/jeckroth/wordcount/input /users/jeckroth/wordcount/output
+yarn jar wc.jar WordCount /users/jeckroth/wordcount/input /users/jeckroth/wordcount/output
 ```
 
 In the command above, `WordCount` is the class with the `main()` function, and the rest (the file paths) are just arguments to `main()`. Your `main()` may have different kinds of arguments, or no arguments.
@@ -125,6 +125,6 @@ hdfs dfs -get /users/jeckroth/wordcount/output/part-r-00000
 Since londo is not really running a cluster (virtual or otherwise), you will not use HDFS on londo. Just run YARN directly, after transferring your JAR or compiling it on londo:
 
 ```
-yarn jar wc.jar my-input.txt output-folder
+yarn jar wc.jar WordCount my-input.txt output-folder
 ```
 
