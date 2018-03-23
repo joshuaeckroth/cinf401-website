@@ -97,7 +97,7 @@ javac -cp `hadoop classpath`:. *.java
 Then make a JAR (name your JAR whatever you want; `wc.jar` is used here), naming the main class as the third argument:
 
 ```
-jar cfve wc.jar WordCount *.class
+jar cfv wc.jar *.class
 ```
 
 ### Submit the job
