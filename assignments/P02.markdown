@@ -1,11 +1,52 @@
 ---
 layout: post
 title: Project 2
-due: "TBD"
+due: "Wed, Apr 11"
 categories: [assignments]
 ---
 
 # Project 2
 
-TBD
+Using [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) and reviews from 1996 - 2014, complete one of the following analyses:
+
+
+- find product with most reviews (emily)
+- person with most reviews (sam)
+- highest rated product (andrew)
+- day with most reviews (duncan)
+- most controversial product (hans)
+  - standard deviation is largest
+- brand with best average reviews (tierney)
+- two products most bought together (eddie)
+- category with highest ratings (tram)
+- longest continuously loved products (mimi)
+- oldest product with consistently high reviews (lowest count of bad reviews)
+- person who loves everything (brandon)
+  - person with average review >= 4 and highest review count
+- product that seems to go with everything (most often appearing with also-bought) (dearvis)
+- words that are most distinctive of positive (or negative) reviews (hayden)
+
+## Spark
+
+Start with this code:
+
+```
+## run like so:
+
+# spark-submit --master local[10] amazonreviews.py
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("amazon reviews").getOrCreate()
+
+## already done, and commented out:
+
+#reviews = spark.read.json("file:///bigdata/data/amazon-reviews/aggressive_dedup.json")
+#metadata = spark.read.json("file:///bigdata/data/amazon-reviews/metadata.json")
+#merged = reviews.join(metadata, ['asin'])
+#merged.write.format("org.apache.spark.sql.json").save("file:///home/jeckroth/cinf401/private/amazonreviews-spark/merged.json")
+
+merged = spark.read.json("file:///bigdata/data/amazon-reviews/merged.json")
+print(merged.count())
+```
 
