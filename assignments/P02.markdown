@@ -46,8 +46,9 @@ spark = SparkSession.builder.appName("amazon reviews").getOrCreate()
 #merged = reviews.join(metadata, ['asin'])
 #merged.write.format("org.apache.spark.sql.json").save("file:///home/jeckroth/cinf401/private/amazonreviews-spark/merged.json")
 
-merged = spark.read.json("file:///bigdata/data/amazon-reviews/merged.json")
+merged = spark.read.json("file:///bigdata/data/amazon-reviews/merged.json").rdd
 print(merged.count())
+print(merged.map(lambda review: review['asin']).collect())
 ```
 
 Example line of the merged file:
