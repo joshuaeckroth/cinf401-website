@@ -19,7 +19,7 @@ Using [Amazon Product Data](http://jmcauley.ucsd.edu/data/amazon/links.html) and
 - brand with best average reviews (tierney)
 - two products most bought together (eddie)
 - category with highest ratings (tram)
-- longest continuously loved products (mimi)
+- product with most 4- or 5-score reviews (mimi)
 - oldest product with consistently high reviews (lowest count of bad reviews)
 - person who loves everything (brandon)
   - person with average review >= 4 and highest review count
@@ -55,4 +55,7 @@ Example line of the merged file:
 ```
 {"asin":"0001061127","helpful":[1,1],"overall":5.0,"reviewText":"Unfortunately this book is out of print, but it is by far the best book which helped get my son interested.  The drawings are delightful and full of expression.  For example, (and I'm paraphrasing) \"The pawns are foot soldiers, marching up one by one, and can stubbornly block others from advancing\".In short, the analogy to soldiers in war is what my son likes so much about the book.  He gets to attack me and strategize about it.  He is given freedom among a few rules (you can move whereever you want but only diagonally, in the case of the bishop).  I was amazed at how fast he was strategizing several moves ahead.  The final pages are full of advanced terms and all are explained well, with pictures to help explain the moves and practice \"games\".I wish the UK would reprint this book, in hardcover.  The paperback we got (only thing left) will not last long.","reviewTime":"08 5, 2009","reviewerID":"A142EFCHX4ZJ31","reviewerName":"Lydia","summary":"The only chess book to buy for kids and adults alike.","unixReviewTime":1249430400,"categories":[["Books"]],"imUrl":"http://ecx.images-amazon.com/images/I/71zWyybZsqL.jpg","related":{"also_bought":["1904600069"],"buy_after_viewing":["0812918673"]},"salesRank":{"Books":1682154},"title":"Chess for Young Beginners"}
 ```
+
+
+
 
