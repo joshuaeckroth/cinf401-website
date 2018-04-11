@@ -1,11 +1,58 @@
 ---
 layout: post
 title: Project 3
-due: "TBD"
+due: "Wed, Apr 18"
 categories: [assignments]
 ---
 
 # Project 3
 
-TBD
+<style type="text/css">
+body {
+    background-image: url("/images/bg-stars.jpg");
+    background-repeat: repeat;
+    color: white;
+}
+#container-tight {
+    max-width: 1000px;
+}
+h1, .homelink {
+    display: none;
+}
+h2, h3, h4, h5, h6 {
+    color: white;
+}
+img {
+    border: none;
+}
+pre, code {
+    background: transparent;
+}
+header a.button {
+    display: none;
+}
+</style>
+
+# Project 3
+
+![Stars meme](/images/stars-meme.png)
+
+## Task
+
+Data lives in `/bigdata/data/pan-starrs1` or `/ssd/data/pan-starrs1` on delenn (not in HDFS). Find the 100 largest stars according to pixel area and report their location in RA/Dec coordinates. The RA/Dec coordinates are calculated as:
+
+```
+ra  = ra_for_this_image  + (0.25/3600) * ((img_width-x)-img_width/2)
+dec = dec_for_this_image + (0.25/3600) * ((img_height-y)-img_height/2)
+```
+
+where `ra_for_this_image` and `dec_for_this_image` are found in the file `/bigdata/data/pan-starrs1/radec.csv`. If RA<0, add 360. RA/Dec coordinates can be entered on [this website](http://ps1images.stsci.edu/cgi-bin/ps1cutouts) in the form ra,dec e.g. 206.126,7.15499.
+
+Use Spark. Likely use OpenCV. Consider using the GPU. Do not use R. Your final output (top-100) must be produced by Spark.
+
+If you use C++ code, run g++ on delenn as follows:
+
+```
+g++ -Wall -g `pkg-config opencv --cflags --libs` -o count count.cpp
+```
 
