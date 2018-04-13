@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Project 5
-due: "TBD"
+due: "Mon May 7, 5 pm"
 categories: [assignments]
 ---
 
