@@ -7,5 +7,15 @@ categories: [assignments]
 
 # Project 4
 
-TBD
+Pick two facts to replicate from the [Backblaze Hard Drive Stats for 2017](https://www.backblaze.com/blog/hard-drive-stats-for-2017/) report. Each person will have a unique pair of facts. Be sure to read the [overview of the data](https://www.backblaze.com/b2/hard-drive-test-data.html) to see what kinds of columns are included, what missing data means, etc. The data live on delenn in the folder `/bigdata/data/backblaze` and are separated by year, 2013-2017. There are about 90mil lines in the daily CSV files.
+
+Group into 5 or 6 groups based on the technology used to solve the problem:
+
+- Spark
+- MapReduce
+- MySQL
+- R
+- Unix utilities
+
+In addition to submitting your code & the output, also describe how long it took to develop the code and the runtime. By using different technologies, we can learn the pros and cons of each tech for solving these kinds of data analysis problems.
 
