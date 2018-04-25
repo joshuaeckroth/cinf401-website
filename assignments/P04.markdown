@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Project 4
-due: "Wed, Apr 25"
+due: "Fri, Apr 27"
 categories: [assignments]
 ---
 
