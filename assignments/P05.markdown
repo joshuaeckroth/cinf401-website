@@ -1,11 +1,69 @@
 ---
 layout: post
 title: Project 5
-due: "Mon May 7, 5 pm"
+due: "Mon May 7, 11:59 pm"
 categories: [assignments]
 ---
 
 # Project 5
 
-TBD
+Define your own data analysis problem. You must also complete the "decision matrix" (below) that shows how you decided to use certain tools for your analysis. See below for requirements. Submit your final code & report via git by 11:59pm, Monday May 7. During our "final exam" time (May 7, 5-7pm), we will not have an exam, rather we will use the time as a "work day" (attendance is not required but highly recommended).
+
+This project is 20% of your grade.
+
+## Requirements
+
+- Formulate a question and find a dataset that has at least one million records and/or 1 GB of data. You may use a dataset already available on delenn as long as you ask a new question.
+- Approve your question and dataset with me before you begin. I will require that your question needs deep analysis to answer.
+- Perform analysis to answer the question.
+- Write your findings in a report that (usually) includes plots and tables. Imagine you are giving the report to your supervisor. **End the report with a final conclusion about your question.** The report should provide sufficient evidence to support your conclusion.
+- Fill in the decision matrix (below) and explain your decision matrix during your presentation.
+
+## Decision matrix
+
+Download or recreate this table and mark each cell in which you used a specific tool for a specific task during your analysis. Be able to explain during your presentation why you chose that tool for that task and why not other tools.
+
+| Task | Unix tools | Excel | R | MySQL | MapReduce | Spark | OpenCV |
+|-
+| Data acquisition | | | | | | | |
+| Exploratory analysis | | | | | | | |
+| Plotting | | | | | | | |
+| SQL-like queries | | | | | | | |
+| Distributed workers | | | | | | | |
+| Numeric/string processing | | | | | | | |
+| Machine learning | | | | | | | |
+| Image processing | | | | | | | |
+
+For example, here are my choices for the Stars assignment:
+
+| Task | Unix tools | Excel | R | MySQL | MapReduce | Spark | OpenCV |
+|-
+| Data acquisition | X | | | | | | |
+| Exploratory analysis | X | | | | | | X |
+| Plotting | | | X | | | | |
+| SQL-like queries | | | | | | | |
+| Distributed workers | | | | | | X | |
+| Numeric/string processing | | | | | | X | |
+| Machine learning | | | | | | | |
+| Image processing | | | | | | | X |
+
+My reasoning follows:
+
+- The images were acquired using a Perl script (aka Unix tool) that iterated through URLs for each image.
+- My exploratory analysis consisted of examining the file listing and writing sample code with OpenCV to process a single image. I didn't use any big data tools for this. In another situation, like the Taxi data, I might well use big data tools (BigQuery) to perform exploratory analysis since BigQuery is quick for small queries.
+- I plotted the stars with their RA/Dec coordinates in ggplot since ggplot is easier to code (for myself) than Excel.
+- For processing all the images, I used Spark in a distributed manner to pipe image filenames to a C++ program.
+- For sorting and finding the top stars (i.e., numeric/string processing), I also used Spark. R would have worked as well but would be less efficient since I would then have to load the data in R after saving from Spark. By keeping all the processing in Spark, I avoided an expensive operation.
+- I did not use any machine learning.
+- Image processing was accomplished with OpenCV. In simpler cases, Unix tools from the ImageMagick suite might have sufficed.
+
+## Grading rubric
+
+This project is worth 20% of your overall grade. Your grade for this project is broken down as described below. Note, if I have reason to believe you did not contribute as much as your partner, your grade will be lower.
+
+| Component | Portion of grade | Criteria |
+|-
+| Report | 9pts | Well-written English, appropriateness of analysis, evidence for your conclusions, inclusion of clear and simple plots and/or tables |
+| Code | 9pts | Appropriate and clean code, nothing superfluous or broken |
+| Decision matrix | 2pts | Completeness, including explanations for each check mark |
 
