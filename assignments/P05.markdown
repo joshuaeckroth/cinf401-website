@@ -17,11 +17,11 @@ This project is 20% of your grade.
 - Approve your question and dataset with me before you begin. I will require that your question needs deep analysis to answer.
 - Perform analysis to answer the question.
 - Write your findings in a report that (usually) includes plots and tables. Imagine you are giving the report to your supervisor. **End the report with a final conclusion about your question.** The report should provide sufficient evidence to support your conclusion.
-- Fill in the decision matrix (below) and explain your decision matrix during your presentation.
+- Fill in the decision matrix (below) and explain your decision matrix in your report.
 
 ## Decision matrix
 
-Download or recreate this table and mark each cell in which you used a specific tool for a specific task during your analysis. Be able to explain during your presentation why you chose that tool for that task and why not other tools.
+Download or recreate this table and mark each cell in which you used a specific tool for a specific task during your analysis. Be able to explain in your report why you chose that tool for that task and why not other tools.
 
 | Task | Unix tools | Excel | R | MySQL | MapReduce | Spark | OpenCV |
 |-
